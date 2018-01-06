@@ -1,0 +1,111 @@
+{"frames": [
+
+{
+	"filename": "alienBiege_climb1.png",
+	"frame": {"x":404,"y":0,"w":132,"h":188},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":132,"h":188},
+	"sourceSize": {"w":132,"h":188},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "alienBiege_climb2.png",
+	"frame": {"x":0,"y":188,"w":132,"h":188},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":132,"h":188},
+	"sourceSize": {"w":132,"h":188},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "alienBiege_duck.png",
+	"frame": {"x":0,"y":0,"w":140,"h":146},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":146},
+	"sourceSize": {"w":140,"h":146},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "alienBiege_front.png",
+	"frame": {"x":273,"y":0,"w":131,"h":188},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":131,"h":188},
+	"sourceSize": {"w":131,"h":188},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "alienBiege_hit.png",
+	"frame": {"x":401,"y":188,"w":138,"h":188},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":138,"h":188},
+	"sourceSize": {"w":138,"h":188},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "alienBiege_jump.png",
+	"frame": {"x":266,"y":188,"w":135,"h":191},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":135,"h":191},
+	"sourceSize": {"w":135,"h":191},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "alienBiege_stand.png",
+	"frame": {"x":140,"y":0,"w":133,"h":184},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":133,"h":184},
+	"sourceSize": {"w":133,"h":184},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "alienBiege_swim1.png",
+	"frame": {"x":0,"y":379,"w":138,"h":194},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":138,"h":194},
+	"sourceSize": {"w":138,"h":194},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "alienBiege_swim2.png",
+	"frame": {"x":278,"y":379,"w":140,"h":197},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":197},
+	"sourceSize": {"w":140,"h":197},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "alienBiege_walk1.png",
+	"frame": {"x":132,"y":188,"w":134,"h":190},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":134,"h":190},
+	"sourceSize": {"w":134,"h":190},
+	"pivot": {"x":0.5,"y":0.5}
+},
+{
+	"filename": "alienBiege_walk2.png",
+	"frame": {"x":138,"y":379,"w":140,"h":195},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":140,"h":195},
+	"sourceSize": {"w":140,"h":195},
+	"pivot": {"x":0.5,"y":0.5}
+}],
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "beige_alien_tps.png",
+	"format": "RGBA8888",
+	"size": {"w":576,"h":576},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:7612a36e257e439d268e18e76a6f82eb:8985d4d453eaaaec8d3f38b2df1e94b5:bc3315c91760a61b37466396fb5de0ee$"
+}
+}
