@@ -14,7 +14,7 @@ and I will rectify this error.
 
 Crash-landed contains a modified redistribution of [Hardon collider](https://github.com/vrld/HC). 
 
-Modifications to the code are marked with a the tag: *_*
+Modifications to the code are marked with a the tag: `*_*`
 
 The HC code contains the following notice:
 
@@ -47,7 +47,7 @@ THE SOFTWARE.
 Crash-landed contains a modified redistribution of [STI](https://github.com/karai17/Simple-Tiled-Implementation). 
 STI is licensed under the MIT license. 
 
-Modifications to the code are marked with a the tag: *_*
+Modifications to the code are marked with a the tag: `*_*`
 
 The license is included in the sti folder, but is reproduced for here for 
 your conveninence:
