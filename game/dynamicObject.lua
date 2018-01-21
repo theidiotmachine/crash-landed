@@ -19,7 +19,6 @@ function DynamicObject:initState(game)
   self.inLiquid = false
 end
 
-
 function DynamicObject:init(game, object, tile, drawLayer, map)
   Object.init(self, game, object, tile, drawLayer, map)
   for _, hcShape in pairs(self.hcShapes) do
@@ -55,6 +54,10 @@ function DynamicObject:moveTo(x, y)
   for _, hcShape in pairs(self.hcShapes) do
     hcShape:move(dx, dy)
   end
+end
+
+function DynamicObject:cull(cx, cy, ww, wh)
+  return Object.cull(self, cx, cy, ww, wh)
 end
 
 function DynamicObject:draw(cx, cy)
@@ -135,6 +138,7 @@ return {
 	newDynamicObject = newDynamicObject,
   move = DynamicObject.move,
   moveTo = DynamicObject.moveTo,
+  cull = DynamicObject.cull,
   draw = DynamicObject.draw,
   init = DynamicObject.init,
   getPreCollisionVel = DynamicObject.getPreCollisionVel,

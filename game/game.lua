@@ -31,14 +31,13 @@ local Flares = require 'game.flares'
 local Mine = require 'game.mine'
 local Jelly = require 'game.jelly'
 local Hud = require 'hud'
+local Profile = require 'profile.profile'
 
 local Game = {
   HC = require 'HC'
 }
 
 function Game.globalInit()
-  --Player.playerGlobalInit()
-
   Object.registerObjectType("gem", function(...) return Gem.newGem(...) end)
   Object.registerObjectType("coin", function(...) return Coin.newCoin(...) end)
   Object.registerObjectType("flag", function(...) return Flag.newFlag(...) end)
@@ -68,6 +67,26 @@ function Game.globalInit()
   end)
 end
 
+local profilerNames = {
+  { "update", 0, },
+  { "updatePre", 1 }, 
+  { "updateDynamics", 1 },
+  { "updateDynamicsMap", 2 },
+  { "updateDynamicsObjects", 2 },
+  { "updateDynamicsCollisions", 2 },
+  { 'collisionsBegin', 3 },
+  { 'collisionsCol', 3 },
+  { 'collisionsFric', 3 },
+  { 'collisionsRes', 3 },
+  { 'collisionsFin', 3 },
+  { "updatePost", 1 },
+  { "draw", 0 },
+  { "drawMap", 1 },
+  { "drawObjects", 1 },
+  { "drawMisc", 1 }
+}
+
+local HC_HASH_SIZE = 256
 
 function Game.load(mapName, absState, lang)
   Game.mapName = mapName
@@ -86,7 +105,7 @@ function Game.load(mapName, absState, lang)
   
 	-- Load a map exported to Lua from Tiled
   Game.map = sti("assets/maps/"..mapName..".lua")
-  Game.HC.resetHash(512, true)
+  Game.HC.resetHash(HC_HASH_SIZE, true)
   hc_polys = hc_init.buildShapeFromMapLayers(Game, 
     "assets/maps/"..mapName.."script.lua", "assets/maps/"..mapName.."_txt_".. lang .. ".lua", 
     Game.map)
@@ -98,14 +117,22 @@ function Game.load(mapName, absState, lang)
   fontDebug = love.graphics.newFont(14)
     
   debugDrawCollisionShapes = false
+  profiler = false --true
   
   Game.camera = Camera.new(player.pos.x, player.pos.y - 64)
-  
+    
   ambient = Ambient.new(255, 255, 255)
   
   if Game.scriptInit then
     Game.scriptInit(Game)
   end
+  
+  for _, pdd in ipairs(profilerNames) do
+    Profile.registerTime(pdd[1], pdd[2])
+  end
+  
+  Profile.registerCount("dynamicObjects", 0)
+  Profile.registerCount("collisions", 0)
 end
 
 function Game.sendResetRequest()
@@ -114,26 +141,60 @@ end
 
 
 function Game.unload()
+  Profile.stop()
+  
   Game.map = nil
   for _, hc_poly in ipairs(hc_polys) do
     Game.HC.remove(hc_poly)
   end
-  hc_polys = nil
+  hc_polys = nilglobal
   Game.camera = nil
   player = nil
   
   Flares.unload()
+  Particles.clearDown()
   Player.playerUnloadAssets()
   sti:flush()
   Object.unloadAll(Game)
-  Game.HC.resetHash(512, true)
+  Game.HC.resetHash(HC_HASH_SIZE, true)
 end
 
 
 local dtStub = 0
+
+
+function Game.updateProfilerForUpdate(pt0, pt1, pt2, pt3, pdt10, pdt11, pdt12)
+  Profile.update('update', pt3 - pt0)
+  Profile.update('updatePre', pt1 - pt0)
+  Profile.update('updateDynamics', pt2 - pt1)
+  Profile.update('updatePost', pt3 - pt2)
+  Profile.update('updateDynamicsMap', pdt10)
+  Profile.update('updateDynamicsObjects', pdt11)
+  Profile.update('updateDynamicsCollisions', pdt12)
+end
+
+function Game.updateProfilerForDraw(pt0, pt1, pt2, pt3)
+  Profile.update('draw', pt3 - pt0)
+  Profile.update('drawMap', pt1 - pt0)
+  Profile.update('drawObjects', pt2 - pt1)
+  Profile.update('drawMisc', pt3 - pt2)
+end
+
+
 function Game.update(dt)
-  debugDt = dt
+  local pt0 = 0
+  local pt1 = 0
+  local pt2 = 0
+  local pt3 = 0
+  local pdt10 = 0
+  local pdt11 = 0
+  local pdt12 = 0
   
+  if profiler then
+    pt0 = love.timer.getTime()
+  end
+  
+  debugDt = dt
   
   local step = 1/240
   if debugMode then step = 1/15 end
@@ -148,11 +209,44 @@ function Game.update(dt)
   
   Collisions.beginDynamics()
   
+  if profiler then
+    pt1 = love.timer.getTime()
+  end
+  
   while dtFrag > step do
+    
+    local pt10 = 0
+    local pt11 = 0
+    local pt12 = 0
+    local pt13 = 0
+    if profiler then
+       pt10 = love.timer.getTime()
+    end
     Game.map:update(step)
+    if profiler then
+       pt11 = love.timer.getTime()
+       pdt10 = pdt10 + pt11 - pt10
+    end
+    
     Object.updateAll(Game, step)
+    
+    if profiler then
+       pt12 = love.timer.getTime()
+       pdt11 = pdt11 + pt12 - pt11
+    end
+    
     Collisions.run(Game, step)
+    
+    if profiler then
+       pt13 = love.timer.getTime()
+       pdt12 = pdt12 + pt13 - pt12
+    end
+    
     dtFrag = dtFrag - step
+  end
+  
+  if profiler then
+    pt2 = love.timer.getTime()
   end
   
   dtStub = dtFrag
@@ -160,7 +254,7 @@ function Game.update(dt)
   if Game.scriptUpdate then
     Game.scriptUpdate(Game, dt)
   end
-
+  
   --Collisions.endDynamics()
   
   Particles.update(dt)
@@ -171,21 +265,38 @@ function Game.update(dt)
   local maxY = Game.map.height * Game.map.tileheight
   local minX = 0
   local maxX = Game.map.width * Game.map.tileheight
-  Game.camera.pos.y = player.pos.y
+  Game.camera.pos.y = player.pos.y - 64
   Camera.constrain(Game.camera, minX, maxX, maxY)
+
+  if profiler then
+    pt3 = love.timer.getTime()
+    Game.updateProfilerForUpdate(pt0, pt1, pt2, pt3, pdt10, pdt11, pdt12)
+  end
 end
 
 function Game.draw()
-  -- Draw the map and all objects within
-	--love.graphics.setColor(255, 255, 255)
+	local pt0, pt1, pt2, pt3 = 0
+  if profiler then
+    pt0 = love.timer.getTime()
+  end
   
+  local ww = love.graphics.getWidth()
+	local wh = love.graphics.getHeight()
   local cx, cy = Camera.getOffset(Game.camera)
   
   love.graphics.setColor(ambient.color.r, ambient.color.g, ambient.color.b)
 	Game.map:draw(cx, cy)
-
+  
+  if profiler then
+    pt1 = love.timer.getTime()
+  end
+  
   love.graphics.setColor(ambient.color.r, ambient.color.g, ambient.color.b)
-  Object.drawAll(cx, cy)
+  Object.drawAll(cx, cy, ww, wh)
+  
+  if profiler then
+    pt2 = love.timer.getTime()
+  end
   
   if debugDrawCollisionShapes then
     local zz = Game.HC.hash():shapes()
@@ -220,6 +331,28 @@ function Game.draw()
   Particles.draw(cx, cy)
   Flares.draw(cx, cy)
   Hud.gameDraw(Game, player)
+  if profiler then
+    pt3 = love.timer.getTime()
+    Game.updateProfilerForDraw(pt0, pt1, pt2, pt3)
+    
+    love.graphics.setFont(fontDebug)
+    love.graphics.setColor(128, 128, 128, 255)
+    
+    local profilerDrawData = {
+      "update", "updatePre", "updateDynamics", "updateDynamicsMap", "updateDynamicsObjects",
+      "updateDynamicsCollisions", 
+      'collisionsBegin',
+      'collisionsCol',
+      'collisionsFric',
+      'collisionsRes',
+      'collisionsFin',
+      "updatePost", 
+      "draw", "drawMap", "drawObjects", "drawMisc",
+      "dynamicObjects", "collisions"
+    }
+    
+    Profile.draw(profilerDrawData)
+  end
 end
 
 return Game

@@ -26,9 +26,9 @@ function love.load()
   
   Hud.load()
   
-  Mode.toGame("saucer01", {}, "eng")
-  --Mode.toGame("map01", {}, "eng")
-  --Mode.toWorld(nil, {})
+  --Mode.toGame("saucer01", {}, "eng")
+  --Mode.toGame("map03", {}, "eng")
+  Mode.toWorld(nil, {})
 end
 
 

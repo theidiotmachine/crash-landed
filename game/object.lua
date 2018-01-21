@@ -178,6 +178,19 @@ function Object:update(game, dt)
   end
 end
 
+function Object:cull(cx, cy, ww, wh)
+  local x = self.pos.x + cx
+  local y = self.pos.y + cy
+  --deliberately double so we have a margin for rotations
+  local w = self.tilesize.x * self.sx
+  local h = self.tilesize.y * self.sy
+  if x + w < 0 or x - w > ww or y + h < 0 or y - h > wh then
+    return true
+  else
+    return false
+  end
+end
+
 function Object:draw(cx, cy, a)
   local alpha = a or 255
   if not self.hidden then
@@ -190,7 +203,6 @@ function Object:draw(cx, cy, a)
       love.graphics.draw(self.image, self.quad, 
         self.pos.x+cx+(-self.tilesize.x/2 * self.sx), self.pos.y+cy+(-self.tilesize.y/2 * self.sy), self.r, self.sx, self.sy)
     end
-    
     love.graphics.setColor(oldR, oldG, oldB, oldA)
   end
 end
@@ -216,14 +228,21 @@ local function registerObjectType(typeName, factoryFunc)
   factoryFuncs[typeName] = factoryFunc
 end
 
-local function drawAll(cx, cy)
+local function drawAll(cx, cy, ww, wh)
   local drawOrder = { {}, {} }
   for object, layer in pairs(objects) do
     table.insert(drawOrder[layer], object) 
   end
   for _, objectsForLayer in ipairs(drawOrder) do
     for _, object in pairs(objectsForLayer) do
-      object:draw(cx, cy)
+      --[[
+      if not object.cull then
+        local i = 3
+      end
+      ]]--
+      if object:cull(cx, cy, ww, wh) == false then
+        object:draw(cx, cy)
+      end
     end
   end
 end
@@ -252,13 +271,7 @@ end
 
 local function unloadAll(game)
   for object, _ in pairs(objects) do
-    --if object.postLoadInit then
-    --if not object.destroy then
-      --local i = 3
-    --end
-    
-      object:destroy(game)
-    --end 
+    object:destroy(game)
   end
   objects = {}
   namedObjects = {}
@@ -287,6 +300,7 @@ return {
   getHCShapeFromObjectGroup = Object.getHCShapeFromObjectGroup,
   update = Object.update,
   draw = Object.draw,
+  cull = Object.cull,
   destroy = Object.destroy,
   drawAll = drawAll,
   updateAll = updateAll,

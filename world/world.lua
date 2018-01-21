@@ -207,10 +207,12 @@ function World.load(absState, incState)
     end
   end
   
-  saucer = Saucer.new(newState.saucerLoc, {sprites["playerUFO1"], sprites["playerUFO2"], sprites["playerUFO3"]}, sprites["playerUFOShadow"])
+  worldMap = WorldMap.new(sprites, newState)
+  saucer = Saucer.new(newState.saucerLoc, 
+    {sprites["playerUFO1"], sprites["playerUFO2"], sprites["playerUFO3"]}, sprites["playerUFOShadow"])
   World.camera = Camera.new(saucer.pos.x, saucer.pos.y)
   
-  worldMap = WorldMap.new(sprites, newState)
+  
   World.state = newState
 end
 
@@ -218,6 +220,7 @@ function World.unload()
   World.state.saucerLoc.x = saucer.origMapLoc.x
   World.state.saucerLoc.y = saucer.origMapLoc.y
   
+  Particles.clearDown()
   sprites = {}
   saucer = nil
   World.camera = nil

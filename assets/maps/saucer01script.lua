@@ -204,6 +204,10 @@ function saucerDoor.collide(colArea, game, object)
   end
 end
 
+local function init(game)
+  player.teleportTimer = 0
+end
+
 local function update(game, dt)
   if not levelState.powerOn then
     if levelState.lightFadeTime > 0 then
@@ -246,6 +250,7 @@ Saucer01Script = {
   convSwitch = convSwitch,
   charger = charger,
   saucerDoor = saucerDoor,
+  init = init,
   update = update
 }
 

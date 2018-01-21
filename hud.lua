@@ -263,8 +263,6 @@ function Hud.gamePostUpdate(dt)
 end
 
 local function drawGems(gems, x, y, s)
-  --local gemx = 10 
-  --local gemy = windowHeight - 120
   local s = s or 1
   local gemx = x
   local gemy = y
@@ -290,20 +288,6 @@ function Hud.gameDraw(game, player)
   local gemx = 10 
   local gemy = windowHeight - 120
   drawGems(game.state.gems, gemx, gemy)
-  --[[
-  for _, color in ipairs({'red', 'blue', 'green', 'yellow'}) do
-    if game.state.gems[color] ~= nil then
-      local spriteString = "hudJewel_" .. color
-      if game.state.gems[color] == false then
-        spriteString = spriteString .. "_empty"
-      end
-      local gem = hudSprites[spriteString]
-      love.graphics.draw(gem.texture, gem.quad, gemx, gemy)
-      gemx = gemx + 110
-    end
-  
-  end
-  ]]--
 
   --Health bar. Not the finest code I've ever written.
   --First draw the player face
@@ -421,14 +405,14 @@ function Hud.worldDraw(world, saucer)
   local windowWidth  = love.graphics.getWidth()
   local windowHeight  = love.graphics.getHeight()
   
-  
-  
   if saucer.mode == 'atDest' then
     local island = worldMap.islands[saucer.destMapLoc.x][saucer.destMapLoc.y]
     love.graphics.setFont(fontVecBold32)
     local title = island.title
     local textWidth = fontVecBold32:getWidth(title)
+    local blockWidth = math.max(textWidth + 32*2, 512)
     
+    local blockX = (windowWidth - blockWidth) / 2
     local textX = (windowWidth - textWidth) / 2
     local textY = windowHeight/2 - 200
     local rectH = 32*3
@@ -438,13 +422,13 @@ function Hud.worldDraw(world, saucer)
     end
     
     love.graphics.setColor(0, 0, 0, 128)
-    love.graphics.rectangle('fill', textX - 32, textY - 32, textWidth + 32*2, rectH )
+    love.graphics.rectangle('fill', blockX, textY - 32, blockWidth, rectH )
     
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.print(title, textX, textY)
     
     if island.state then
-      drawGems(island.state.gems, textX - 8, textY + 48, 0.5)
+      drawGems(island.state.gems, (windowWidth/2 - 110) - 8, textY + 48, 0.5)
     end
   end
 end

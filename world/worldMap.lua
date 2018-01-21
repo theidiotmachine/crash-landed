@@ -22,6 +22,8 @@ local islands = {
     feature = "shipCrash",
     title = "Whoops...",
     level = "saucer01",
+    transition = "saucerLand",
+    smoke = true,
   },
   {
     pos = {x = 2, y = 1},
@@ -29,6 +31,7 @@ local islands = {
     feature = "grassBits",
     title = "This seems nice?",
     level = "map01",
+    transition = "saucerBeam",
   },
   {
     pos = {x = 3, y = 1},
@@ -36,12 +39,14 @@ local islands = {
     feature = "grassWater",
     title = "A quick dip",
     level = "map03",
+    transition = "saucerBeam",
   },
   {
     pos = {x = 2, y = 2},
     stuff = "grass",
     --feature = "grassWater",
     title = "So what does this do?",
+    transition = "saucerBeam",
   },
 }
 
@@ -124,16 +129,16 @@ end
 function WorldMap:isValidDest(x, y)
   local forX = self.islands[x]
   if not forX then 
-    return false
+    return 'sea'
   elseif forX[y] ~= nil then
     for _, barrier in pairs(self.barriers) do
       if barrier.to.x == x and barrier.to.y == y then
-        return false
+        return 'barrier', barrier.pos.x, barrier.pos.y
       end
     end
-    return true
+    return 'yes'
   else
-    return false
+    return 'sea'
   end
 end
 
@@ -151,15 +156,20 @@ function WorldMap.new(sprites, state)
       runIslands[x] = {}
     end
     local y = datum.pos.y
+    local pos = WorldMap.getLoc(x,y) 
     runIslands[x][y] = {
-      pos = WorldMap.getLoc(x,y), 
+      pos = pos, 
       sprite = sprites[datum.stuff .. "Oct"], 
       featureSprite = sprites[datum.feature], 
       level = datum.level,
       title = datum.title,
+      transition = datum.transition,
       featureShadowOffset = 0,
-      --state = { gems = {} },
+      state = { gems = {red =  false, blue = false, green = false, yellow = false} },
     }
+    if datum.smoke then
+      Particles.createNewSmokeEmitter(pos)
+    end
     if state.levels[datum.level] then
       runIslands[x][y].state = state.levels[datum.level]
     end

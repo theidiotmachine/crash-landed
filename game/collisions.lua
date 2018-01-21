@@ -1,12 +1,10 @@
---local HC = require 'HC'
-
+local Profile = require 'profile.profile'
 
 local Collisions = {}
 
 local activeCollisionObjects = {}
 local activeWorldObjects = {}
 local finalizedWorldObjects = {}
-local debugData = {}
 
 function Collisions.registerObject(object)
   activeCollisionObjects[object] = object.user.object
@@ -27,7 +25,6 @@ end
 function Collisions.unregisterFinalizedWorldObject(object)
   finalizedWorldObjects[object] = nil
 end
-
 
 local function aggregateResolutionForCollisionObject(l, r)
   if not l then
@@ -177,10 +174,23 @@ end
 function Collisions.run(game, dt)
   local HC = game.HC
   local collisions = {}
-  debugData  = {}
+
+  local numCollisions = 0
+  local numACO = 0  
+  local pt = {}
+  local pt0 = {}
+  local ptd = { 0 }
+  
+  if profiler then
+    pt[1] = love.timer.getTime()
+  end
   
   for worldObject, _ in pairs(activeWorldObjects) do
     worldObject:beginCollision(dt)
+  end
+  
+  if profiler then
+    pt[2] = love.timer.getTime()
   end
   
   local resolutionsByWorldObject = {}
@@ -190,8 +200,10 @@ function Collisions.run(game, dt)
   --walk over all the active objects in the world
   for collisionObject, _ in pairs(activeCollisionObjects) do
     local worldObject = collisionObject.user.object
-    
+    numACO = numACO + 1
     --actually run the collisions
+    --if profiler then
+      --pt0[1] = 
     local pcols = game.HC.collisions(collisionObject)
     for otherCollisionObject, separatingVector in pairs(pcols) do
       if otherCollisionObject.user then
@@ -328,6 +340,7 @@ function Collisions.run(game, dt)
           end
                     
           if collided then
+            numCollisions = numCollisions + 1
             if not resolutionsByWorldObject[worldObject] then
               resolutionsByWorldObject[worldObject] = {}
             end
@@ -368,6 +381,12 @@ function Collisions.run(game, dt)
     end
   end
   
+  if profiler then
+    pt[3] = love.timer.getTime()
+  end
+  
+  
+  
   for worldObject, frictionsForWorldObject in pairs(frictionsByWorldObject) do
     for collisionObject, frictionData in pairs(frictionsForWorldObject) do
       local fricR = {x=0, y=0}
@@ -390,6 +409,10 @@ function Collisions.run(game, dt)
     end
   end
   
+  if profiler then
+    pt[4] = love.timer.getTime()
+  end
+  
   for worldObject, resolutionsForWorldObject in pairs(resolutionsByWorldObject) do
     local netResolutionForWorldObject = netBuoyancyByWorldObject[worldObject]
     for _, resolution in pairs(resolutionsForWorldObject) do
@@ -400,65 +423,27 @@ function Collisions.run(game, dt)
     end
   end
   
+  if profiler then
+    pt[5] = love.timer.getTime()
+  end
+  
   for worldObject, _ in pairs(finalizedWorldObjects) do
     worldObject:finalizeCollision(game, dt)
   end
   
-  
-end
-
-local debugEpic = {}
-
-function Collisions.debugPrint()
-  local y = 200
-  
-    love.graphics.setFont(fontDebug)
-    --[[
-    local isepic = false
-  for n1, namesForN1 in pairs(debugData) do
-    for n2, ct in pairs(namesForN1) do
-      if ct > 1 then
-        isepic = true
-        break
-      end
-    end
-    
-    if isepic then
-      break
-    end
+  if profiler then
+    pt[6] = love.timer.getTime()
   end
   
-  if isepic then
-    debugEpic = {}
-    for n1, namesForN1 in pairs(debugData) do
-      debugEpic[n1] = {}
-      for n2, ct in pairs(namesForN1) do
-        debugEpic[n1][n2] = ct
-      end
-    end
-    
+  if profiler then 
+    Profile.update('collisionsBegin', pt[2] - pt[1])
+    Profile.update('collisionsCol', pt[3] - pt[2])
+    Profile.update('collisionsFric', pt[4] - pt[3])
+    Profile.update('collisionsRes', pt[5] - pt[4])
+    Profile.update('collisionsFin', pt[6] - pt[5])
+    Profile.update('collisions', numCollisions)
+    Profile.update('dynamicObjects', numACO)
   end
-  ]]--  
-    
-    --[[
-  love.graphics.setColor(0, 128, 0, 255)   
-  for n1, namesForN1 in pairs(debugData) do
-    for n2, ct in pairs(namesForN1) do
-      love.graphics.print(n1 .. ", " .. n2 .. ": " .. ct.x .. ", " .. ct.y  , 10, y)
-      y = y + 24
-    end
-  end
-  ]]--
-  
-    --[[
-  love.graphics.setColor(128, 0, 0, 255)   
-  for n1, namesForN1 in pairs(debugEpic) do
-    for n2, ct in pairs(namesForN1) do
-      love.graphics.print(n1 .. ", " .. n2 .. ": " .. ct , 10, y)
-      y = y + 24
-    end
-  end
-  ]]--
 end
 
 

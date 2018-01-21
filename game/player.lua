@@ -9,19 +9,16 @@ end
 local Object = require 'game.object'
 
 local json = require "json" 
---local HC = require 'HC'
 local Collisions = require 'game.collisions'
 local Particles = require 'particles'
---local Mode = require 'mode'
---local World = require 'world.world'
 
 local player = {}
 local Player = {}
 
 local function playerLoadAssets()
   local imageFile = love.graphics.newImage("assets/art/beige_alien_tps.png")
-  local jsonFile = io.open("assets/art/beige_alien_tps.json", "r") 
-  local jsonFrames = json.decode(jsonFile:read("*all")).frames
+  local jsonTxt = love.filesystem.read("assets/art/beige_alien_tps.json")
+  local jsonFrames = json.decode(jsonTxt).frames
   for _, jsonFrame in pairs(jsonFrames) do
     player.beigeFrames[jsonFrame.filename] = {
       quad=love.graphics.newQuad(jsonFrame.frame.x, jsonFrame.frame.y, jsonFrame.frame.w, jsonFrame.frame.h,
@@ -77,7 +74,7 @@ local function playerUnloadAssets()
   player.beigeAnims = {}
 end
 
-local TELEPORT_TIME = 0.4
+local TELEPORT_TIME = 0.5
 
 player.beigeFrames = {}
 player.beigeAnims = {}
@@ -641,6 +638,10 @@ function Player:moveTo(x, y)
   self.inLiquid = false
 end
 
+function Player:cull(cx, cy, ww, wh)
+  return false
+end
+
 function Player:draw(cx, cy) 
   local animIndex = self.animIndex
   local frame = self.anim.frames[animIndex]
@@ -668,11 +669,11 @@ function Player:draw(cx, cy)
   if self.teleportTimer > 0 then
     love.graphics.setColor(255, 255, 255, (255-a))
     local w = 128 * teleportRatio
-    local h = 128 + 256 * teleportRatio
-    love.graphics.rectangle("fill", cx + self.teleportLoc.x - w / 2, cy + self.teleportLoc.y - 256, w, h )
+    local h  = self.pos.y + cy
+    love.graphics.rectangle("fill", cx + self.teleportLoc.x - w / 2, 0, w, h )
     love.graphics.setColor(241, 156, 183, 255-a)
-    love.graphics.rectangle("fill", cx + self.teleportLoc.x - w / 2 - 16, cy + self.teleportLoc.y - 256, 16, h )
-    love.graphics.rectangle("fill", cx + self.teleportLoc.x + w / 2, cy + self.teleportLoc.y - 256, 16, h )
+    love.graphics.rectangle("fill", cx + self.teleportLoc.x - w / 2 - 16, 0, 16, h )
+    love.graphics.rectangle("fill", cx + self.teleportLoc.x + w / 2, 0, 16, h )
   end
 
   if debugDrawCollisionShapes then

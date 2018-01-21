@@ -13,8 +13,6 @@
  - Open game
 - Ident at game start
 - World map improvements
- - Show gems gotten on each level
- - Title
  - Fluff
 # Art
 - Fix back drop image
