@@ -162,7 +162,7 @@ sense.
 
 Game design is by Tim Dinsdale, Freddie Dinsdale and Theo Dinsdale.
 
-##Music
+## Music
 
 All the music is from the amazing [Kevin Macleod](incompetech.com)
 
