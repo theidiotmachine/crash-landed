@@ -194,9 +194,11 @@ function hc_init.buildShapeFromMapLayers(game, scriptName, textName, map)
                 layer.quadEven = love.graphics.newQuad(128 - layer.shift, 0, 128, 128, 128, 128)
             end
             
-            function layer.draw()
+            function layer.draw(self, tx, ty, sx, sy)
               --local oldR, oldG, oldB, oldA = love.graphics.getColor()
               --love.graphics.setColor(255, 255, 255, 255)
+              local windowWidth  = love.graphics.getWidth()
+              local windowHeight  = love.graphics.getHeight()
               for y = 1, endY, 1 do
                 for x = 1, endX, 1 do
                   local tile = layer.data[y][x]
@@ -208,6 +210,13 @@ function hc_init.buildShapeFromMapLayers(game, scriptName, textName, map)
                     local tileX, tileY
                     tileX = (x - 1) * tileW + tile.offset.x
                     tileY = (y - 1) * tileH + tile.offset.y
+                    if 
+                      tx + tileX + tileW > 0 
+                      and ty + tileY + tileH > 0 
+                      and tx + tileX - tileW < windowWidth 
+                      and ty + tileY - tileH < windowHeight 
+                      then
+                        
                     tileX, tileY = STIUtils.compensate(tile, tileX, tileY, tileW, tileH)
                     
                     if y % 2 == 0 then 
@@ -215,7 +224,7 @@ function hc_init.buildShapeFromMapLayers(game, scriptName, textName, map)
                     else
                       love.graphics.draw(image, layer.quadOdd, tileX, tileY)
                     end
-                    
+                    end
                   end
                 end
               end

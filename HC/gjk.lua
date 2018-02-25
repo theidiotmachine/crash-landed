@@ -28,6 +28,9 @@ local _PACKAGE = (...):match("^(.+)%.[^%.]+")
 local vector  = require(_PACKAGE .. '.vector-light')
 local huge, abs = math.huge, math.abs
 
+local ffi = require 'ffi'
+
+
 local function support(shape_a, shape_b, dx, dy)
 	local x,y = shape_a:support(dx,dy)
 	return vector.sub(x,y, shape_b:support(-dx, -dy))
@@ -85,6 +88,47 @@ local function EPA(shape_a, shape_b, simplex)
 	end
 end
 
+
+local function EPA_FFI(shape_a, shape_b, ffi_simplex)
+	-- make sure simplex is oriented counter clockwise
+  local cx = ffi_simplex[0]
+  local cy = ffi_simplex[1]
+  local bx = ffi_simplex[2]
+  local by = ffi_simplex[3]
+  local ax = ffi_simplex[4]
+  local ay = ffi_simplex[5]
+	if vector.dot(ax-bx,ay-by, cx-bx,cy-by) < 0 then
+		ffi_simplex[0] = ax
+    ffi_simplex[1] = ay
+		ffi_simplex[4] = cx
+    ffi_simplex[5] = cy
+	end
+  
+  local simplex = {
+    ffi_simplex[0], ffi_simplex[1], ffi_simplex[2], ffi_simplex[3], ffi_simplex[4], ffi_simplex[5]  
+  }
+
+	-- the expanding polytype algorithm
+	local is_either_circle = shape_a._center or shape_b._center
+	local last_diff_dist = huge
+	while true do
+		local e = closest_edge(simplex)
+		local px,py = support(shape_a, shape_b, e.nx, e.ny)
+		local d = vector.dot(px,py, e.nx, e.ny)
+
+		local diff_dist = d - e.dist
+		if diff_dist < 1e-6 or (is_either_circle and abs(last_diff_dist - diff_dist) < 1e-10) then
+			return -d*e.nx, -d*e.ny
+		end
+		last_diff_dist = diff_dist
+
+		-- simplex = {..., simplex[e.i-1], px, py, simplex[e.i]
+		table.insert(simplex, e.i, py)
+		table.insert(simplex, e.i, px)
+	end
+end
+
+
 --   :      :     origin must be in plane between A and B
 -- B o------o A   since A is the furthest point on the MD
 --   :      :     in direction of the origin.
@@ -99,6 +143,23 @@ local function do_line(simplex)
 		dx,dy = -dx,-dy
 	end
 	return simplex, dx,dy
+end
+
+--   :      :     origin must be in plane between A and B
+-- B o------o A   since A is the furthest point on the MD
+--   :      :     in direction of the origin.
+local function do_line_ffi(simplex)
+  local ax = simplex[2]
+  local ay = simplex[3]
+  
+  local dx = -(simplex[1] - ay)
+  local dy = simplex[0] - ax
+
+	--if vector.dot(dx,dy, -ax,-ay) < 0 then
+  if (dx*-ax) + (dy*-ay) < 0 then
+		dx,dy = -dx,-dy
+	end
+	return dx,dy
 end
 
 -- B .'
@@ -143,7 +204,53 @@ local function do_triangle(simplex)
 	return simplex
 end
 
-local function GJK(shape_a, shape_b)
+-- B .'
+--  o-._  1
+--  |   `-. .'     The origin can only be in regions 1, 3 or 4:
+--  |  4   o A 2   A lies on the edge of the MD and we came
+--  |  _.-' '.     from left of BC.
+--  o-'  3
+-- C '.
+local function do_triangle_ffi(simplex)
+  local ax = simplex[4]
+  local ay = simplex[5]
+	local aox,aoy = -ax,-ay
+	local abx,aby = simplex[2]-ax, simplex[3]-ay
+	local acx,acy = simplex[0]-ax, simplex[1]-ay
+
+	-- test region 1
+  local dx = -aby
+  local dy = abx
+	--if vector.dot(dx,dy, acx,acy) > 0 then
+  if dx*acx + dy*acy > 0 then
+		dx,dy = -dx,-dy
+	end
+	--if vector.dot(dx,dy, aox,aoy) > 0 then
+  if dx*aox + dy*aoy > 0 then
+		simplex[0] = simplex[2]
+    simplex[1] = simplex[3]
+		simplex[2] = ax 
+    simplex[3] = ay
+		return dx, dy, 4
+	end
+
+	-- test region 3
+	dx,dy = -acy, acx --vector.perpendicular(acx,acy)
+	--if vector.dot(dx,dy, abx,aby) > 0 then
+  if dx * abx + dy * aby > 0 then
+		dx,dy = -dx,-dy
+	end
+	if dx*aox + dy*aoy > 0 then
+		simplex[2] = ax
+    simplex[3] = ay
+		return dx, dy, 4
+	end
+
+	-- must be in region 4
+	return 0, 0, 6
+end
+
+local function GJK_Native(shape_a, shape_b)
 	local ax,ay = support(shape_a, shape_b, 1,0)
 	if ax == 0 and ay == 0 then
 		-- only true if shape_a and shape_b are touching in a vertex, e.g.
@@ -188,6 +295,69 @@ local function GJK(shape_a, shape_b)
 			return true, EPA(shape_a, shape_b, simplex)
 		end
 	end
+end
+
+local function GJK_FFI(shape_a, shape_b)
+	local ax,ay = support(shape_a, shape_b, 1,0)
+	if ax == 0 and ay == 0 then
+		-- only true if shape_a and shape_b are touching in a vertex, e.g.
+		--  .---                .---.
+		--  | A |           .-. | B |   support(A, 1,0)  = x
+		--  '---x---.  or  : A :x---'   support(B, -1,0) = x
+		--      | B |       `-'         => support(A,B,1,0) = x - x = 0
+		--      '---'
+		-- Since CircleShape:support(dx,dy) normalizes dx,dy we have to opt
+		-- out or the algorithm blows up. In accordance to the cases below
+		-- choose to judge this situation as not colliding.
+		return false
+	end
+
+	local simplex = ffi.new('double[6]')
+  simplex[0] = ax
+  simplex[1] = ay
+	local n = 2
+	local dx,dy = -ax,-ay
+
+	-- first iteration: line case
+	ax,ay = support(shape_a, shape_b, dx,dy)
+	--if vector.dot(ax,ay, dx,dy) <= 0 then
+  if (ax * dx) + (ay * dy) <= 0 then
+		return false
+	end
+
+	simplex[n] = ax
+  simplex[n+1] = ay
+	dx, dy = do_line_ffi(simplex, dx, dy)
+	n = 4
+
+	-- all other iterations must be the triangle case
+	while true do
+		ax,ay = support(shape_a, shape_b, dx,dy)
+
+		--if vector.dot(ax,ay, dx,dy) <= 0 then
+    if (ax * dx) + (ay * dy) <= 0 then
+			return false
+		end
+
+		simplex[n], simplex[n+1] = ax,ay
+		dx, dy, n = do_triangle_ffi(simplex, dx,dy)
+
+		if n == 6 then
+			return true, EPA_FFI(shape_a, shape_b, simplex)
+		end
+	end
+end
+
+local function GJK(shape_a, shape_b)
+  --[[
+  if useFFI then
+  ]]--
+    return GJK_FFI(shape_a, shape_b)
+    --[[
+  else
+    return GJK_Native(shape_a, shape_b)
+  end
+  ]]--
 end
 
 return GJK

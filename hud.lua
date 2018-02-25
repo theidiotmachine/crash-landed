@@ -1,6 +1,5 @@
 local Hud = {}
 
-local fontVecBold32 = nil
 local hudSprites = {}
 local hudSignData = { signType = "", signText = "" }
 local hudSignTime = 0
@@ -32,7 +31,7 @@ local function createSign(thing, imageFile)
 end
 
 function Hud.load()
-  fontVecBold32 = love.graphics.newFont("assets/fonts/Kenney Future Narrow.ttf", 24)
+  
   local imageFile = love.graphics.newImage("assets/art/spritesheet_hud.png")
   local signImageFile = love.graphics.newImage("assets/art/signs industrial.png")
   

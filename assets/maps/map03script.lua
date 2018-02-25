@@ -3,7 +3,7 @@ local Object = require 'game.object'
 local buttonBlueEnd = {}
 
 function buttonBlueEnd.down(button, game)
-  game.mode.toWorld(nil, {})
+  game.mode.toWorld({removedBarriers={map03blue=true}, finished = true})
 end
 
 local plat1 = {}

@@ -29,8 +29,10 @@ function Object:getHCShapeFromObjectGroup(game, tile, object, objectType, x, y)
       table.insert(finalVerts, x + vert.x + xoffs - tile.width / 2)
       table.insert(finalVerts, y + vert.y + yoffs - tile.height / 2)
     end
-      
-    hcShape = HC.polygon(Polygon(unpack(finalVerts)))
+    
+    local poly = Polygon(unpack(finalVerts))
+    poly:setCentroid(x,y)
+    hcShape = HC.polygon(poly)
   elseif shape == "rectangle" then
     local xoffs = object.x - tile.width / 2
     local yoffs = object.y - tile.height / 2
@@ -209,6 +211,9 @@ end
 
 function Object:getPreCollisionVel(dt)
   return {x = 0, y = 0}
+end
+
+function Object:takeDamage(game, dt, damageType, amount, sv, source)
 end
 
 local function objectFactory(typeName, ...)

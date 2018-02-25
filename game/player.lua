@@ -248,6 +248,7 @@ function Player:die(game)
 end
 
 function Player:updateFromInput(game, dt)
+  --asked to teleport?
   if self.teleportRequest then
     self:moveTo(self.teleportRequest.x, self.teleportRequest.y)
     self.teleportLoc = { x = self.teleportRequest.x, y = self.teleportRequest.y }
@@ -259,15 +260,23 @@ function Player:updateFromInput(game, dt)
     return
   end
   
+  --fallen off the world?
   if self.pos.y > game.map.height * game.map.tileheight then
     self:die(game)
     return
   end
   
+  --let's set up!
   self.prevpos.x = self.pos.x
   self.prevpos.y = self.pos.y
   self.collisionResolutionVector = {x=0, y=0}
   self.prevInLiquid = self.inLiquid
+  
+  --deal with external pushes (ouch velocities)
+  self.vel.x = self.vel.x + self.ouchVel.x
+  self.ouchVel.x = 0
+  self.vel.y = self.vel.y + self.ouchVel.y
+  self.ouchVel.y = 0
   
   if self.teleportTimer > 0 then
     self.teleportTimer = self.teleportTimer - dt
@@ -502,6 +511,59 @@ function Player:updateFromInput(game, dt)
   end
 end
 
+function Player:takeDamage(game, dt, damageType, amount, separatingVector, source)
+  if self.invulerableCounter == 0 then
+    self.health = self.health - amount
+      
+    if self.health == 0 then
+      --it's the end...
+      self.invulerableCounter = TELEPORT_TIME
+      self.teleportTimer = TELEPORT_TIME
+      self.teleportLoc = { x = self.pos.x, y = self.pos.y }
+      self.teleportMode = 'out'
+      self.ouch = true
+    else
+      if damageType == 'spike' then
+        --bounce off whatever we hit
+        if separatingVector.x > 0 then
+          self.ouchVel.x = 300
+        elseif separatingVector.x < 0 then
+          self.ouchVel.x = -300
+        end
+        
+        if separatingVector.y <= 0 then 
+          self.ouchVel.y = -300
+        else 
+          self.ouchVel.y = 300
+        end
+      elseif damageType == 'explosion' then
+        local explosionVec = {
+          x = self.pos.x - source.x,
+          y = (self.pos.y - 64) - source.y
+        }
+        local evlnsq = explosionVec.x*explosionVec.x + explosionVec.y*explosionVec.y
+        local evln = math.sqrt(evlnsq)
+        self.ouchVel.x = 600 * explosionVec.x/evln 
+        self.ouchVel.y = 600 * explosionVec.y/evln
+      end
+    end
+    
+    --some fx to indicate an ouch 
+    local partpos = {
+      x = (self.pos.x + source.x) / 2,
+      y = (self.pos.y - 64 + source.y) / 2
+    }
+    Particles.createNewOuchSet(partpos)
+      
+    --temporary invulnerability
+    self.invulerableCounter = 1
+      
+    --ouch!
+    self.ouchCounter = 0.5
+    self.ouch = true
+  end
+end
+
 function Player:collision(game, dt, selfCollisionObject, otherCollisionObject, otherType, otherUser, separatingVector)
   if otherType == "ground" then
     if otherUser.stuff == "water" and not self.prevInLiquid then
@@ -524,46 +586,7 @@ function Player:collision(game, dt, selfCollisionObject, otherCollisionObject, o
   elseif otherType == "barnacle" or otherType == "spikes" or otherType == "fish" 
     or otherType == "jelly"
     or (otherType == "cog" and otherUser.object.properties.spinning) then
-      
-    if self.invulerableCounter == 0 then
-      self.health = self.health - 1
-      
-      if self.health == 0 then
-        --it's the end...
-        self.invulerableCounter = TELEPORT_TIME
-        self.teleportTimer = TELEPORT_TIME
-        self.teleportLoc = { x = self.pos.x, y = self.pos.y }
-        self.teleportMode = 'out'
-        self.ouch = true
-      else
-        --bounce off whatever we hit
-        if separatingVector.x > 0 then
-          self.ouchVel.x = 300
-        elseif separatingVector.x < 0 then
-          self.ouchVel.x = -300
-        end
-      
-        if separatingVector.y <= 0 then 
-          self.ouchVel.y = -300
-        else 
-          self.ouchVel.y = 300
-        end
-      
-        --some fx to indicate an ouch 
-        local partpos = {
-          x = (self.pos.x + otherUser.object.pos.x) / 2,
-          y = (self.pos.y - 64 + otherUser.object.pos.y) / 2
-        }
-        Particles.createNewOuchSet(partpos)
-        
-        --temporary invulnerability
-        self.invulerableCounter = 1
-        
-        --ouch!
-        self.ouchCounter = 0.5
-        self.ouch = true
-      end
-    end
+      self:takeDamage(game, dt, 'spike', 1, separatingVector, otherUser.object.pos)
   end
 end
 
@@ -601,7 +624,7 @@ function Player:beginDynamics()
 end
 
 function Player:beginCollision(dt)
-  self.ouchVel = {x=0, y=0}
+  --self.ouchVel = {x=0, y=0}
   self.onGround = false
   self.inLiquid = false
   self.wasInSlime = self.inSlime
@@ -613,8 +636,10 @@ function Player:beginCollision(dt)
 end
 
 function Player:finalizeCollision(game, dt)
-  self.vel.x = ((self.pos.x - self.prevpos.x) / dt) + self.ouchVel.x
-  self.vel.y = ((self.pos.y - self.prevpos.y) / dt) + self.ouchVel.y
+  --self.vel.x = ((self.pos.x - self.prevpos.x) / dt) + self.ouchVel.x
+  --self.vel.y = ((self.pos.y - self.prevpos.y) / dt) + self.ouchVel.y
+  self.vel.x = ((self.pos.x - self.prevpos.x) / dt)
+  self.vel.y = ((self.pos.y - self.prevpos.y) / dt)
 end
 
 function Player:move(dx, dy)

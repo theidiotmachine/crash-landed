@@ -7,8 +7,10 @@ if not (type(common) == 'table' and common.class and common.instance) then
 end
 
 local Object = require 'game.object'
-
+local Particles = require 'particles'
+local Explosions = require 'game.explosions'
 local Mine = {}
+
 
 local function newMine(...)
 	return common_local.instance(Mine, ...)
@@ -26,7 +28,6 @@ function Mine:init(game, object, tile, map)
       quad = flashTile.quad
     },
     off = {
-      --, 
       image = self.animation[1].image,
       quad = self.animation[1].quad
     }
@@ -48,9 +49,9 @@ function Mine:update(game, dt)
         self.quad = self.flashTiles[self.flashState].quad
       else
         self.flashTimers.off = self.flashTimers.off - 0.1
-        --self.flashTimers.on = self.flashTimers.on + 0.2
         if self.flashTimers.off <= 0 then
           --boom
+          Explosions.largeCircular(game, dt, self)
           Object.destroy(self, game)
         else
           self.flashState = "on"
@@ -63,15 +64,29 @@ function Mine:update(game, dt)
   end
 end
 
-function Mine:collision(game, dt, selfCollisionObject, otherCollisionObject, otherType, otherUser, separatingVector)
+function Mine:setoff(flashTimerOff)
+  flashTimerOff = flashTimerOff or 0.5
   if self.flashing == false then
     self.flashing = true
-    self.flashTimers = { on = 0.1, off = 0.5 }
+    self.flashTimers = { on = 0.1, off = flashTimerOff }
     self.flashState = "on"
     self.flashTimer = self.flashTimers[self.flashState]
     self.image = self.flashTiles[self.flashState].image
     self.quad = self.flashTiles[self.flashState].quad
     self.animation = nil
+  end
+end
+
+function Mine:collision(game, dt, selfCollisionObject, otherCollisionObject, otherType, otherUser, separatingVector)
+  self:setoff()
+end
+
+function Mine:takeDamage(game, dt, damageType, amount, separatingVector, source)
+  if damageType == 'explosion' then
+    Explosions.largeCircular(game, dt, self)
+    Object.destroy(self, game)
+  else
+    self:setoff()
   end
 end
 

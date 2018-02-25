@@ -32,6 +32,9 @@ if not (type(common) == 'table' and common.class and common.instance) then
 end
 local Shapes      = require(_NAME .. '.shapes')
 local Spatialhash = require(_NAME .. '.spatialhash')
+-- *_*
+local Profile = require 'profile.profile'
+local ffi = require 'ffi'
 
 -- reset global table `common' (required by class commons)
 --if common_local ~= common then
@@ -106,13 +109,29 @@ end
 
 -- collision detection
 function HC:neighbors(shape)
-	local neighbors = self.hash:inSameCells(shape:bbox())
+	--local neighbors = self.hash:inSameCells(shape:bbox())
+  local neighbors = self.hash:inSameCellsFFI(shape:bboxFFI())
 	rawset(neighbors, shape, nil)
 	return neighbors
 end
 
 function HC:collisions(shape)
+  --*_*
+  --[[
+  local pt = {}
+  if profiler then
+    pt[1] = love.timer.getTime()
+  end
+]]--
 	local candidates = self:neighbors(shape)
+  
+  --*_*
+  --[[
+  if profiler then
+    pt[2] = love.timer.getTime()
+    Profile.updateFrag('HCNeigh', pt[2] - pt[1])
+  end
+]]--
 	for other in pairs(candidates) do
 		local collides, dx, dy = shape:collidesWith(other)
 		if collides then
@@ -121,6 +140,13 @@ function HC:collisions(shape)
 			rawset(candidates, other, nil)
 		end
 	end
+  --*_*
+  --[[
+  if profiler then
+    pt[3] = love.timer.getTime()
+    Profile.updateFrag('HCCol', pt[3] - pt[2])
+  end
+]]--
 	return candidates
 end
 

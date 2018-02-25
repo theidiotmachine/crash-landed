@@ -30,6 +30,24 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="27" type="ladder">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="0" width="128" height="128">
+    <properties>
+     <property name="colType" value="none"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="35" type="ladder">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="0" width="128" height="128">
+    <properties>
+     <property name="colType" value="none"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="42" type="decoration"/>
  <tile id="43" type="decoration"/>
  <tile id="50" type="decoration"/>
@@ -125,6 +143,18 @@
    <object id="2" type="switch" x="38.4" y="32" width="89.6" height="57.6">
     <properties>
      <property name="colType" value="none"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="113" type="bouncer">
+  <properties>
+   <property name="bounceupid" type="int" value="105"/>
+  </properties>
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="64" width="128" height="38.4">
+    <properties>
+     <property name="colType" value="static"/>
     </properties>
    </object>
   </objectgroup>

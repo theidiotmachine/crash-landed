@@ -15,19 +15,11 @@ function Coin:init(game, object, tile, map)
   Object.init(self, game, object, tile, 1, map)
 end
 
-function Coin:draw(cx, cy)
-  Object.draw(self, cx, cy)
-end
-
-function Coin:update(game, dt)
-end
-
 function Coin:collision(game, dt, selfCollisionObject, otherCollisionObject, otherType, otherUser, separatingVector)
   if otherType == "player" then
     Object.destroy(self, game)
   end
 end
-
 
 local function newCoin(...)
 	return common_local.instance(Coin, ...)

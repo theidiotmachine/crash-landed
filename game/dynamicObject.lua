@@ -14,6 +14,7 @@ local DynamicObject = {}
 
 function DynamicObject:initState(game)
   self.vel = {x=0, y=0}
+  self.ouchVel = {x=0, y=0}
   self.prevpos = {x=self.pos.x, y=self.pos.y}
   self.prevInLiquid = false
   self.inLiquid = false
@@ -100,6 +101,12 @@ function DynamicObject:update(game, dt)
   
   self.prevpos.x = self.pos.x
   self.prevpos.y = self.pos.y
+  
+  --deal with external pushes (ouch velocities)
+  self.vel.x = self.vel.x + self.ouchVel.x
+  self.ouchVel.x = 0
+  self.vel.y = self.vel.y + self.ouchVel.y
+  self.ouchVel.y = 0
 end
 
 function DynamicObject:beginCollision(dt)
@@ -131,6 +138,19 @@ function DynamicObject:finalizeCollision(game, dt)
   self.vel.y = ((self.pos.y - self.prevpos.y) / dt)
 end
 
+function DynamicObject:takeDamage(game, dt, damageType, amount, separatingVector, source)
+  if damageType == 'explosion' then
+    local explosionVec = {
+      x = self.pos.x - source.x,
+      y = self.pos.y - source.y
+    }
+    local evlnsq = explosionVec.x*explosionVec.x + explosionVec.y*explosionVec.y
+    local evln = math.sqrt(evlnsq)
+    self.ouchVel.x = 600 * explosionVec.x/evln 
+    self.ouchVel.y = 600 * explosionVec.y/evln
+  end
+end
+
 DynamicObject = common_local.class('DynamicObject', DynamicObject, Object)
 
 return {
@@ -151,4 +171,5 @@ return {
   resolveCollision = DynamicObject.resolveCollision,
   reset = DynamicObject.reset,
   initState = DynamicObject.initState,
+  takeDamage = DynamicObject.takeDamage,
 }

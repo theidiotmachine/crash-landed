@@ -7,7 +7,6 @@ if not (type(common) == 'table' and common.class and common.instance) then
 end
 
 local Object = require 'game.object'
-local DynamicObject = require 'game.dynamicObject'
 local Collisions = require 'game.collisions'
 
 local Conveyer = {}
@@ -18,20 +17,7 @@ end
 
 --location is centre
 function Conveyer:init(game, object, tile, map)
-  DynamicObject.init(self, game, object, tile, 1, map)
-end
-
-function Conveyer:update(game, dt)
-end
-
-function Conveyer:resolveCollision(game, dt, resolutionVector)
-end
-
-function Conveyer:finalizeCollision(game, dt)
-end
-
-function Conveyer:draw(cx, cy)
-  DynamicObject.draw(self, cx, cy)
+  Object.init(self, game, object, tile, 1, map)
 end
 
 function Conveyer:getPreCollisionVel(dt)
@@ -42,10 +28,9 @@ function Conveyer:getPreCollisionVel(dt)
   else
     return {x = 200, y = 0}
   end
-  
 end
 
-Conveyer = common_local.class('Conveyer', Conveyer, DynamicObject)
+Conveyer = common_local.class('Conveyer', Conveyer, Object)
 
 return {
 	Conveyer = Conveyer,

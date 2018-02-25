@@ -3,14 +3,14 @@
  <image source="../art/platformerPack_industrial_vector - redux remix - ground.png" width="896" height="512"/>
  <tile id="2">
   <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="25.6" height="128"/>
-   <object id="2" x="102.4" y="0" width="25.6" height="128"/>
+   <object id="1" x="0" y="0" width="31" height="128"/>
+   <object id="2" x="96" y="0" width="32" height="128"/>
   </objectgroup>
  </tile>
  <tile id="3">
   <objectgroup draworder="index">
-   <object id="1" x="0" y="0" width="25.6" height="128"/>
-   <object id="2" x="102.4" y="0" width="25.6" height="128"/>
+   <object id="1" x="0" y="0" width="31" height="128"/>
+   <object id="2" x="96" y="0" width="32" height="128"/>
   </objectgroup>
  </tile>
  <tile id="6">

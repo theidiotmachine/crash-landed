@@ -86,8 +86,7 @@
   <objectgroup draworder="index">
    <object id="1" x="0" y="0" width="128" height="51.2">
     <properties>
-     <property name="colType" value="massy"/>
-     <property name="mass" type="float" value="100000"/>
+     <property name="colType" value="conveyer"/>
     </properties>
    </object>
   </objectgroup>
@@ -99,8 +98,7 @@
   <objectgroup draworder="index">
    <object id="1" x="0" y="0" width="128" height="51.2">
     <properties>
-     <property name="colType" value="massy"/>
-     <property name="mass" type="float" value="100000"/>
+     <property name="colType" value="conveyer"/>
     </properties>
    </object>
   </objectgroup>
@@ -112,8 +110,7 @@
   <objectgroup draworder="index">
    <object id="1" x="0" y="0" width="128" height="51.2">
     <properties>
-     <property name="colType" value="massy"/>
-     <property name="mass" type="float" value="100000"/>
+     <property name="colType" value="conveyer"/>
     </properties>
    </object>
   </objectgroup>
@@ -157,6 +154,9 @@
   </objectgroup>
  </tile>
  <tile id="41" type="crate">
+  <properties>
+   <property name="crateType" value="fuel"/>
+  </properties>
   <objectgroup draworder="index">
    <object id="1" x="12.8" y="0" width="102.4" height="128">
     <properties>
@@ -170,6 +170,9 @@
  <tile id="45" type="decoration"/>
  <tile id="46" type="decoration"/>
  <tile id="50" type="crate">
+  <properties>
+   <property name="crateType" value="fuel"/>
+  </properties>
   <objectgroup draworder="index">
    <object id="1" x="0" y="38.4" width="128" height="89.6">
     <properties>
@@ -363,10 +366,10 @@
    <property name="state" value="closed"/>
   </properties>
   <objectgroup draworder="index">
-   <object id="1" x="38.4" y="0" width="51.2" height="128">
+   <object id="1" x="32" y="0" width="63" height="128">
     <properties>
      <property name="colType" value="massy"/>
-     <property name="mass" type="float" value="1000"/>
+     <property name="mass" type="float" value="1"/>
     </properties>
    </object>
   </objectgroup>
@@ -454,10 +457,10 @@
    <property name="state" value="closed"/>
   </properties>
   <objectgroup draworder="index">
-   <object id="1" x="38.4" y="0" width="51.2" height="128">
+   <object id="1" x="32" y="0" width="63" height="128">
     <properties>
      <property name="colType" value="massy"/>
-     <property name="mass" type="float" value="1000"/>
+     <property name="mass" type="float" value="1"/>
     </properties>
    </object>
   </objectgroup>

@@ -49,19 +49,19 @@ function Spatialhash:cellCoords(x,y)
 end
 
 function Spatialhash:cell(i,k)
-	local row = rawget(self.cells, i)
-	if not row then
-		row = {}
-		rawset(self.cells, i, row)
-	end
+  local row = rawget(self.cells, i)
+  if not row then
+    row = {}
+    rawset(self.cells, i, row)
+  end
 
-	local cell = rawget(row, k)
-	if not cell then
-		cell = setmetatable({}, {__mode = "kv"})
-		rawset(row, k, cell)
-	end
+  local cell = rawget(row, k)
+  if not cell then
+    cell = setmetatable({}, {__mode = "kv"})
+    rawset(row, k, cell)
+  end
 
-	return cell
+  return cell
 end
 
 function Spatialhash:cellAt(x,y)
@@ -96,6 +96,20 @@ function Spatialhash:inSameCells(x1,y1, x2,y2)
 	return set
 end
 
+function Spatialhash:inSameCellsFFI(ffiBBox)
+	local set = {}
+	local x1, y1 = self:cellCoords(ffiBBox[0].x, ffiBBox[0].y)
+	local x2, y2 = self:cellCoords(ffiBBox[1].x, ffiBBox[1].y)
+	for i = x1,x2 do
+		for k = y1,y2 do
+			for obj in pairs(self:cell(i,k)) do
+				rawset(set, obj, obj)
+			end
+		end
+	end
+	return set
+end
+
 function Spatialhash:register(obj, x1, y1, x2, y2)
 	x1, y1 = self:cellCoords(x1, y1)
 	x2, y2 = self:cellCoords(x2, y2)
@@ -108,14 +122,14 @@ end
 
 function Spatialhash:remove(obj, x1, y1, x2,y2)
 	-- no bbox given. => must check all cells
-	if not (x1 and y1 and x2 and y2) then
+  if not (x1 and y1 and x2 and y2) then
 		for _,row in pairs(self.cells) do
 			for _,cell in pairs(row) do
 				rawset(cell, obj, nil)
 			end
 		end
 		return
-	end
+  end
 
 	-- else: remove only from bbox
 	x1,y1 = self:cellCoords(x1,y1)

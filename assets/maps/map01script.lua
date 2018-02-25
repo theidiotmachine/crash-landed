@@ -18,13 +18,14 @@ end
 local buttonGreenEnd = {}
 
 function buttonGreenEnd.down(button, game)
-  game.mode.toWorld(nil, {removedBarriers={map01green=true}})
+  game.mode.toWorld(
+    {removedBarriers={map01green=true}, finished = true})
 end
 
 local buttonBlueEnd = {}
 
 function buttonBlueEnd.down(button, game)
-  game.mode.toWorld(nil, {removedBarriers={map01blue=true}})
+  game.mode.toWorld({removedBarriers={map01blue=true}, finished = true})
 end
   
 return {

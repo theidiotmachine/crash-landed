@@ -14,7 +14,7 @@ and I will rectify this error.
 
 Crash-landed contains a modified redistribution of [Hardon collider](https://github.com/vrld/HC). 
 
-Modifications to the code are marked with a the tag: `*_*`
+Modifications to the code are marked with the tag: `*_*`
 
 The HC code contains the following notice:
 
@@ -156,6 +156,26 @@ is by me, and is also CC0. I will post to OGA in due course.
 
 ## Maps
 
-All the level data -- in the 'maps' folder - are distributed under a [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/). 
+All the level data -- in the 'maps' folder - are by us and are distributed under a [CC0 1.0 license](https://creativecommons.org/publicdomain/zero/1.0/). 
 The .lua files in here are more like data than code so it seems to make more
 sense.
+
+Game design is by Tim Dinsdale, Freddie Dinsdale and Theo Dinsdale.
+
+##Music
+
+All the music is from the amazing [Kevin Macleod](incompetech.com)
+
+### Kevin Macleod
+
+Mighty Like Us Kevin MacLeod https://incompetech.com
+Licensed under Creative Commons: By Attribution 3.0
+http://creativecommons.org/licenses/by/3.0/
+
+The Show Must Be Go Kevin MacLeod https://incompetech.com
+Licensed under Creative Commons: By Attribution 3.0
+http://creativecommons.org/licenses/by/3.0/
+
+Sheep May Safely Graze - BWV 208 Kevin MacLeod https://incompetech.com
+Licensed under Creative Commons: By Attribution 3.0
+http://creativecommons.org/licenses/by/3.0/

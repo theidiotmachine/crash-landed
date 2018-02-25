@@ -751,7 +751,8 @@ function Map:draw(tx, ty, sx, sy)
 
 	for _, layer in ipairs(self.layers) do
 		if layer.visible and layer.opacity > 0 then
-			self:drawLayer(layer)
+      --*_*
+			self:drawLayer(layer, tx, ty, sx, sy)
 		end
 	end
 
@@ -776,10 +777,10 @@ end
 
 --- Draw an individual Layer
 -- @param layer The Layer to draw
-function Map.drawLayer(_, layer)
+function Map.drawLayer(_, layer, tx, ty, sx, sy)
 	local r,g,b,a = lg.getColor()
 	lg.setColor(r, g, b, a * layer.opacity)
-	layer:draw()
+	layer:draw(tx, ty, sx, sy)
 	lg.setColor(r,g,b,a)
 end
 

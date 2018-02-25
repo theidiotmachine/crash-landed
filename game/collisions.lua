@@ -168,6 +168,51 @@ local function recordFluidFriction(
   end
 end
 
+--[[
+this code modified from https://gamedevelopment.tutsplus.com/series/how-to-create-a-custom-physics-engine--gamedev-12715
+]]--
+local function resolveMassyCollision(thisVel, thisMass, otherVel, otherMass, normal)
+  local relVel = {
+    x = otherVel.x - thisVel.x,
+    y = otherVel.y - thisVel.y
+  }
+  
+  local velAlongNormal = relVel.x * normal.x + relVel.y * normal.y
+  if velAlongNormal > 0 then
+    return false
+  end
+  
+  --min of restitutions
+  local e = 0.1
+  
+  local j = -(1+e) * velAlongNormal
+  j = j / (1 / thisMass + 1 / otherMass)
+  
+  local impulse = { x = j * normal.x, y = j * normal.y }
+  local thisVelInc = { x = -impulse.x / thisMass, y = -impulse.y / thisMass }
+  local otherVelInc = { x = impulse.x / otherMass, y = impulse.y / otherMass }
+  return true, thisVelInc, otherVelInc
+end
+
+--[[
+this code from https://gamedevelopment.tutsplus.com/series/how-to-create-a-custom-physics-engine--gamedev-12715
+]]--
+local function positionCorrection(thisMass, otherMass, normal, penetrationDepth)
+  local percent = 0.2 --to 0.8
+  local correction = { 
+    x = (penetrationDepth / (1/thisMass + 1/otherMass)) * percent * normal.x,
+    y = (penetrationDepth / (1/thisMass + 1/otherMass)) * percent * normal.y
+  }
+  local thisCorrection = {
+    x = -(1/thisMass) * correction.x,
+    y = -(1/thisMass) * correction.y,
+  }
+  local otherCorrection = {
+    x = (1/otherMass) * correction.x,
+    y = (1/otherMass) * correction.y,
+  }
+  return thisCorrection, otherCorrection
+end
 
 --[[
 ]]--
@@ -180,18 +225,20 @@ function Collisions.run(game, dt)
   local pt = {}
   local pt0 = {}
   local ptd = { 0 }
-  
+  --[[
   if profiler then
     pt[1] = love.timer.getTime()
   end
-  
+  ]]--
   for worldObject, _ in pairs(activeWorldObjects) do
     worldObject:beginCollision(dt)
   end
   
+  --[[
   if profiler then
     pt[2] = love.timer.getTime()
   end
+  ]]--
   
   local resolutionsByWorldObject = {}
   local frictionsByWorldObject = {}
@@ -202,9 +249,18 @@ function Collisions.run(game, dt)
     local worldObject = collisionObject.user.object
     numACO = numACO + 1
     --actually run the collisions
-    --if profiler then
-      --pt0[1] = 
+    --[[
+    if profiler then
+      pt0[1] = love.timer.getTime()
+    end
+    ]]--
     local pcols = game.HC.collisions(collisionObject)
+    --[[
+    if profiler then
+      pt0[2] = love.timer.getTime()
+      ptd[1] = ptd[1] + (pt0[2] - pt0[1])
+    end
+    ]]--
     for otherCollisionObject, separatingVector in pairs(pcols) do
       if otherCollisionObject.user then
         local otherWorldUser = otherCollisionObject.user
@@ -218,31 +274,23 @@ function Collisions.run(game, dt)
             if otherWorldUser.properties.colType == "static" then
               if collisionObject.user.properties then
                 if collisionObject.user.properties.colType == "massy" then
+                  --massy vs static
                   if collisionObject.user.properties.colFriction then                    
-                    recordFriction(
-                      frictionsByWorldObject, 
-                      dt, 
-                      worldObject, 
-                      collisionObject, 
-                      otherWorldUser.stuff or "unknown", 
-                      0, 
-                      separatingVector
+                    recordFriction(frictionsByWorldObject, dt, worldObject, collisionObject, 
+                      otherWorldUser.stuff or "unknown", 0, separatingVector
                     )
                   end
                   
                   resultVector = { x = separatingVector.x, y = separatingVector.y }
                   otherResultVector = { x = 0, y = 0 }
                   collided = true
+                  
                 elseif collisionObject.user.properties.colType == "none" then
+                  --none vs static
+                  --none means the player feet, which is a bit rubbish
                   if collisionObject.user.properties.colFriction then
-                    recordFriction(
-                      frictionsByWorldObject, 
-                      dt, 
-                      worldObject, 
-                      collisionObject, 
-                      otherWorldUser.stuff or "unknown", 
-                      0, 
-                      separatingVector
+                    recordFriction(frictionsByWorldObject, dt, worldObject, collisionObject, 
+                      otherWorldUser.stuff or "unknown", 0, separatingVector
                     )
                   end
                   
@@ -254,65 +302,72 @@ function Collisions.run(game, dt)
               
             elseif otherWorldUser.properties.colType == "massy" then
               if collisionObject.user.properties and collisionObject.user.properties.colType == "massy" then
+                --massy vs massy
                 local otherWorldObject = otherWorldUser.object
+                --decide which way to apply friction.
                 if separatingVector.y < 0 and collisionObject.user.properties.colFriction then
-                  recordFriction(
-                    frictionsByWorldObject, 
-                    dt, 
-                    worldObject, 
-                    collisionObject, 
-                    otherWorldUser.stuff or "unknown", 
-                    otherWorldObject:getPreCollisionVel(dt).x, 
-                    separatingVector
+                  recordFriction(frictionsByWorldObject, dt, worldObject, collisionObject, 
+                    otherWorldUser.stuff or "unknown", otherWorldObject:getPreCollisionVel(dt).x, separatingVector
                   )
                     
                 elseif separatingVector.y > 0 and otherWorldUser.properties.colFriction then
-                  recordFriction(
-                    frictionsByWorldObject, 
-                    dt, 
-                    otherWorldObject, 
-                    otherCollisionObject, 
-                    collisionObject.user.stuff or "unknown", 
-                    worldObject:getPreCollisionVel(dt).x, 
+                  recordFriction(frictionsByWorldObject, dt, otherWorldObject, otherCollisionObject, 
+                    collisionObject.user.stuff or "unknown", worldObject:getPreCollisionVel(dt).x, 
                     { x = -separatingVector.x, y = -separatingVector.y }
                   )
                 end
                 
+                --now do the full collision physics
+                local svlsq = (separatingVector.x*separatingVector.x + separatingVector.y*separatingVector.y)
+                if svlsq > 0 then
+                  local svl = math.sqrt(svlsq)
+                  local normal = {x=-separatingVector.x/svl, y=-separatingVector.y/svl}
+                  local thisVelInc
+                  local otherVelInc
+                  collided, thisVelInc, otherVelInc = resolveMassyCollision(
+                    worldObject:getPreCollisionVel(dt), collisionObject.user.properties.mass,
+                    otherWorldObject:getPreCollisionVel(dt), otherWorldUser.properties.mass,
+                    normal
+                  )
                 
-                local totalMass = collisionObject.user.properties.mass + otherWorldUser.properties.mass
-                local massRatio = otherWorldUser.properties.mass / totalMass
-                local otherMassRatio = collisionObject.user.properties.mass / totalMass
-                resultVector = { x = separatingVector.x * massRatio, y = separatingVector.y * massRatio }
-                otherResultVector = { x = -separatingVector.x * otherMassRatio, y = -separatingVector.y * otherMassRatio }
-                collided = true
+                  if collided then
+                    local thisCorrection, otherCorrection = positionCorrection(
+                      collisionObject.user.properties.mass, otherWorldUser.properties.mass,
+                      normal, svl
+                      )
+                    resultVector = {
+                      x = thisVelInc.x * dt + thisCorrection.x, 
+                      y = thisVelInc.y * dt + thisCorrection.y,
+                    }
+                    otherResultVector = {
+                      x = otherVelInc.x * dt + otherCorrection.x,
+                      y = otherVelInc.y * dt + otherCorrection.y
+                    }
+                  end
+                else
+                  collided = false
+                end
               elseif collisionObject.user.properties.colType == "none" then
-                local otherWorldObject = otherWorldUser.object
                 if separatingVector.y < 0 and collisionObject.user.properties.colFriction then
+                  local otherWorldObject = otherWorldUser.object
                   recordFriction(
-                    frictionsByWorldObject, 
-                    dt, 
-                    worldObject, 
-                    collisionObject, 
-                    otherWorldUser.stuff or "unknown", 
-                    otherWorldObject:getPreCollisionVel(dt).x, 
+                    frictionsByWorldObject, dt, worldObject, collisionObject, 
+                    otherWorldUser.stuff or "unknown", otherWorldObject:getPreCollisionVel(dt).x, 
                     separatingVector
                   )
                 end
+              
                 collided = true
                 resultVector = { x = 0, y = 0 }
                 otherResultVector = { x = 0, y = 0 }
               end
             elseif otherWorldUser.properties.colType == "none" then
+              
               if collisionObject.user.properties and collisionObject.user.properties.colType == "massy" then
                 local otherWorldObject = otherWorldUser.object
                 if separatingVector.y > 0 and otherWorldUser.properties.colFriction then
-                  recordFriction(
-                    frictionsByWorldObject, 
-                    dt, 
-                    otherWorldObject, 
-                    otherCollisionObject, 
-                    collisionObject.user.stuff or "unknown", 
-                    worldObject:getPreCollisionVel(dt).x, 
+                  recordFriction(frictionsByWorldObject, dt, otherWorldObject, otherCollisionObject, 
+                    collisionObject.user.stuff or "unknown", worldObject:getPreCollisionVel(dt).x, 
                     { x = -separatingVector.x, y = -separatingVector.y }
                   )
                 end
@@ -323,19 +378,36 @@ function Collisions.run(game, dt)
               otherResultVector = { x = 0, y = 0 }
             elseif otherWorldUser.properties.colType == "liquid" then
               if collisionObject.user.properties and collisionObject.user.properties.colType == "massy" then
-                recordFluidFriction(
-                    frictionsByWorldObject, 
-                    buoyancyByWorldObject,
-                    dt, 
-                    worldObject, 
-                    collisionObject,
-                    otherCollisionObject,
-                    otherWorldUser.stuff or "unknown"
+                recordFluidFriction(frictionsByWorldObject, buoyancyByWorldObject, dt, 
+                    worldObject, collisionObject, otherCollisionObject, otherWorldUser.stuff or "unknown"
                   )
               end
               collided = true
               resultVector = { x = 0, y = 0 }
               otherResultVector = { x = 0, y = 0 }
+            elseif otherWorldUser.properties.colType == "conveyer" then
+              local otherWorldObject = otherWorldUser.object
+              if collisionObject.user.properties.colType == "massy" then
+                if collisionObject.user.properties.colFriction then
+                  recordFriction(frictionsByWorldObject, dt, worldObject, collisionObject, 
+                    otherWorldUser.stuff or "unknown", otherWorldObject:getPreCollisionVel(dt).x, 
+                    separatingVector
+                  )
+                end
+                resultVector = { x = separatingVector.x, y = separatingVector.y }
+                otherResultVector = { x = 0, y = 0 }
+                collided = true
+              elseif collisionObject.user.properties.colType == "none" then
+                if collisionObject.user.properties.colFriction then
+                  recordFriction(frictionsByWorldObject, dt, worldObject, collisionObject, 
+                    otherWorldUser.stuff or "unknown", otherWorldObject:getPreCollisionVel(dt).x, 
+                    separatingVector
+                  )
+                end
+                resultVector = { x = 0, y = 0 }
+                otherResultVector = { x = 0, y = 0 }
+                collided = true
+              end
             end
           end
                     
@@ -381,11 +453,11 @@ function Collisions.run(game, dt)
     end
   end
   
+  --[[
   if profiler then
     pt[3] = love.timer.getTime()
   end
-  
-  
+  ]]--
   
   for worldObject, frictionsForWorldObject in pairs(frictionsByWorldObject) do
     for collisionObject, frictionData in pairs(frictionsForWorldObject) do
@@ -396,8 +468,10 @@ function Collisions.run(game, dt)
       if frictionData.y then
         fricR.y = Collisions:calcFriction(dt, frictionData.y[1], frictionData.y[2], frictionData.y[3], frictionData.y[4])
       end
+      if resolutionsByWorldObject[worldObject] then
       local old = resolutionsByWorldObject[worldObject][collisionObject]
       resolutionsByWorldObject[worldObject][collisionObject] = { x = old.x + fricR.x, y = old.y + fricR.y }
+      end
     end
   end
   
@@ -409,9 +483,11 @@ function Collisions.run(game, dt)
     end
   end
   
+  --[[
   if profiler then
     pt[4] = love.timer.getTime()
   end
+  ]]--
   
   for worldObject, resolutionsForWorldObject in pairs(resolutionsByWorldObject) do
     local netResolutionForWorldObject = netBuoyancyByWorldObject[worldObject]
@@ -423,27 +499,32 @@ function Collisions.run(game, dt)
     end
   end
   
+  --[[
   if profiler then
     pt[5] = love.timer.getTime()
   end
+  ]]--
   
   for worldObject, _ in pairs(finalizedWorldObjects) do
     worldObject:finalizeCollision(game, dt)
   end
   
+  --[[
   if profiler then
     pt[6] = love.timer.getTime()
   end
   
   if profiler then 
-    Profile.update('collisionsBegin', pt[2] - pt[1])
-    Profile.update('collisionsCol', pt[3] - pt[2])
-    Profile.update('collisionsFric', pt[4] - pt[3])
-    Profile.update('collisionsRes', pt[5] - pt[4])
-    Profile.update('collisionsFin', pt[6] - pt[5])
+    Profile.updateFrag('collisionsBegin', pt[2] - pt[1])
+    Profile.updateFrag('collisionsCol', pt[3] - pt[2])
+    Profile.updateFrag('HC', ptd[1])
+    Profile.updateFrag('collisionsFric', pt[4] - pt[3])
+    Profile.updateFrag('collisionsRes', pt[5] - pt[4])
+    Profile.updateFrag('collisionsFin', pt[6] - pt[5])
     Profile.update('collisions', numCollisions)
     Profile.update('dynamicObjects', numACO)
   end
+  ]]--
 end
 
 

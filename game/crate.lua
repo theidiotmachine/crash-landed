@@ -8,8 +8,9 @@ end
 
 local Object = require 'game.object'
 local DynamicObject = require 'game.dynamicObject'
-local Collisions = require 'game.collisions'
-local Particles = require 'particles'
+--local Collisions = require 'game.collisions'
+--local Particles = require 'particles'
+local Explosions = require 'game.explosions'
 
 local Crate = {}
 
@@ -76,6 +77,15 @@ function Crate:collision(game, dt, selfCollisionObject, otherCollisionObject, ot
 
   if otherType == "slime" then
     self.inSlime = true
+  end
+end
+
+function Crate:takeDamage(game, dt, damageType, amount, separatingVector, source)
+  DynamicObject.takeDamage(self, game, dt, damageType, amount, separatingVector, source)
+  local crateType = self.properties.crateType
+  if crateType and crateType == 'fuel' then
+    Explosions.largeCircular(game, dt, self)
+    DynamicObject.destroy(self, game)
   end
 end
 

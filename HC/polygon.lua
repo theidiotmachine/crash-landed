@@ -35,12 +35,15 @@ if not (type(common) == 'table' and common.class and common.instance) then
 end
 local vector = require(_PACKAGE .. '.vector-light')
 
+local ffi = require 'ffi'
 --*_*
 -- reset global table `common' (required by class commons)
 --if common_local ~= common then
 	--common_local, common = common, common_local
 --end
 
+
+local huge, min, max = math.huge, math.min, math.max
 
 ----------------------------
 -- Private helper functions
@@ -209,6 +212,8 @@ function Polygon:init(...)
 		self._radius = math.max(self._radius,
 			vector.dist(vertices[i].x,vertices[i].y, self.centroid.x,self.centroid.y))
 	end
+  
+  self:refreshCachedData()
 end
 local newPolygon
 
@@ -240,6 +245,9 @@ end
 
 -- get bounding box
 function Polygon:bbox()
+  --if useFFI then
+    return self.ffiBBox[0].x, self.ffiBBox[0].y, self.ffiBBox[1].x, self.ffiBBox[1].y
+  --[[else
 	local ulx,uly = self.vertices[1].x, self.vertices[1].y
 	local lrx,lry = ulx,uly
 	for i=2,#self.vertices do
@@ -252,6 +260,12 @@ function Polygon:bbox()
 	end
 
 	return ulx,uly, lrx,lry
+  end
+  ]]--
+end
+
+function Polygon:bboxFFI()
+  return self.ffiBBox
 end
 
 -- a polygon is convex if all edges are oriented ccw
@@ -280,6 +294,35 @@ function Polygon:isConvex()
 	return status
 end
 
+--*_* added this, plus all calls to it
+function Polygon:refreshCachedData()
+  --if useFFI then
+  if not self.ffiVerts then
+    self.ffiVerts = ffi.new('hc_ffi_vert[?]', #self.vertices)
+    self.ffiBBox = ffi.new('hc_ffi_vert[2]')
+  end
+  self.ffiBBox[0].x = huge
+  self.ffiBBox[0].y = huge
+  self.ffiBBox[1].x = -huge
+  self.ffiBBox[1].y = -huge
+  for i, v in ipairs(self.vertices) do
+    self.ffiVerts[i-1].x = v.x
+    self.ffiVerts[i-1].y = v.y
+    self.ffiBBox[0].x = min(self.ffiBBox[0].x, v.x)
+    self.ffiBBox[0].y = min(self.ffiBBox[0].y, v.y)
+    self.ffiBBox[1].x = max(self.ffiBBox[1].x, v.x)
+    self.ffiBBox[1].y = max(self.ffiBBox[1].y, v.y)
+  end
+  self.lastFfiVert = #self.vertices - 1
+  --end
+end
+
+--*_* added
+function Polygon:setCentroid(x, y)
+  self.centroid.x = x
+  self.centroid.y = y
+end
+
 function Polygon:move(dx, dy)
 	if not dy then
 		dx, dy = dx:unpack()
@@ -290,6 +333,7 @@ function Polygon:move(dx, dy)
 	end
 	self.centroid.x = self.centroid.x + dx
 	self.centroid.y = self.centroid.y + dy
+  self:refreshCachedData()
 end
 
 function Polygon:rotate(angle, cx, cy)
@@ -302,6 +346,7 @@ function Polygon:rotate(angle, cx, cy)
 	end
 	local v = self.centroid
 	v.x,v.y = vector.add(cx,cy, vector.rotate(angle, v.x-cx, v.y-cy))
+  self:refreshCachedData()
 end
 
 function Polygon:scale(s, cx,cy)
@@ -313,6 +358,7 @@ function Polygon:scale(s, cx,cy)
 		v.x,v.y = vector.add(cx,cy, vector.mul(s, v.x-cx, v.y-cy))
 	end
 	self._radius = self._radius * s
+  self:refreshCachedData()
 end
 
 -- *_* this slightly modified from the answer by StarCrunch here https://forums.coronalabs.com/topic/61784-function-for-reversing-table-order/
@@ -337,6 +383,7 @@ function Polygon:flipX(cx, cy)
 	end
   
   self:reverseVerts()
+  self:refreshCachedData()
 end
 
 -- triangulation by the method of kong
@@ -519,9 +566,6 @@ function Polygon:intersectsRay(x,y, dx,dy)
 	end
 	return tmin ~= math.huge, tmin
 end
-
-
-
 
 Polygon = common_local.class('Polygon', Polygon)
 newPolygon = function(...) return common_local.instance(Polygon, ...) end

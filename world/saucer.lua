@@ -3,6 +3,7 @@ local WorldMap = require 'world.worldMap'
 --local World = require 'world.world'
 --local Mode = require 'mode'
 local Particles = require 'particles'
+local WorldState = require 'worldState'
 local Saucer = {}
 Saucer.FrameTime = 0.2
 
@@ -152,7 +153,8 @@ function Saucer:update(world, dt)
       self.teleportTimer = 0        
       if self.mode == 'teleportDown' then
         local island = worldMap.islands[self.destMapLoc.x][self.destMapLoc.y]
-        world.mode.toGame(island.level, island.state, "eng")
+        --world.mode.toGame(island.level, island.state, "eng", island.canQuitToWorld, island.bgm)
+        world.mode.toGame(island.worldStateName, 'eng')
       end
       self.mode = 'atDest' 
     end
@@ -167,7 +169,8 @@ function Saucer:update(world, dt)
     if self.landDist > dist then
       self.landDist = dist
       local island = worldMap.islands[self.destMapLoc.x][self.destMapLoc.y]
-      world.mode.toGame(island.level, island.state, "eng")
+--      world.mode.toGame(island.level, island.state, "eng", island.canQuitToWorld, island.bgm)
+      world.mode.toGame(island.worldStateName, 'eng')
       self.mode = 'atDest' 
     end
     return
@@ -215,6 +218,7 @@ function Saucer:update(world, dt)
     self.shadowMode = 'feature'
     local island = worldMap.islands[self.destMapLoc.x][self.destMapLoc.y]
     self.featureShadowOffset = island.featureShadowOffset
+    WorldState.setSaucerLoc(self.origMapLoc)
   else
     self.mode = 'moving'
   end
@@ -229,10 +233,11 @@ function Saucer:update(world, dt)
         proposedDest.y = proposedDest.y + 1
       elseif love.keyboard.isDown('d') or love.keyboard.isDown('right') then
         proposedDest.x = proposedDest.x + 1
-      elseif love.keyboard.isDown(' ') then
+      elseif love.keyboard.isDown(' ') or love.keyboard.isDown('return') then
         local island = worldMap.islands[self.destMapLoc.x][self.destMapLoc.y]
-        if island.level then
-          if island.transition == 'saucerBeam' then
+        local islandData = WorldState.data.islands[island.worldStateName]
+        if islandData.level then
+          if islandData.transition == 'saucerBeam' then
             self.mode = 'teleportDown'
             self.teleportTimer = TELEPORT_TIME
           else

@@ -14,7 +14,7 @@ local FeatureShadowOffsets = {
   shipCrash = -10,
   grassWater = 32,
 }
-
+--[[
 local islands = {
   {
     pos = {x = 1, y = 1},
@@ -24,6 +24,7 @@ local islands = {
     level = "saucer01",
     transition = "saucerLand",
     smoke = true,
+    canQuitToWorld = false,
   },
   {
     pos = {x = 2, y = 1},
@@ -32,6 +33,7 @@ local islands = {
     title = "This seems nice?",
     level = "map01",
     transition = "saucerBeam",
+    canQuitToWorld = true,
   },
   {
     pos = {x = 3, y = 1},
@@ -40,6 +42,7 @@ local islands = {
     title = "A quick dip",
     level = "map03",
     transition = "saucerBeam",
+    canQuitToWorld = true,
   },
   {
     pos = {x = 2, y = 2},
@@ -47,6 +50,7 @@ local islands = {
     --feature = "grassWater",
     title = "So what does this do?",
     transition = "saucerBeam",
+    canQuitToWorld = true,
   },
 }
 
@@ -61,8 +65,8 @@ local barriers = {
     from = {x=2,y=1},
     to = {x=2,y=2},
   }
-
 }
+]]--
 
 function WorldMap:update(dt)
   
@@ -88,7 +92,6 @@ function WorldMap:draw(cx, cy)
   
     
   for _, datum in pairs(self.barriers) do 
-    
     love.graphics.setColor(255, 255, 255, 255)
   
     love.graphics.draw(datum.shadowSprite.texture, 
@@ -115,9 +118,7 @@ function WorldMap:draw(cx, cy)
         datum.pos.x + cx - zapSprite.w/2, 
         datum.pos.y + cy - zapSprite.h/2 + 40
         )
-      
   end
-  
 end
 
 function WorldMap:isValidLoc(x, y)
@@ -142,12 +143,62 @@ function WorldMap:isValidDest(x, y)
   end
 end
 
-
 function WorldMap.getLoc(x, y)
   return {x = x*WorldMap.CHUNK_SIZE, y = y*WorldMap.CHUNK_SIZE}
 end
 
+function WorldMap.fromWorldState(sprites, worldStateData)
+  local runIslands = {}
+  for worldStateName, datum in pairs(worldStateData.islands) do
+    local x = datum.pos.x
+    if runIslands[x] == nil then
+      runIslands[x] = {}
+    end
+    
+    local y = datum.pos.y
+    local pos = WorldMap.getLoc(x,y) 
+    runIslands[x][y] = {
+      pos = pos, 
+      sprite = sprites[datum.stuff .. "Oct"], 
+      featureSprite = sprites[datum.feature], 
+      --level = datum.level,
+      title = datum.title,
+      transition = datum.transition,
+      featureShadowOffset = 0,
+      state = datum.state,
+      worldStateName = worldStateName
+    }
+    
+    if datum.smoke then
+      Particles.createNewSmokeEmitter(pos, 'small')
+    end
+    
+    if FeatureShadowOffsets[datum.feature] then
+      runIslands[x][y].featureShadowOffset = FeatureShadowOffsets[datum.feature]
+    end
+  end
+  
+  local runBarriers = {}
+  for name, datum in pairs(worldStateData.barriers) do    
+    local from = WorldMap.getLoc(datum.from.x, datum.from.y)
+    local to = WorldMap.getLoc(datum.to.x, datum.to.y)
+    local pos = {x = (from.x + to.x)/2, y = (from.y + to.y)/2}
+    table.insert(runBarriers, {pos = pos, sprite = sprites["barrier" .. datum.color], from = datum.from, to = datum.to,
+        zapSprites = {sprites['zap1'], sprites['zap2'], sprites['zap3'], sprites['zap4']}, 
+        shadowSprite = sprites['barrierShadow']
+    })
+  end
+   
+  return {
+    islands = runIslands,
+    barriers = runBarriers,
+    update = WorldMap.update,
+    draw = WorldMap.draw,
+    isValidDest = WorldMap.isValidDest
+  }
+end
 
+--[[
 function WorldMap.new(sprites, state)
   local runIslands = {}
   for _, datum in pairs(islands) do
@@ -168,7 +219,7 @@ function WorldMap.new(sprites, state)
       state = { gems = {red =  false, blue = false, green = false, yellow = false} },
     }
     if datum.smoke then
-      Particles.createNewSmokeEmitter(pos)
+      Particles.createNewSmokeEmitter(pos, 'small')
     end
     if state.levels[datum.level] then
       runIslands[x][y].state = state.levels[datum.level]
@@ -199,5 +250,6 @@ function WorldMap.new(sprites, state)
     isValidDest = WorldMap.isValidDest
   }
 end
+]]--
 
 return WorldMap

@@ -5,6 +5,7 @@ local Saucer = require 'world.saucer'
 local WorldMap = require 'world.worldMap'
 local Particles = require 'particles'
 local Hud = require 'hud'
+local WorldState = require 'worldState'
 
 local function loadAssets()
   local imageFile = love.graphics.newImage("assets/art/world2.png")
@@ -180,9 +181,22 @@ end
 
 World.state = {removedBarriers={}, saucerLoc={x=1, y=1}, money = 0, levels = {}}
 
-function World.load(absState, incState)
+function World.prep(
+    --absState, incState, 
+    mode)
+  World.mode = mode
+  --World.incState = incState
+  --World.absState = absState
+end
+
+function World.load()
   loadAssets()
   
+  --[[
+  local absState = World.absState
+  World.absState = nil
+  local incState = World.incState
+  World.incState = nil
   local newState = World.state
   if absState then
     newState = absState
@@ -206,14 +220,16 @@ function World.load(absState, incState)
       newState.levels[incState.levelState.name] = { gems = incState.levelState.gems }
     end
   end
+  ]]--
   
-  worldMap = WorldMap.new(sprites, newState)
-  saucer = Saucer.new(newState.saucerLoc, 
+  --worldMap = WorldMap.new(sprites, newState)
+  worldMap = WorldMap.fromWorldState(sprites, WorldState.data)
+  saucer = Saucer.new(--newState.saucerLoc, 
+    WorldState.data.saucerLoc,
     {sprites["playerUFO1"], sprites["playerUFO2"], sprites["playerUFO3"]}, sprites["playerUFOShadow"])
   World.camera = Camera.new(saucer.pos.x, saucer.pos.y)
   
-  
-  World.state = newState
+  --World.state = newState
 end
 
 function World.unload()

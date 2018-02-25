@@ -1,14 +1,14 @@
 return {
   version = "1.1",
   luaversion = "5.1",
-  tiledversion = "1.0.2",
+  tiledversion = "1.1.1",
   orientation = "orthogonal",
   renderorder = "right-down",
   width = 100,
   height = 50,
   tilewidth = 128,
   tileheight = 128,
-  nextobjectid = 224,
+  nextobjectid = 225,
   properties = {},
   tilesets = {
     {
@@ -54,7 +54,7 @@ return {
                 shape = "rectangle",
                 x = 0,
                 y = 0,
-                width = 25.6,
+                width = 31,
                 height = 128,
                 rotation = 0,
                 visible = true,
@@ -65,9 +65,9 @@ return {
                 name = "",
                 type = "",
                 shape = "rectangle",
-                x = 102.4,
+                x = 96,
                 y = 0,
-                width = 25.6,
+                width = 32,
                 height = 128,
                 rotation = 0,
                 visible = true,
@@ -95,7 +95,7 @@ return {
                 shape = "rectangle",
                 x = 0,
                 y = 0,
-                width = 25.6,
+                width = 31,
                 height = 128,
                 rotation = 0,
                 visible = true,
@@ -106,9 +106,9 @@ return {
                 name = "",
                 type = "",
                 shape = "rectangle",
-                x = 102.4,
+                x = 96,
                 y = 0,
-                width = 25.6,
+                width = 32,
                 height = 128,
                 rotation = 0,
                 visible = true,
@@ -620,8 +620,7 @@ return {
                 rotation = 0,
                 visible = true,
                 properties = {
-                  ["colType"] = "massy",
-                  ["mass"] = 100000
+                  ["colType"] = "conveyer"
                 }
               }
             }
@@ -655,8 +654,7 @@ return {
                 rotation = 0,
                 visible = true,
                 properties = {
-                  ["colType"] = "massy",
-                  ["mass"] = 100000
+                  ["colType"] = "conveyer"
                 }
               }
             }
@@ -690,8 +688,7 @@ return {
                 rotation = 0,
                 visible = true,
                 properties = {
-                  ["colType"] = "massy",
-                  ["mass"] = 100000
+                  ["colType"] = "conveyer"
                 }
               }
             }
@@ -1392,15 +1389,15 @@ return {
                 name = "",
                 type = "",
                 shape = "rectangle",
-                x = 38.4,
+                x = 32,
                 y = 0,
-                width = 51.2,
+                width = 63,
                 height = 128,
                 rotation = 0,
                 visible = true,
                 properties = {
                   ["colType"] = "massy",
-                  ["mass"] = 1000
+                  ["mass"] = 1
                 }
               }
             }
@@ -1623,15 +1620,75 @@ return {
                 name = "",
                 type = "",
                 shape = "rectangle",
-                x = 38.4,
+                x = 32,
                 y = 0,
-                width = 51.2,
+                width = 63,
                 height = 128,
                 rotation = 0,
                 visible = true,
                 properties = {
                   ["colType"] = "massy",
-                  ["mass"] = 1000
+                  ["mass"] = 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      name = "spritesheet_items",
+      firstgid = 137,
+      filename = "items.tsx",
+      tilewidth = 128,
+      tileheight = 128,
+      spacing = 0,
+      margin = 0,
+      image = "../art/spritesheet_items.png",
+      imagewidth = 1024,
+      imageheight = 512,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 128,
+        height = 128
+      },
+      properties = {},
+      terrains = {},
+      tilecount = 32,
+      tiles = {
+        {
+          id = 5,
+          type = "gem",
+          properties = {
+            ["color"] = "green"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 25.6,
+                y = 38.4,
+                width = 76.8,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
                 }
               }
             }
@@ -3358,7 +3415,7 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 5619.2,
+          x = 5504,
           y = 2380.8,
           width = 128,
           height = 128,
@@ -3610,6 +3667,20 @@ return {
           properties = {
             ["colType"] = "none"
           }
+        },
+        {
+          id = 224,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 2304,
+          y = 5376,
+          width = 128,
+          height = 128,
+          rotation = 0,
+          gid = 142,
+          visible = true,
+          properties = {}
         }
       }
     }

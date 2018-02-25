@@ -33,6 +33,13 @@ if not (type(common) == 'table' and common.class and common.instance) then
 	require(_PACKAGE .. '.class')
   common_local = common
 end
+
+local ffi = require 'ffi'
+ffi.cdef[[
+typedef struct { double x; double y; } hc_ffi_vert
+]]
+ 
+ 
 local vector  = require(_PACKAGE .. '.vector-light')
 local Polygon = require(_PACKAGE .. '.polygon')
 local GJK     = require(_PACKAGE .. '.gjk') -- actual collision detection
@@ -42,6 +49,20 @@ local GJK     = require(_PACKAGE .. '.gjk') -- actual collision detection
 	--common_local, common = common, common_local
 --end
 
+--*_*
+local function aabbNotIntersect(ax1, ay1, ax2, ay2, bx1, by1, bx2, by2)
+  return (bx1 > ax2
+      or bx2 < ax1
+      or by1 > ay2
+      or by2 < ay1)
+end
+
+local function bboxFFINotIntersect(a, b)
+  return (b[0].x > a[1].x
+      or b[1].x < a[0].x
+      or b[0].y > a[1].y
+      or b[1].y < a[0].y)
+end
 --
 -- base class
 --
@@ -93,6 +114,7 @@ function CircleShape:init(cx,cy, radius)
 	Shape.init(self, 'circle')
 	self._center = {x = cx, y = cy}
 	self._radius = radius
+  self:refreshCachedData()
 end
 
 local PointShape = {}
@@ -105,15 +127,30 @@ end
 -- collision functions
 --
 function ConvexPolygonShape:support(dx,dy)
-	local v = self._polygon.vertices
-	local max, vmax = -math_huge
-	for i = 1,#v do
-		local d = vector.dot(v[i].x,v[i].y, dx,dy)
-		if d > max then
-			max, vmax = d, v[i]
-		end
-	end
-	return vmax.x, vmax.y
+  --if useFFI then
+    local fv = self._polygon.ffiVerts
+    local max, vmaxx, vmaxy = -math_huge
+    local iMax = self._polygon.lastFfiVert
+    for i = 0, iMax do
+      local d = fv[i].x*dx + fv[i].y * dy
+      if d > max then
+        max, vmaxx, vmaxy = d, fv[i].x, fv[i].y
+      end
+    end
+    return vmaxx, vmaxy
+    --[[
+  else
+    local v = self._polygon.vertices
+    local max, vmax = -math_huge
+    for i = 1,#v do
+      local d = vector.dot(v[i].x,v[i].y, dx,dy)
+      if d > max then
+        max, vmax = d, v[i]
+      end
+    end
+    return vmax.x, vmax.y
+  end
+  ]]--
 end
 
 function CircleShape:support(dx,dy)
@@ -131,6 +168,9 @@ function ConvexPolygonShape:collidesWith(other)
 	end
 
 	-- else: type is POLYGON
+  if bboxFFINotIntersect(self:bboxFFI(), other:bboxFFI()) then
+    return false 
+  end
 	return GJK(self, other)
 end
 
@@ -139,8 +179,13 @@ function ConcavePolygonShape:collidesWith(other)
 	if other._type == 'point' then
 		return other:collidesWith(self)
 	end
-
-	-- TODO: better way of doing this. report all the separations?
+  
+  --*_*
+  if bboxFFINotIntersect(self:bboxFFI(), other:bboxFFI()) then
+    return false 
+  end
+  
+  -- TODO: better way of doing this. report all the separations?  
 	local collide,dx,dy = false,0,0
 	for _,s in ipairs(self._shapes) do
 		local status, sx,sy = s:collidesWith(other)
@@ -159,7 +204,9 @@ end
 
 function CircleShape:collidesWith(other)
 	if self == other then return false end
+  
 	if other._type == 'circle' then
+    
 		local px,py = self._center.x-other._center.x, self._center.y-other._center.y
 		local d = vector.len2(px,py)
 		local radii = self._radius + other._radius
@@ -171,6 +218,10 @@ function CircleShape:collidesWith(other)
 		end
 		return false
 	elseif other._type == 'polygon' then
+    if bboxFFINotIntersect(self:bboxFFI(), other:bboxFFI()) then
+      return false 
+    end
+    
 		return GJK(self, other)
 	end
 
@@ -324,6 +375,35 @@ function PointShape:bbox()
 	return x,y,x,y
 end
 
+function ConvexPolygonShape:bboxFFI()
+	return self._polygon:bboxFFI()
+end
+
+function ConcavePolygonShape:bboxFFI()
+	return self._polygon:bboxFFI()
+end
+
+--*_* added this, plus all calls to it
+function CircleShape:refreshCachedData()
+  if not self.ffiBBox then
+    self.ffiBBox = ffi.new('hc_ffi_vert[2]')
+  end
+  local cx,cy = self:center()
+	local r = self._radius
+	
+  self.ffiBBox[0].x = cx-r
+  self.ffiBBox[0].y = cy-r
+  self.ffiBBox[1].x = cx+r
+  self.ffiBBox[1].y = cy+r
+end
+
+function CircleShape:bboxFFI()
+  return self.ffiBBox
+end
+
+function PointShape:bbox()
+	error "not implemented"
+end
 
 function ConvexPolygonShape:move(x,y)
 	self._polygon:move(x,y)
@@ -339,6 +419,7 @@ end
 function CircleShape:move(x,y)
 	self._center.x = self._center.x + x
 	self._center.y = self._center.y + y
+  self:refreshCachedData()
 end
 
 function PointShape:move(x,y)
@@ -367,6 +448,7 @@ function CircleShape:rotate(angle, cx,cy)
 	Shape.rotate(self, angle)
 	if not (cx and cy) then return end
 	self._center.x,self._center.y = vector.add(cx,cy, vector.rotate(angle, self._center.x-cx, self._center.y-cy))
+  self:refreshCachedData()
 end
 
 function PointShape:rotate(angle, cx,cy)
@@ -395,6 +477,7 @@ end
 function CircleShape:scale(s)
 	assert(type(s) == "number" and s > 0, "Invalid argument. Scale must be greater than 0")
 	self._radius = self._radius * s
+  self:refreshCachedData()
 end
 
 function PointShape:scale()
@@ -438,16 +521,20 @@ function ConcavePolygonShape:draw(x, y, mode, wireframe)
 	end
 end
 
-function CircleShape:draw(mode, segments)
-  --local x = x or 0
-  --local y = y or 0
-	love.graphics.circle(mode or 'line', self:outcircle())
+--*_*
+function CircleShape:draw(x, y, mode, segments)
+  local x = x or 0
+  local y = y or 0
+  local cx, cy, r = self:outcircle()
+	love.graphics.circle(mode or 'line', cx + x, cy + y,  r)
 end
 
-function PointShape:draw()
-  --local x = x or 0
-  --local y = y or 0
-	love.graphics.point(self:center())
+--*_*
+function PointShape:draw(x, y)
+  local x = x or 0
+  local y = y or 0
+  local cx, cy = self:center()
+	love.graphics.point(cx + x, cy + y)
 end
 
 

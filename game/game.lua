@@ -30,8 +30,13 @@ local CollisionArea = require 'game.collisionArea'
 local Flares = require 'game.flares'
 local Mine = require 'game.mine'
 local Jelly = require 'game.jelly'
+local Bouncer = require 'game.bouncer'
 local Hud = require 'hud'
 local Profile = require 'profile.profile'
+local WorldState = require 'worldState'
+
+local FullScreenMenu = require 'ui.fullScreenMenu'
+local Sound = require 'sound'
 
 local Game = {
   HC = require 'HC'
@@ -60,6 +65,7 @@ function Game.globalInit()
   Object.registerObjectType("collisionArea", function(...) return CollisionArea.newCollisionArea(...) end)
   Object.registerObjectType("mine", function(...) return Mine.newMine(...) end)
   Object.registerObjectType("jelly", function(...) return Jelly.newJelly(...) end)
+  Object.registerObjectType("bouncer", function(...) return Bouncer.newBouncer(...) end)
   
   Object.registerObjectType("p1start", function(...) 
       player = Player.newPlayer(...)
@@ -76,6 +82,9 @@ local profilerNames = {
   { "updateDynamicsCollisions", 2 },
   { 'collisionsBegin', 3 },
   { 'collisionsCol', 3 },
+  { 'HC', 4 },
+  { 'HCNeigh', 5 },
+  { 'HCCol', 5 },
   { 'collisionsFric', 3 },
   { 'collisionsRes', 3 },
   { 'collisionsFin', 3 },
@@ -88,26 +97,53 @@ local profilerNames = {
 
 local HC_HASH_SIZE = 256
 
-function Game.load(mapName, absState, lang)
-  Game.mapName = mapName
+function Game.keypressed(key, scancode, isrepeat)
+  if key == 'escape' then
+    Game.paused = not Game.paused
+  end
+end
+
+function Game.prep(--[[mapName, absState, lang, mode, canQuitToWorld, bgmName, worldStateName]]--
+    worldStateName,
+    lang,
+    mode
+)
+  Game.mode = mode
+  local islandData = WorldState.data.islands[worldStateName]
+
+  Game.mapName = islandData.level
+  Game.lang = lang
+  --Game.absState = absState
+  Game.canQuitToWorld = islandData.canQuitToWorld
+  Game.bgmName = islandData.bgmName
+  Game.worldStateName = worldStateName
+  Game.state = { gems = islandData.state.gems }
+end
+
+function Game.load()
+  --[[
   local newState = Game.state
+  local absState = Game.absState
+  Game.absState = nil
   if absState then
     newState = absState
   end
-  
-  Game.state = newState
+  ]]--
+  --Game.state = newState
   
   Game.money = 0
+  
+  Game.paused = false
   
   Player.playerLoadAssets()
   
   Flares.load()
-  
+    
 	-- Load a map exported to Lua from Tiled
-  Game.map = sti("assets/maps/"..mapName..".lua")
+  Game.map = sti("assets/maps/"..Game.mapName..".lua")
   Game.HC.resetHash(HC_HASH_SIZE, true)
   hc_polys = hc_init.buildShapeFromMapLayers(Game, 
-    "assets/maps/"..mapName.."script.lua", "assets/maps/"..mapName.."_txt_".. lang .. ".lua", 
+    "assets/maps/"..Game.mapName.."script.lua", "assets/maps/"..Game.mapName.."_txt_".. Game.lang .. ".lua", 
     Game.map)
   
   Game.scriptUpdate = Game.map.script.update
@@ -117,7 +153,7 @@ function Game.load(mapName, absState, lang)
   fontDebug = love.graphics.newFont(14)
     
   debugDrawCollisionShapes = false
-  profiler = false --true
+  profiler = false
   
   Game.camera = Camera.new(player.pos.x, player.pos.y - 64)
     
@@ -133,14 +169,22 @@ function Game.load(mapName, absState, lang)
   
   Profile.registerCount("dynamicObjects", 0)
   Profile.registerCount("collisions", 0)
+  Profile.registerCount("allColShapes", 0)
+  
+  Game.mode.keyboardState.push(Game.keypressed, nil)
+  
+  Game.bgm = love.audio.play("assets/music/" .. Game.bgmName .. ".ogg", "stream", true, 'music')
+--  Game.bgm:setVolume(Game.bgmVolume)
 end
 
 function Game.sendResetRequest()
   Object.sendResetRequestToAll(Game)
 end
 
-
 function Game.unload()
+  Game.mode.keyboardState.clear()
+  Game.pauseMenu = nil
+  love.audio.stop(Game.bgm)
   Profile.stop()
   
   Game.map = nil
@@ -159,9 +203,7 @@ function Game.unload()
   Game.HC.resetHash(HC_HASH_SIZE, true)
 end
 
-
 local dtStub = 0
-
 
 function Game.updateProfilerForUpdate(pt0, pt1, pt2, pt3, pdt10, pdt11, pdt12)
   Profile.update('update', pt3 - pt0)
@@ -171,6 +213,21 @@ function Game.updateProfilerForUpdate(pt0, pt1, pt2, pt3, pdt10, pdt11, pdt12)
   Profile.update('updateDynamicsMap', pdt10)
   Profile.update('updateDynamicsObjects', pdt11)
   Profile.update('updateDynamicsCollisions', pdt12)
+  Profile.updateFromFrag('collisionsBegin')
+  Profile.updateFromFrag('collisionsCol')
+  Profile.updateFromFrag('HC')
+  Profile.updateFromFrag('HCNeigh')
+  Profile.updateFromFrag('HCCol')
+  Profile.updateFromFrag('collisionsFric')
+  Profile.updateFromFrag('collisionsRes')
+  Profile.updateFromFrag('collisionsFin')
+  
+  local zz = Game.HC.hash():shapes()
+  local i = 0
+  for _, _ in pairs(zz) do
+    i = i + 1
+  end
+  Profile.update('allColShapes', i)
 end
 
 function Game.updateProfilerForDraw(pt0, pt1, pt2, pt3)
@@ -180,8 +237,119 @@ function Game.updateProfilerForDraw(pt0, pt1, pt2, pt3)
   Profile.update('drawMisc', pt3 - pt2)
 end
 
+function Game.resume()
+  Game.paused = false
+end
 
-function Game.update(dt)
+function Game.openQuitToTitleMenu()
+  local function quitToTitle() 
+    Game.mode.toTitle() 
+  end
+  local oldPauseMenu = Game.pauseMenu
+  local function back() 
+    Game.pauseMenu:shutDown() 
+    Game.pauseMenu = oldPauseMenu
+  end 
+  Game.pauseMenu = FullScreenMenu.newFullScreenMenu( {
+      {text = 'Quit', cb = quitToTitle},
+      {text = 'Cancel', cb = back}
+    },
+    Game.mode.keyboardState, 
+    back
+  )
+end
+
+function Game.openQuitMenu()
+  local function quitCb() 
+    love.event.push('quit')
+  end
+  local oldPauseMenu = Game.pauseMenu
+  local function back() 
+    Game.pauseMenu:shutDown() 
+    Game.pauseMenu = oldPauseMenu
+  end 
+  Game.pauseMenu = FullScreenMenu.newFullScreenMenu( {
+      {text = 'Quit', cb = quitCb},
+      {text = 'Cancel', cb = back}
+    },
+    Game.mode.keyboardState, 
+    back
+  )
+end
+
+function Game.openQuitToWorld()
+  local function quitCb() 
+    Game.mode.toWorld({}) 
+  end
+  local oldPauseMenu = Game.pauseMenu
+  local function back() 
+    Game.pauseMenu:shutDown() 
+    Game.pauseMenu = oldPauseMenu
+  end 
+  Game.pauseMenu = FullScreenMenu.newFullScreenMenu( {
+      {text = 'Return To World', cb = quitCb},
+      {text = 'Cancel', cb = back}
+    },
+    Game.mode.keyboardState, 
+    back
+  )
+end
+
+function Game.openOptionsMenu()
+  local oldPauseMenu = Game.pauseMenu
+  local function back() 
+    Game.pauseMenu:shutDown() 
+    Game.pauseMenu = oldPauseMenu
+  end 
+  Game.pauseMenu = FullScreenMenu.newFullScreenMenu( {
+      {text = 'Music Volume', quantity = { 
+          getValue = Sound.getMusicVolume,
+          cb = Sound.incMusicVolume
+      } },
+      {text = 'Sound Effect Volume', quantity = {
+          getValue = Sound.getFXVolume,
+          cb = Sound.incFXVolume
+      } },
+      {text = 'Back', cb = back},
+    },
+    Game.mode.keyboardState, 
+    back
+  )
+end
+
+function Game.openPauseMenu(canReturnToWorld)
+  local elems = { {text = "Resume", cb = Game.resume} }
+  
+  table.insert(elems, {text = "Options", cb = Game.openOptionsMenu})
+  if Game.canQuitToWorld then
+    table.insert(elems, {text = "Return To World", cb = Game.openQuitToWorld })
+  end
+  
+  table.insert(elems, {text = "Quit To Title", cb = Game.openQuitToTitleMenu})
+
+  table.insert(elems, {text = "Quit Game", cb = Game.openQuitMenu})
+  
+  Game.pauseMenu = FullScreenMenu.newFullScreenMenu(      
+    elems, 
+    Game.mode.keyboardState, 
+    Game.resume
+  ) 
+end
+
+function Game.update(dt)  
+  if Game.paused then
+    if not Game.pauseMenu then
+      Game.openPauseMenu(true)
+    end
+    Game.pauseMenu:update(dt)
+    return
+  else
+    if Game.pauseMenu then
+      Game.pauseMenu:shutDown()
+      Game.pauseMenu = nil
+    end
+  end
+  
   local pt0 = 0
   local pt1 = 0
   local pt2 = 0
@@ -189,6 +357,7 @@ function Game.update(dt)
   local pdt10 = 0
   local pdt11 = 0
   local pdt12 = 0
+  local pts = 0
   
   if profiler then
     pt0 = love.timer.getTime()
@@ -197,8 +366,9 @@ function Game.update(dt)
   debugDt = dt
   
   local step = 1/240
-  if debugMode then step = 1/15 end
   local dtFrag = dt + dtStub
+  
+  dtFrag = math.min(dtFrag, 0.1)
   
   --because you only get results when you are in something, and not when you leave, we 
   --let the hud do a precollision flag clear. If the frag is so small that we will not
@@ -315,7 +485,6 @@ function Game.draw()
       elseif hc_poly.user.object.type then
         love.graphics.print(i .. " - " .. hc_poly.user.object.type, hx+cx, hy+cy)
       end
-      
     end
     love.graphics.setColor(255, 255, 255, 255)
     love.graphics.print("dt: " .. debugDt, 400, 10)
@@ -342,16 +511,21 @@ function Game.draw()
       "update", "updatePre", "updateDynamics", "updateDynamicsMap", "updateDynamicsObjects",
       "updateDynamicsCollisions", 
       'collisionsBegin',
-      'collisionsCol',
+      'collisionsCol', 
+      'HC', 'HCNeigh', 'HCCol',
       'collisionsFric',
       'collisionsRes',
       'collisionsFin',
       "updatePost", 
       "draw", "drawMap", "drawObjects", "drawMisc",
-      "dynamicObjects", "collisions"
+      "dynamicObjects", "collisions", "allColShapes",
     }
     
     Profile.draw(profilerDrawData)
+  end
+  
+  if Game.pauseMenu then
+    Game.pauseMenu:draw()
   end
 end
 

@@ -32,7 +32,7 @@ end
 
 
 function Door:update(game, dt)
-  --DynamicObject.update(self, dt)
+  DynamicObject.update(self, dt)
   
   if self.state == "opening" then
     local dy = dt * 500
@@ -92,7 +92,8 @@ function Door:update(game, dt)
   end
 end
 
-function Door:finalizeCollision(game, dt)
+function Door:resolveCollision(game, dt, resolutionVector)
+  self:move(0, resolutionVector.y)
 end
 
 Door = common_local.class('Door', Door, DynamicObject)

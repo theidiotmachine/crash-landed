@@ -200,7 +200,7 @@ local saucerDoor = {}
 
 function saucerDoor.collide(colArea, game, object)
   if object.type == "player" and levelState.podReady then
-    game.mode.toWorld(nil, {})
+    game.mode.toWorld({finished = true})
   end
 end
 
