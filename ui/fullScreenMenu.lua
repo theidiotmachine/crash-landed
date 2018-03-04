@@ -116,20 +116,6 @@ function FullScreenMenu:draw()
 end
 
 function FullScreenMenu:update(dt)
-  --[[
-  if mode.keyboardState.keyPressed['up'] or mode.keyboardState.keyPressed['w'] then
-    self.selectedElem = self.selectedElem - 1
-    if self.selectedElem == 0 then
-      self.selectedElem = #self.elems
-    end
-  end
-  if mode.keyboardState.keyPressed['down'] or mode.keyboardState.keyPressed['s'] then
-    self.selectedElem = self.selectedElem + 1
-    if self.selectedElem > #self.elems then
-      self.selectedElem = 1
-    end
-  end
-  ]]--
 end
 
 FullScreenMenu = common_local.class('FullScreenMenu', FullScreenMenu)

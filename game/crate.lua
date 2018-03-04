@@ -8,8 +8,6 @@ end
 
 local Object = require 'game.object'
 local DynamicObject = require 'game.dynamicObject'
---local Collisions = require 'game.collisions'
---local Particles = require 'particles'
 local Explosions = require 'game.explosions'
 
 local Crate = {}
@@ -46,7 +44,6 @@ function Crate:update(game, dt)
     self:moveTo(self.resetRequest.x, self.resetRequest.y)
     self:initState(game)
     self.resetRequest = nil
-    return
   end
   
   DynamicObject.update(self, game, dt)
@@ -89,7 +86,7 @@ function Crate:takeDamage(game, dt, damageType, amount, separatingVector, source
   end
 end
 
-function Crate:sendResetRequest(game)
+function Crate:receiveResetRequest(game)
   self.resetRequest = { x = self.resetLoc.x, y = self.resetLoc.y }
 end
 

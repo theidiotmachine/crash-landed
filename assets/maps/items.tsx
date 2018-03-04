@@ -13,4 +13,40 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="13" type="gem">
+  <properties>
+   <property name="color" value="blue"/>
+  </properties>
+  <objectgroup draworder="index">
+   <object id="2" x="25.6" y="38.4" width="76.8" height="51.2">
+    <properties>
+     <property name="colType" value="none"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="20" type="gem">
+  <properties>
+   <property name="color" value="yellow"/>
+  </properties>
+  <objectgroup draworder="index">
+   <object id="1" x="25.6" y="38.4" width="76.8" height="51.2">
+    <properties>
+     <property name="colType" value="none"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
+ <tile id="28" type="gem">
+  <properties>
+   <property name="color" value="red"/>
+  </properties>
+  <objectgroup draworder="index">
+   <object id="2" x="25.6" y="38.4" width="76.8" height="51.2">
+    <properties>
+     <property name="colType" value="none"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
 </tileset>

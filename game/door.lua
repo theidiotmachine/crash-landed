@@ -92,6 +92,20 @@ function Door:update(game, dt)
   end
 end
 
+function Door:open(silent)
+  self.state = "opening"
+  if not silent then
+--    love.audio.play("assets/sound/door1.ogg", 'static', false, 'fx')
+  end
+end
+
+function Door:close(silent)
+  self.state = "closing"
+  if not silent then
+--    love.audio.play("assets/sound/door1.ogg", 'static', false, 'fx')
+  end
+end
+
 function Door:resolveCollision(game, dt, resolutionVector)
   self:move(0, resolutionVector.y)
 end

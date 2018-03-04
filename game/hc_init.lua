@@ -281,7 +281,7 @@ function hc_init.buildShapeFromMapLayers(game, scriptName, textName, map)
           -- and we want to ignore that, and just draw on the window untransformed. You can read the love
           -- docs and figure it out.
           local oldR, oldG, oldB, oldA = love.graphics.getColor()
-          love.graphics.setColor(255, 255, 255, 255)
+          love.graphics.setColor(ambient.bgColor.r, ambient.bgColor.g, ambient.bgColor.b, 255)
           local windowWidth  = love.graphics.getWidth()
           local windowHeight  = love.graphics.getHeight()
           local y = math.max((height - windowHeight) / 2, 0)

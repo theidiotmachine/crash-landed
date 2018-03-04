@@ -89,13 +89,16 @@ function Button:collision(game, dt, selfCollisionObject, otherCollisionObject, o
   end
 end
 
-function Button:press()
+function Button:press(silent)
   if self.state == "up" then
-      self.queuedState = "down"
-    elseif self.state == "down" then
-      self.queuedState = nil
+    self.queuedState = "down"
+    if not silent then
+--      love.audio.play("assets/sound/button1.ogg", 'static', false, 'fx')
     end
-    self.timer = 2
+  elseif self.state == "down" then
+    self.queuedState = nil
+  end
+  self.timer = 2
 end
 
 

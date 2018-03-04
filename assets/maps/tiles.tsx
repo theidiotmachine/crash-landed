@@ -48,6 +48,18 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="36" type="fallingTile">
+  <properties>
+   <property name="flashId" type="int" value="52"/>
+  </properties>
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="0" width="128" height="128">
+    <properties>
+     <property name="colType" value="static"/>
+    </properties>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="42" type="decoration"/>
  <tile id="43" type="decoration"/>
  <tile id="50" type="decoration"/>

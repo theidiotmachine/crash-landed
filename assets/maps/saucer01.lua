@@ -8,7 +8,7 @@ return {
   height = 50,
   tilewidth = 128,
   tileheight = 128,
-  nextobjectid = 225,
+  nextobjectid = 239,
   properties = {},
   tilesets = {
     {
@@ -833,6 +833,9 @@ return {
         {
           id = 41,
           type = "crate",
+          properties = {
+            ["crateType"] = "fuel"
+          },
           objectGroup = {
             type = "objectgroup",
             name = "",
@@ -874,6 +877,9 @@ return {
         {
           id = 50,
           type = "crate",
+          properties = {
+            ["crateType"] = "fuel"
+          },
           objectGroup = {
             type = "objectgroup",
             name = "",
@@ -1678,6 +1684,108 @@ return {
             objects = {
               {
                 id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 25.6,
+                y = 38.4,
+                width = 76.8,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 13,
+          type = "gem",
+          properties = {
+            ["color"] = "blue"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 25.6,
+                y = 38.4,
+                width = 76.8,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 20,
+          type = "gem",
+          properties = {
+            ["color"] = "yellow"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 25.6,
+                y = 38.4,
+                width = 76.8,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 28,
+          type = "gem",
+          properties = {
+            ["color"] = "red"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
                 name = "",
                 type = "",
                 shape = "rectangle",
@@ -3681,6 +3789,183 @@ return {
           gid = 142,
           visible = true,
           properties = {}
+        },
+        {
+          id = 225,
+          name = "cutscene2",
+          type = "collisionArea",
+          shape = "rectangle",
+          x = 2432,
+          y = 3328,
+          width = 128,
+          height = 256,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["colType"] = "none"
+          }
+        },
+        {
+          id = 227,
+          name = "cutscene4",
+          type = "collisionArea",
+          shape = "rectangle",
+          x = 5120,
+          y = 4480,
+          width = 128,
+          height = 512,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["colType"] = "none"
+          }
+        },
+        {
+          id = 228,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1408,
+          y = 4608,
+          width = 128,
+          height = 128,
+          rotation = 0,
+          gid = 165,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 229,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 8064,
+          y = 3840,
+          width = 128,
+          height = 128,
+          rotation = 0,
+          gid = 157,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 230,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 2432,
+          y = 3200,
+          width = 128,
+          height = 128,
+          rotation = 0,
+          gid = 150,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 231,
+          name = "cutscene5",
+          type = "collisionArea",
+          shape = "rectangle",
+          x = 6272,
+          y = 4736,
+          width = 128,
+          height = 256,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["colType"] = "none"
+          }
+        },
+        {
+          id = 232,
+          name = "cutscene6",
+          type = "collisionArea",
+          shape = "rectangle",
+          x = 3968,
+          y = 2944,
+          width = 128,
+          height = 256,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["colType"] = "none"
+          }
+        },
+        {
+          id = 233,
+          name = "cutscene7",
+          type = "collisionArea",
+          shape = "rectangle",
+          x = 3840,
+          y = 2304,
+          width = 128,
+          height = 384,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["colType"] = "none"
+          }
+        },
+        {
+          id = 234,
+          name = "cutscenegemblue",
+          type = "collisionArea",
+          shape = "rectangle",
+          x = 2432,
+          y = 3072,
+          width = 128,
+          height = 128,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["colType"] = "none"
+          }
+        },
+        {
+          id = 236,
+          name = "cutscenegemred",
+          type = "collisionArea",
+          shape = "rectangle",
+          x = 1408,
+          y = 4480,
+          width = 128,
+          height = 128,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["colType"] = "none"
+          }
+        },
+        {
+          id = 237,
+          name = "cutscenegemyellow",
+          type = "collisionArea",
+          shape = "rectangle",
+          x = 8064,
+          y = 3712,
+          width = 128,
+          height = 128,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["colType"] = "none"
+          }
+        },
+        {
+          id = 238,
+          name = "cutscenegemgreen",
+          type = "collisionArea",
+          shape = "rectangle",
+          x = 2304,
+          y = 5248,
+          width = 128,
+          height = 128,
+          rotation = 0,
+          visible = true,
+          properties = {
+            ["colType"] = "none"
+          }
         }
       }
     }

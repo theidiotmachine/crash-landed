@@ -1,8 +1,8 @@
 # License
 
 ## Introduction
-This repo contains a number of different things, licenced differently. Please read 
-this carefully.
+This repo contains a number of different things, licenced differently. If you intend to fork or distribute Crash Landed, 
+please read this carefully.
 
 If you feel that I have used your work unfairly, please contact me, perhaps through
 a bug report on github or a message on [OGA](https://opengameart.org/users/theidiotmachine)
@@ -179,3 +179,19 @@ http://creativecommons.org/licenses/by/3.0/
 Sheep May Safely Graze - BWV 208 Kevin MacLeod https://incompetech.com
 Licensed under Creative Commons: By Attribution 3.0
 http://creativecommons.org/licenses/by/3.0/
+
+## Sound
+
+Sounds come either from [Freesound](https://freesound.org), Kenney, or are made by us. They are all CC0.
+
+### sophiehall3535
+
+[sophiehall3535](https://freesound.org/people/sophiehall3535/)
+
+### Kenney
+
+[Kenny](http://www.kenney.nl)
+
+### Us
+
+The alien noises are by Theo Dinsdale, with postprocessing by Tim Dinsdale

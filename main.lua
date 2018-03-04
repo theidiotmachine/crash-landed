@@ -28,7 +28,6 @@ function love.load()
 
   Game.globalInit()
   Particles.globalInit()
-  
   Hud.load()
   
   --WorldState.init("__nosave__")

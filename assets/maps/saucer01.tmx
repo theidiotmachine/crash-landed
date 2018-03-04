@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="128" tileheight="128" infinite="0" nextobjectid="225">
+<map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="128" tileheight="128" infinite="0" nextobjectid="239">
  <tileset firstgid="1" source="industrial ground.tsx"/>
  <tileset firstgid="29" source="industrial tiles.tsx"/>
  <tileset firstgid="137" source="items.tsx"/>
@@ -372,5 +372,53 @@
    </properties>
   </object>
   <object id="224" gid="142" x="2304" y="5376" width="128" height="128"/>
+  <object id="225" name="cutscene2" type="collisionArea" x="2432" y="3328" width="128" height="256">
+   <properties>
+    <property name="colType" value="none"/>
+   </properties>
+  </object>
+  <object id="227" name="cutscene4" type="collisionArea" x="5120" y="4480" width="128" height="512">
+   <properties>
+    <property name="colType" value="none"/>
+   </properties>
+  </object>
+  <object id="228" gid="165" x="1408" y="4608" width="128" height="128"/>
+  <object id="229" gid="157" x="8064" y="3840" width="128" height="128"/>
+  <object id="230" gid="150" x="2432" y="3200" width="128" height="128"/>
+  <object id="231" name="cutscene5" type="collisionArea" x="6272" y="4736" width="128" height="256">
+   <properties>
+    <property name="colType" value="none"/>
+   </properties>
+  </object>
+  <object id="232" name="cutscene6" type="collisionArea" x="3968" y="2944" width="128" height="256">
+   <properties>
+    <property name="colType" value="none"/>
+   </properties>
+  </object>
+  <object id="233" name="cutscene7" type="collisionArea" x="3840" y="2304" width="128" height="384">
+   <properties>
+    <property name="colType" value="none"/>
+   </properties>
+  </object>
+  <object id="234" name="cutscenegemblue" type="collisionArea" x="2432" y="3072" width="128" height="128">
+   <properties>
+    <property name="colType" value="none"/>
+   </properties>
+  </object>
+  <object id="236" name="cutscenegemred" type="collisionArea" x="1408" y="4480" width="128" height="128">
+   <properties>
+    <property name="colType" value="none"/>
+   </properties>
+  </object>
+  <object id="237" name="cutscenegemyellow" type="collisionArea" x="8064" y="3712" width="128" height="128">
+   <properties>
+    <property name="colType" value="none"/>
+   </properties>
+  </object>
+  <object id="238" name="cutscenegemgreen" type="collisionArea" x="2304" y="5248" width="128" height="128">
+   <properties>
+    <property name="colType" value="none"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

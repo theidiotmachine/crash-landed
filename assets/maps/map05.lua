@@ -8,7 +8,7 @@ return {
   height = 200,
   tilewidth = 128,
   tileheight = 128,
-  nextobjectid = 386,
+  nextobjectid = 387,
   properties = {},
   tilesets = {
     {
@@ -1744,6 +1744,40 @@ return {
           }
         },
         {
+          id = 36,
+          type = "fallingTile",
+          properties = {
+            ["flashId"] = 52
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 128,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "static"
+                }
+              }
+            }
+          }
+        },
+        {
           id = 42,
           type = "decoration"
         },
@@ -2490,6 +2524,20 @@ return {
           height = 128,
           rotation = 0,
           gid = 334,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 386,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 2048,
+          y = 25344,
+          width = 128,
+          height = 128,
+          rotation = 0,
+          gid = 257,
           visible = true,
           properties = {}
         }

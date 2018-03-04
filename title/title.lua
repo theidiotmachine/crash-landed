@@ -105,6 +105,23 @@ function Title.openCreditsMusicMenu()
   )
 end
 
+function Title.openCreditsSoundMenu()
+  local oldMenu = Title.menu
+  local function back() 
+    Title.menu:shutDown() 
+    Title.menu = oldMenu
+  end 
+  Title.menu = FullScreenMenu.newFullScreenMenu( {
+      {text = "Sound - sophiehall3535", 
+        cb = function() love.system.openURL('https://freesound.org/people/sophiehall3535/') end
+      },
+      {text = 'back', cb = back}
+    },
+    Title.mode.keyboardState, 
+    back
+  )
+end
+
 function Title.openCreditsMenu()
   local oldMenu = Title.menu
   local function back() 
@@ -115,6 +132,9 @@ function Title.openCreditsMenu()
       {text = 'Code', cb = Title.openCreditsCodeMenu},
       {text = 'Art', cb = Title.openCreditsArtMenu},
       {text = 'Music', cb = Title.openCreditsMusicMenu},
+      {text = 'Sound', cb = Title.openCreditsSoundMenu},
+      {text = 'Full License', cb = 
+        function() love.system.openURL('https://github.com/theidiotmachine/crash-landed/blob/master/LICENSE.MD') end},
       {text = 'back', cb = back}
     },
     Title.mode.keyboardState, 

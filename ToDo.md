@@ -1,5 +1,4 @@
 # Code
-- Mine explosion
 - State transition
  - From game to world -- maxHealth
  - From world to game -- maxHealth
@@ -23,11 +22,13 @@
 - Secret level
 - Factory boss level
 # SFX
-- lever
+- lever [x]
 - door
-- button
+- button [x]
 - alarm?
 - saucer power down/up
-- ouch
+- ouch [x]
 - bang
 - splash
+- door
+- bouncer

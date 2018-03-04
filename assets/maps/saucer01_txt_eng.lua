@@ -24,19 +24,18 @@ return {
   areYouSure = "Are you sure you want to  turn your flying saucer off?",
   asASafetyFeature = "As a safety feature, access to power reset is really stupid",
   observationRoomNote = "Please leave the observation deck as you would wish to find it!\n"..
-    "That includes you!!\n"..
+    "That includes you, Clide!!\n"..
     "And stop messing about with the fuel barrels!!!",
   chargerNote = "Fuel Barrel Goes Here",
   
   signToEngines = "to engines and stuff",
   signBridge = "bridge",
-  signToEscapePodRun = "escape pod. Run!",
-  signToEscapePod = "to escape pod",
+  signToEscapePodRun = "escape saucer. Run!",
+  signToEscapePod = "to escape saucer",
   signToBoring = "to boring things",
   signToSafety = "to safety. Also, nice cookies?",
-  signToBridgeAndPod = "to bridge and escape pod",
-  signToEngines = "to engine room",
+  signToBridgeAndPod = "to bridge and escape saucer",
+  signToEngines = "to engineering",
   signBasement = "like boxes and stuff",
   signToReset = "main power reset",
-  
 }

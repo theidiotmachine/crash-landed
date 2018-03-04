@@ -31,6 +31,8 @@ local Flares = require 'game.flares'
 local Mine = require 'game.mine'
 local Jelly = require 'game.jelly'
 local Bouncer = require 'game.bouncer'
+local FallingTile = require 'game.fallingTile'
+
 local Hud = require 'hud'
 local Profile = require 'profile.profile'
 local WorldState = require 'worldState'
@@ -66,6 +68,7 @@ function Game.globalInit()
   Object.registerObjectType("mine", function(...) return Mine.newMine(...) end)
   Object.registerObjectType("jelly", function(...) return Jelly.newJelly(...) end)
   Object.registerObjectType("bouncer", function(...) return Bouncer.newBouncer(...) end)
+  Object.registerObjectType("fallingTile", function(...) return FallingTile.newFallingTile(...) end)
   
   Object.registerObjectType("p1start", function(...) 
       player = Player.newPlayer(...)
@@ -121,16 +124,6 @@ function Game.prep(--[[mapName, absState, lang, mode, canQuitToWorld, bgmName, w
 end
 
 function Game.load()
-  --[[
-  local newState = Game.state
-  local absState = Game.absState
-  Game.absState = nil
-  if absState then
-    newState = absState
-  end
-  ]]--
-  --Game.state = newState
-  
   Game.money = 0
   
   Game.paused = false
@@ -159,10 +152,6 @@ function Game.load()
     
   ambient = Ambient.new(255, 255, 255)
   
-  if Game.scriptInit then
-    Game.scriptInit(Game)
-  end
-  
   for _, pdd in ipairs(profilerNames) do
     Profile.registerTime(pdd[1], pdd[2])
   end
@@ -172,9 +161,12 @@ function Game.load()
   Profile.registerCount("allColShapes", 0)
   
   Game.mode.keyboardState.push(Game.keypressed, nil)
-  
+  Hud.setKeyboadState(Game.mode.keyboardState)
   Game.bgm = love.audio.play("assets/music/" .. Game.bgmName .. ".ogg", "stream", true, 'music')
---  Game.bgm:setVolume(Game.bgmVolume)
+  
+  if Game.scriptInit then
+    Game.scriptInit(Game)
+  end
 end
 
 function Game.sendResetRequest()
@@ -182,6 +174,7 @@ function Game.sendResetRequest()
 end
 
 function Game.unload()
+  Hud.clearKeyboadState()
   Game.mode.keyboardState.clear()
   Game.pauseMenu = nil
   love.audio.stop(Game.bgm)
@@ -349,6 +342,7 @@ function Game.update(dt)
       Game.pauseMenu = nil
     end
   end
+
   
   local pt0 = 0
   local pt1 = 0
@@ -366,6 +360,9 @@ function Game.update(dt)
   debugDt = dt
   
   local step = 1/240
+  if debugMode then 
+    step = 1/15
+  end
   local dtFrag = dt + dtStub
   
   dtFrag = math.min(dtFrag, 0.1)
@@ -454,14 +451,14 @@ function Game.draw()
 	local wh = love.graphics.getHeight()
   local cx, cy = Camera.getOffset(Game.camera)
   
-  love.graphics.setColor(ambient.color.r, ambient.color.g, ambient.color.b)
+  love.graphics.setColor(ambient.ambientColor.r, ambient.ambientColor.g, ambient.ambientColor.b)
 	Game.map:draw(cx, cy)
   
   if profiler then
     pt1 = love.timer.getTime()
   end
   
-  love.graphics.setColor(ambient.color.r, ambient.color.g, ambient.color.b)
+  love.graphics.setColor(ambient.ambientColor.r, ambient.ambientColor.g, ambient.ambientColor.b)
   Object.drawAll(cx, cy, ww, wh)
   
   if profiler then
@@ -496,7 +493,7 @@ function Game.draw()
     Track.debugDrawAll(cx, cy)
   end
   
-  love.graphics.setColor(ambient.color.r, ambient.color.g, ambient.color.b)
+  love.graphics.setColor(ambient.ambientColor.r, ambient.ambientColor.g, ambient.ambientColor.b)
   Particles.draw(cx, cy)
   Flares.draw(cx, cy)
   Hud.gameDraw(Game, player)

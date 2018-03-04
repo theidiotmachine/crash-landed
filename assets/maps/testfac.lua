@@ -8,7 +8,7 @@ return {
   height = 50,
   tilewidth = 128,
   tileheight = 128,
-  nextobjectid = 236,
+  nextobjectid = 237,
   properties = {},
   tilesets = {
     {
@@ -1963,6 +1963,722 @@ return {
           }
         }
       }
+    },
+    {
+      name = "spritesheet_tiles",
+      firstgid = 146,
+      filename = "tiles.tsx",
+      tilewidth = 128,
+      tileheight = 128,
+      spacing = 0,
+      margin = 0,
+      image = "../art/spritesheet_tiles.png",
+      imagewidth = 1024,
+      imageheight = 2048,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 128,
+        height = 128
+      },
+      properties = {},
+      terrains = {},
+      tilecount = 128,
+      tiles = {
+        {
+          id = 1,
+          properties = {
+            ["colType"] = "liquid",
+            ["imageName"] = "waterTop_high.png",
+            ["stuff"] = "water"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 12.8,
+                width = 128,
+                height = 115.2,
+                rotation = 0,
+                visible = true,
+                properties = {}
+              }
+            }
+          }
+        },
+        {
+          id = 9,
+          properties = {
+            ["colType"] = "liquid",
+            ["imageName"] = "water.png",
+            ["stuff"] = "water"
+          }
+        },
+        {
+          id = 24,
+          type = "crate",
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "polygon",
+                x = 0,
+                y = 12.8,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polygon = {
+                  { x = 1, y = 0.2 },
+                  { x = 13, y = -12.8 },
+                  { x = 115, y = -12.8 },
+                  { x = 127, y = -0.8 },
+                  { x = 127, y = 102.2 },
+                  { x = 115, y = 115.2 },
+                  { x = 13, y = 115.2 },
+                  { x = 1, y = 102.2 }
+                },
+                properties = {
+                  ["colFriction"] = true,
+                  ["colType"] = "massy",
+                  ["mass"] = 1
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 27,
+          type = "ladder",
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 128,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 35,
+          type = "ladder",
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 128,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 36,
+          type = "fallingTile",
+          properties = {
+            ["flashId"] = 52
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 128,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "static"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 42,
+          type = "decoration"
+        },
+        {
+          id = 43,
+          type = "decoration"
+        },
+        {
+          id = 50,
+          type = "decoration"
+        },
+        {
+          id = 73,
+          type = "button",
+          properties = {
+            ["down"] = 73,
+            ["state"] = "down",
+            ["up"] = 81
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 98,
+                width = 128,
+                height = 30,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "static"
+                }
+              },
+              {
+                id = 2,
+                name = "",
+                type = "button",
+                shape = "rectangle",
+                x = 28,
+                y = 80,
+                width = 69,
+                height = 17,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 81,
+          type = "button",
+          properties = {
+            ["down"] = 73,
+            ["state"] = "up",
+            ["up"] = 81
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 98,
+                width = 128,
+                height = 30,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "static"
+                }
+              },
+              {
+                id = 2,
+                name = "",
+                type = "button",
+                shape = "rectangle",
+                x = 20,
+                y = 44,
+                width = 87,
+                height = 54,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 89,
+          type = "button",
+          properties = {
+            ["down"] = 89,
+            ["state"] = "down",
+            ["up"] = 97
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 98,
+                width = 128,
+                height = 30,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "static"
+                }
+              },
+              {
+                id = 2,
+                name = "",
+                type = "button",
+                shape = "rectangle",
+                x = 30,
+                y = 79,
+                width = 68,
+                height = 19,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 97,
+          type = "button",
+          properties = {
+            ["down"] = 89,
+            ["state"] = "up",
+            ["up"] = 97
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 98,
+                width = 128,
+                height = 30,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "static"
+                }
+              },
+              {
+                id = 2,
+                name = "",
+                type = "button",
+                shape = "rectangle",
+                x = 20,
+                y = 44,
+                width = 87,
+                height = 54,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 99,
+          type = "decoration"
+        },
+        {
+          id = 106,
+          type = "switch",
+          properties = {
+            ["centre"] = 114,
+            ["direction"] = "right",
+            ["left"] = 122
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "base",
+                shape = "rectangle",
+                x = 12.8,
+                y = 89.6,
+                width = 102.4,
+                height = 38.4,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "static"
+                }
+              },
+              {
+                id = 2,
+                name = "",
+                type = "switch",
+                shape = "rectangle",
+                x = 38.4,
+                y = 32,
+                width = 89.6,
+                height = 57.6,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 113,
+          type = "bouncer",
+          properties = {
+            ["bounceupid"] = 105
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 64,
+                width = 128,
+                height = 38.4,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "static"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 114,
+          type = "switch",
+          properties = {
+            ["direction"] = "centre",
+            ["left"] = 122,
+            ["right"] = 106
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "base",
+                shape = "rectangle",
+                x = 12.8,
+                y = 89.6,
+                width = 102.4,
+                height = 38.4,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "static"
+                }
+              },
+              {
+                id = 2,
+                name = "",
+                type = "switch",
+                shape = "rectangle",
+                x = 38.4,
+                y = 12.8,
+                width = 51.2,
+                height = 76.8,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 120,
+          properties = {
+            ["colType"] = "liquid",
+            ["imageName"] = "waterTop_low.png",
+            ["stuff"] = "water"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 51.2,
+                width = 128,
+                height = 76.8,
+                rotation = 0,
+                visible = true,
+                properties = {}
+              }
+            }
+          }
+        },
+        {
+          id = 121,
+          type = "spikes",
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "polygon",
+                x = 0,
+                y = 128,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polygon = {
+                  { x = 0, y = 0 },
+                  { x = 16, y = -64 },
+                  { x = 112, y = -64 },
+                  { x = 128, y = 0 }
+                },
+                properties = {
+                  ["colType"] = "static"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 122,
+          type = "switch",
+          properties = {
+            ["centre"] = 114,
+            ["direction"] = "left",
+            ["right"] = 106
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "base",
+                shape = "rectangle",
+                x = 12.8,
+                y = 89.6,
+                width = 102.4,
+                height = 38.4,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "static"
+                }
+              },
+              {
+                id = 2,
+                name = "",
+                type = "switch",
+                shape = "rectangle",
+                x = 0,
+                y = 38.4,
+                width = 89.6,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 123,
+          type = "platform",
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 32,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colFriction"] = false,
+                  ["colType"] = "massy",
+                  ["mass"] = 10000
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   layers = {
@@ -2181,16 +2897,16 @@ return {
           properties = {}
         },
         {
-          id = 235,
+          id = 236,
           name = "",
           type = "",
           shape = "rectangle",
-          x = 1779.2,
-          y = 4352,
+          x = 1664,
+          y = 4224,
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 61,
+          gid = 182,
           visible = true,
           properties = {}
         }

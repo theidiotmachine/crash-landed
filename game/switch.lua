@@ -69,6 +69,7 @@ function Switch:change(game, newDirection)
   if self.script and self.script[newDirection] then
     self.script[newDirection](self, game)
   end
+--  love.audio.play("assets/sound/switch1.ogg", 'static', false, 'fx')
 end
 
 function Switch:collision(game, dt, selfCollisionObject, otherCollisionObject, otherType, otherUser, separatingVector)

@@ -44,11 +44,6 @@ function Jelly:update(game, dt)
     self:moveTo(self.resetRequest.x, self.resetRequest.y)
     self:initState(game)
     self.resetRequest = nil
-    --self.justReset = 0
-    --if self.vel.y < 0 then
-        --error "hggthth"
-      --end
-    return
   end
   
   DynamicObject.update(self, game, dt)
@@ -79,22 +74,6 @@ function Jelly:update(game, dt)
     self.vel.x = -200 
   end
   
-  --[[
-  if self.justReset then
-    if self.justReset == 0 then
-      self.justReset = nil
-      if self.direction ~= -1 then
-        error("poop")
-      end
-      if self.vel.y < 0 then
-        error "hggh"
-      end
-    else
-      self.justReset = self.justReset - 1
-    end
-  end
-  ]]--
-  
   local dx = self.vel.x * dt
   local dy = self.vel.y * dt
   DynamicObject.move(self, dx, dy)
@@ -112,7 +91,7 @@ function Jelly:collision(game, dt, selfCollisionObject, otherCollisionObject, ot
   end
 end
 
-function Jelly:sendResetRequest(game)
+function Jelly:receiveResetRequest(game)
   self.resetRequest = { x = self.resetLoc.x, y = self.resetLoc.y }
 end
 

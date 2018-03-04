@@ -347,6 +347,7 @@ function Particles.createNewOuchSet(pos)
 end
 
 function Particles.createNewSparkSet(pos)
+  love.audio.play("assets/sound/zap1.ogg", 'static', false, 'fx')
   local set = {}
   local number = 12
   local radius = 32

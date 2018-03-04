@@ -123,6 +123,8 @@ function Player:init(game, object, tile, map)
   self.teleportTimer = TELEPORT_TIME
   self.teleportLoc = { x = self.pos.x, y = self.pos.y }
   self.teleportMode = 'in'
+  
+  self.inDialog = false
 
   self:setHCShapes(game, "stand")
 end
@@ -265,6 +267,12 @@ function Player:updateFromInput(game, dt)
     self:die(game)
     return
   end
+  
+  --[[
+  if self.inDialog then
+    return
+  end
+  ]]--
   
   --let's set up!
   self.prevpos.x = self.pos.x
@@ -452,6 +460,7 @@ function Player:updateFromInput(game, dt)
       self.vel.y = -200
     elseif self.onGround then
       self.vel.y = self.vel.y - 520
+      love.audio.play("assets/sound/theo-alien-jump.ogg", 'static', false, 'fx')
     end
   end
   
@@ -513,6 +522,8 @@ end
 
 function Player:takeDamage(game, dt, damageType, amount, separatingVector, source)
   if self.invulerableCounter == 0 then
+    love.audio.play("assets/sound/theo-alien-ow.ogg", 'static', false, 'fx')
+    
     self.health = self.health - amount
       
     if self.health == 0 then
@@ -614,11 +625,16 @@ function Player:resolveCollision(game, dt, resolutionVector)
 end
 
 function Player:beginDynamics()
-  if self.teleportTimer <= 0 then
+  if self.teleportTimer <= 0 and self.inDialog == false then
     self.crouchKeyDown = love.keyboard.isDown('s') or love.keyboard.isDown('down')
     self.leftKeyDown = love.keyboard.isDown('a') or love.keyboard.isDown('left')
     self.rightKeyDown = love.keyboard.isDown('d') or love.keyboard.isDown('right')
     self.jumpKeyDown = love.keyboard.isDown('w') or love.keyboard.isDown('up')
+  else
+    self.crouchKeyDown = false
+    self.leftKeyDown = false
+    self.rightKeyDown = false
+    self.jumpKeyDown = false
   end
 
 end

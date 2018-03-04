@@ -103,7 +103,9 @@ function Object:init(game, object, tile, drawLayer, map)
       table.insert(newAnimation, {
           duration = animFrame.duration / 1000,
           image = animTile.image,
-          quad = animTile.quad
+          quad = animTile.quad,
+          width = animTile.width, 
+          height = animTile.height
       })
     end
     
@@ -268,8 +270,8 @@ end
 
 local function sendResetRequestToAll(game)
   for object, _ in pairs(objects) do
-    if object.sendResetRequest then
-      object:sendResetRequest(game)
+    if object.receiveResetRequest then
+      object:receiveResetRequest(game)
     end 
   end
 end

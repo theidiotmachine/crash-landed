@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="left-down" width="50" height="200" tilewidth="128" tileheight="128" infinite="0" nextobjectid="386">
+<map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="left-down" width="50" height="200" tilewidth="128" tileheight="128" infinite="0" nextobjectid="387">
  <tileset firstgid="1" name="spritesheet_ground" tilewidth="128" tileheight="128" tilecount="128" columns="8">
   <image source="../art/spritesheet_ground.png" width="1024" height="2048"/>
   <tile id="0">
@@ -539,5 +539,6 @@
   <object id="379" gid="248" x="-2176" y="22016" width="128" height="128"/>
   <object id="380" gid="131" x="1536" y="22784" width="128" height="128"/>
   <object id="384" gid="334" x="6144" y="24448" width="128" height="128"/>
+  <object id="386" gid="257" x="2048" y="25344" width="128" height="128"/>
  </objectgroup>
 </map>

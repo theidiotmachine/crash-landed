@@ -8,6 +8,12 @@ local hudSignUp = false
 local hudSignSprites = {}
 local hudElemNames = {{"tl", "l", "bl"}, {"t", "c", "b"}, {"tr", "r", "br"}}
 
+local hudDialogUp = false
+local hudDialogData = {}
+local hudDialogTree = {}
+local hudKeyboadState = {}
+local hudDialogSelectedOption = 1
+
 local function createSign(thing, imageFile)
   local i=1
   local x = thing.x
@@ -28,6 +34,14 @@ local function createSign(thing, imageFile)
     end
     x = x + xd
   end
+end
+
+function Hud.setKeyboadState(keyboadState)
+  hudKeyboadState = keyboadState
+end
+
+function Hud.clearKeyboadState()
+  hudKeyboadState = {}
 end
 
 function Hud.load()
@@ -86,7 +100,7 @@ function Hud.load()
   createSign(arrowr, signImageFile)
   
   --[[
-  <SubTexture name="hudKey_blue.png" x="384" y="512" width="128" height="128"/><SubTexture name="hudKey_blue_empty.png" x="384" y="384" width="128" height="128"/><SubTexture name="hudKey_green.png" x="384" y="256" width="128" height="128"/><SubTexture name="hudKey_green_empty.png" x="384" y="128" width="128" height="128"/><SubTexture name="hudKey_red.png" x="384" y="0" width="128" height="128"/><SubTexture name="hudKey_red_empty.png" x="256" y="896" width="128" height="128"/><SubTexture name="hudKey_yellow.png" x="256" y="768" width="128" height="128"/><SubTexture name="hudKey_yellow_empty.png" x="256" y="640" width="128" height="128"/><SubTexture name="hudPlayer_blue.png" x="256" y="384" width="128" height="128"/><SubTexture name="hudPlayer_green.png" x="256" y="256" width="128" height="128"/><SubTexture name="hudPlayer_pink.png" x="512" y="384" width="128" height="128"/><SubTexture name="hudPlayer_yellow.png" x="256" y="0" width="128" height="128"/><SubTexture name="hudX.png" x="128" y="896" width="128" height="128"/>
+  <SubTexture name="hudKey_blue.png" x="384" y="512" width="128" height="128"/><SubTexture name="hudKey_blue_empty.png" x="384" y="384" width="128" height="128"/><SubTexture name="hudKey_green.png" x="384" y="256" width="128" height="128"/><SubTexture name="hudKey_green_empty.png" x="384" y="128" width="128" height="128"/><SubTexture name="hudKey_red.png" x="384" y="0" width="128" height="128"/><SubTexture name="hudKey_red_empty.png" x="256" y="896" width="128" height="128"/><SubTexture name="hudKey_yellow.png" x="256" y="768" width="128" height="128"/><SubTexture name="hudKey_yellow_empty.png" x="256" y="640" width="128" height="128"/><SubTexture name="hudPlayer_green.png" x="256" y="256" width="128" height="128"/><SubTexture name="hudPlayer_pink.png" x="512" y="384" width="128" height="128"/><SubTexture name="hudPlayer_yellow.png" x="256" y="0" width="128" height="128"/><SubTexture name="hudX.png" x="128" y="896" width="128" height="128"/>
   ]]--
   hudSprites["0"] = {
     quad=love.graphics.newQuad(128, 768, 128, 128, imageFile:getDimensions()),
@@ -172,8 +186,14 @@ function Hud.load()
     w = 128,
     h = 128
   }
-  hudSprites["playerBeige"] = {
+  hudSprites["hudPlayer_beige"] = {
     quad=love.graphics.newQuad(256, 512, 128, 128, imageFile:getDimensions()),
+    texture=imageFile,
+    w = 128,
+    h = 128
+  }
+  hudSprites["hudPlayer_blue"] = {
+    quad=love.graphics.newQuad(256, 384, 128, 128, imageFile:getDimensions()),
     texture=imageFile,
     w = 128,
     h = 128
@@ -238,7 +258,6 @@ function Hud.inSign(signType, signText)
   if hudSignData.signType == signType and hudSignData.signText == signText then
   else
     hudSignData = { signType = signType, signText = signText }
-    --hudSignTime = 0
   end
 end
 
@@ -258,7 +277,6 @@ function Hud.gamePostUpdate(dt)
       hudSignTime = 0
     end
   end
-  
 end
 
 local function drawGems(gems, x, y, s)
@@ -278,6 +296,124 @@ local function drawGems(gems, x, y, s)
   end
 end
 
+function Hud.dialogKeypressed(key, scancode, isrepeat)
+  if key == 'up' or key == 'w' then
+    hudDialogSelectedOption = hudDialogSelectedOption - 1
+    if hudDialogSelectedOption == 0 then
+      hudDialogSelectedOption = #hudDialogData.options
+    end
+  end
+  if key == 'down' or key == 's' then
+    hudDialogSelectedOption = hudDialogSelectedOption + 1
+    if hudDialogSelectedOption > #hudDialogData.options then
+      hudDialogSelectedOption = 1
+    end
+  end
+  
+  if key == 'return' or key == ' ' then 
+    local cb = hudDialogData.options[hudDialogSelectedOption].cb
+    if cb then
+      cb()
+    end
+    local newNodeName = hudDialogData.options[hudDialogSelectedOption].dest
+    if newNodeName == 'exit' then
+      hudKeyboadState.pop()
+      hudDialogUp = false
+      player.inDialog = false
+    else
+      hudDialogData = hudDialogTree[newNodeName]
+      hudDialogSelectedOption = 1
+    end
+  end
+end
+
+function Hud.inDialog(dialogData)
+  if hudDialogUp == false then
+    hudDialogTree = dialogData.tree
+    hudDialogData = hudDialogTree[dialogData.start]
+    hudDialogUp = true
+    hudDialogSelectedOption = 1
+    player.inDialog = true
+    hudKeyboadState.push(function(k, s, r) Hud.dialogKeypressed(k, s, r) end, nil)
+  end
+end
+
+local function getTextHeight(font, text, textWidth)
+  local width, something = font:getWrap(text, textWidth)
+  local numLines = 0
+  if type(something) == 'number' then
+    --old impl
+    numLines = something
+  else
+    --new impl
+    numLines = #something
+  end
+  local lineHeight = fontVecBold32:getHeight()
+  local textHeight = numLines * lineHeight
+  return textHeight
+end
+
+local function drawDialog(game, player)
+  local who = hudDialogData.who
+  local text = hudDialogData.text 
+  local options = hudDialogData.options
+  local selectedOption = hudDialogSelectedOption
+  local windowWidth  = love.graphics.getWidth()
+  local windowHeight  = love.graphics.getHeight()
+  
+  local face = hudSprites[who]
+  
+  local blockWidth = 512
+  local blockX = (windowWidth - blockWidth)/2
+  local border = 24
+  local headSize = 128
+  local textWidth = blockWidth - border*2
+  local textHeight = getTextHeight(fontVecBold32, text, textWidth)
+  --[[
+  local width, something = fontVecBold32:getWrap(text, textWidth)
+  local numLines = 0
+  if type(something) == 'number' then
+    --old impl
+    numLines = something
+  else
+    --new impl
+    numLines = #something
+  end
+  ]]--
+  local optionHeights = {}
+  local optionsHeight = 0
+  for i, option in ipairs(options) do
+    local optionHeight = getTextHeight(fontVecBold32, option.text, textWidth)
+    optionHeights[i] = optionHeight
+    optionsHeight = optionsHeight + optionHeight
+  end
+  
+  --local lineHeight = fontVecBold32:getHeight()
+  --local textHeight = numLines * lineHeight
+  local blockHeight = textHeight + border*3 + optionsHeight
+  local blockY = (windowHeight - (blockHeight))/2
+  
+  love.graphics.setColor(0, 0, 0, 128)
+  love.graphics.rectangle('fill', blockX, blockY, blockWidth, blockHeight)
+  
+  love.graphics.setColor(255, 255, 255)
+  love.graphics.draw(face.texture, face.quad, windowWidth/2 - face.w/2, blockY-(face.h))
+  
+  love.graphics.setFont(fontVecBold32)
+  love.graphics.printf(text, blockX + border, blockY + border, textWidth, 'center')
+  
+  local y = blockY + border*2 + textHeight
+  for i, option in ipairs(options) do 
+    if i == selectedOption then
+      love.graphics.setColor(255, 255, 255)
+    else
+      love.graphics.setColor(150, 150, 150)
+    end
+    love.graphics.printf(option.text, blockX + border, y, textWidth)
+    y = y + optionHeights[i]
+  end
+end
+
 function Hud.gameDraw(game, player)
   love.graphics.setColor(255, 255, 255, 255)
       
@@ -290,7 +426,7 @@ function Hud.gameDraw(game, player)
 
   --Health bar. Not the finest code I've ever written.
   --First draw the player face
-  local face = hudSprites["playerBeige"]
+  local face = hudSprites["hudPlayer_beige"]
   love.graphics.draw(face.texture, face.quad, 10, 10)
   
   --Now draw the hearts with something in them
@@ -397,6 +533,10 @@ function Hud.gameDraw(game, player)
     love.graphics.setFont(fontVecBold32)
     
     love.graphics.print(hudSignData.signText, textX, textY)
+  end
+  
+  if hudDialogUp then
+    drawDialog(game, player)
   end
 end
 

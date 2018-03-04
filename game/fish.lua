@@ -18,7 +18,6 @@ end
 
 function Fish:initState(game)
   DynamicObject.initState(self, game)
-  self.waterPoints = {{x=0, y=0}}
   self.immersedWaterPoints = {false}
   if self.direction and self.direction ~= -1 then
     for _, hcShape in pairs(self.hcShapes) do
@@ -32,6 +31,7 @@ end
 --location is centre
 function Fish:init(game, object, tile, map)
   DynamicObject.init(self, game, object, tile, 1, map)
+  self.waterPoints = {{x=0, y=0}}
   self.buoyancyPerWaterPoint = -1.597
   self.resetLoc = { x = self.pos.x, y = self.pos.y }
 end
@@ -50,7 +50,6 @@ function Fish:update(game, dt)
     self:moveTo(self.resetRequest.x, self.resetRequest.y)
     self:initState(game)
     self.resetRequest = nil
-    return
   end
   
   DynamicObject.update(self, game, dt)
@@ -114,7 +113,7 @@ function Fish:draw(cx, cy)
   DynamicObject.draw(self, cx, cy)
 end
 
-function Fish:sendResetRequest(game)
+function Fish:receiveResetRequest(game)
   self.resetRequest = { x = self.resetLoc.x, y = self.resetLoc.y }
 end
 
