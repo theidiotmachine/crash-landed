@@ -1,3 +1,5 @@
+local Sound = require 'sound'
+
 local Particles = {}
 local sprites = {}
 local smokeEmitters = {}
@@ -347,7 +349,7 @@ function Particles.createNewOuchSet(pos)
 end
 
 function Particles.createNewSparkSet(pos)
-  love.audio.play("assets/sound/zap1.ogg", 'static', false, 'fx')
+  Sound.playFXAtLoc("assets/sound/zap1.ogg", pos)
   local set = {}
   local number = 12
   local radius = 32
@@ -380,6 +382,7 @@ function Particles.createNewSparkSet(pos)
 end
 
 function Particles.createNewSmallSparkSet(pos)
+  Sound.playFXAtLoc("assets/sound/zap1.ogg", pos)
   local set = {}
   local number = 12
   local radius = 16
@@ -411,13 +414,18 @@ function Particles.createNewSmallSparkSet(pos)
 end
 
 function Particles.createNewSplashSet(pos, yVel)
+  
   local set = {}
   yVel = math.min(math.abs(yVel), 700)
   
   local number = yVel / 200
+  
+  local s = math.random(2)
+  Sound.playFXAtLoc("assets/sound/splash" .. s ..  ".ogg", pos, yVel / 700)
   if number >= 1 then
     number = number + 4
   end
+  
   
   local radius = 10 + yVel / 35
   for i = 1, number, 1 do
@@ -448,6 +456,7 @@ function Particles.createNewSplashSet(pos, yVel)
 end
 
 function Particles.createNewBigExplosion(pos)
+  Sound.playFXAtLoc("assets/sound/boom1.ogg", pos)
   local set = {}
   local number = 32
   local radius = 4

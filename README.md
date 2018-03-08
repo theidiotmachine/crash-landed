@@ -3,9 +3,9 @@
 ## Hello!
 Crash landed is a very silly platform game about an alien who probably should have been watching where he was flying. It will run on Mac, Linux, and Windows. In theory it will run on Android too, but you won't be able to do anything, so probably don't bother?
 
-It was writen as a tribute to Keney's amazing 2d art, and as a code learing exercise that spiraled horribly out of control.
+It was writen as a tribute to Kenney's amazing 2d art, and as a coding exercise that spiraled horribly out of control.
 
-It is... almost playable right now, known bugs and all. The tutorial level isn't, so you'll have to figure it out yourself. Then there are like two or three partly completed levels, the last of which is not completable. But some of them are pretty good! Even if we say so ourselves.
+It is... almost playable right now, known bugs and all. The tutorial level is pretty much finished. Then there are like two or three partly completed levels, the last of which is not completable. But some of them are pretty good! Even if we say so ourselves.
 
 ## How to run
 

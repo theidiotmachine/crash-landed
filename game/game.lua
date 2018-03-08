@@ -106,7 +106,7 @@ function Game.keypressed(key, scancode, isrepeat)
   end
 end
 
-function Game.prep(--[[mapName, absState, lang, mode, canQuitToWorld, bgmName, worldStateName]]--
+function Game.prep(
     worldStateName,
     lang,
     mode
@@ -116,7 +116,6 @@ function Game.prep(--[[mapName, absState, lang, mode, canQuitToWorld, bgmName, w
 
   Game.mapName = islandData.level
   Game.lang = lang
-  --Game.absState = absState
   Game.canQuitToWorld = islandData.canQuitToWorld
   Game.bgmName = islandData.bgmName
   Game.worldStateName = worldStateName
@@ -162,7 +161,9 @@ function Game.load()
   
   Game.mode.keyboardState.push(Game.keypressed, nil)
   Hud.setKeyboadState(Game.mode.keyboardState)
-  Game.bgm = love.audio.play("assets/music/" .. Game.bgmName .. ".ogg", "stream", true, 'music')
+  if Game.bgmName then
+    Game.bgm = Sound.playMusic("assets/music/" .. Game.bgmName .. ".ogg")
+  end
   
   if Game.scriptInit then
     Game.scriptInit(Game)
@@ -177,7 +178,7 @@ function Game.unload()
   Hud.clearKeyboadState()
   Game.mode.keyboardState.clear()
   Game.pauseMenu = nil
-  love.audio.stop(Game.bgm)
+  Sound.stop(Game.bgm)
   Profile.stop()
   
   Game.map = nil

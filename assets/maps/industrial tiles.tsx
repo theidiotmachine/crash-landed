@@ -2,6 +2,9 @@
 <tileset name="industrial tiles" tilewidth="128" tileheight="128" tilecount="108" columns="9">
  <image source="../art/platformerPack_industrial_vector - redux remix - tiles.png" width="1152" height="1536"/>
  <tile id="2" type="crate">
+  <properties>
+   <property name="crateType" value="metal"/>
+  </properties>
   <objectgroup draworder="index">
    <object id="1" x="0" y="12.8">
     <properties>

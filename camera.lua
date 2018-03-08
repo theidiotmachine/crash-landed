@@ -18,7 +18,7 @@ function Camera.constrain(camera, minX, maxX, maxY)
   if camera.pos.y + windowHeight / 2 > maxY then
     camera.pos.y = maxY - windowHeight / 2
   end
-  
+  love.audio.setPosition(camera.pos.x, camera.pos.y, 0)
 end
 
 function Camera.new(x, y)

@@ -354,6 +354,9 @@ return {
         {
           id = 2,
           type = "crate",
+          properties = {
+            ["crateType"] = "metal"
+          },
           objectGroup = {
             type = "objectgroup",
             name = "",

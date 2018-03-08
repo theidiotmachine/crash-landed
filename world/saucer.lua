@@ -4,6 +4,7 @@ local WorldMap = require 'world.worldMap'
 --local Mode = require 'mode'
 local Particles = require 'particles'
 local WorldState = require 'worldState'
+local Sound = require 'sound'
 local Saucer = {}
 Saucer.FrameTime = 0.2
 
@@ -18,6 +19,7 @@ function Saucer.new(mapLoc, sprites, shadowSprite)
   if island.transition == 'saucerBeam' then
     mode = 'teleportUp'
     teleportTimer = TELEPORT_TIME
+    Sound.playFX("assets/sound/teleport1.ogg", 0.2)
   else
     mode = 'takeOff'
     landDist = island.featureShadowOffset + 64
@@ -240,6 +242,7 @@ function Saucer:update(world, dt)
           if islandData.transition == 'saucerBeam' then
             self.mode = 'teleportDown'
             self.teleportTimer = TELEPORT_TIME
+            Sound.playFX("assets/sound/teleport1.ogg", 0.2)
           else
             self.mode = 'land'
             self.landDist = 0

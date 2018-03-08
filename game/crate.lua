@@ -9,6 +9,7 @@ end
 local Object = require 'game.object'
 local DynamicObject = require 'game.dynamicObject'
 local Explosions = require 'game.explosions'
+local Sound = require 'sound'
 
 local Crate = {}
 
@@ -88,6 +89,19 @@ end
 
 function Crate:receiveResetRequest(game)
   self.resetRequest = { x = self.resetLoc.x, y = self.resetLoc.y }
+end
+
+function Crate:clang(game, vel)
+  local velsz = math.sqrt(vel.x * vel.x + vel.y * vel.y)
+  local vol = math.min(velsz / 700, 1)
+  if vol > 0.2 then
+    local crateType = self.properties.crateType
+    if crateType and (crateType == 'fuel' or crateType == 'metal') then
+      Sound.playFXAtLoc("assets/sound/metalclang1.ogg", self.pos, vol)
+    else
+      Sound.playFXAtLoc("assets/sound/woodclang1.ogg", self.pos, vol)
+    end
+  end
 end
 
 Crate = common_local.class('Crate', Crate, DynamicObject)

@@ -168,6 +168,15 @@ local function recordFluidFriction(
   end
 end
 
+local function recordClang(clangsByWorldObject, worldObject, dVel)
+  if not clangsByWorldObject[worldObject] then
+    clangsByWorldObject[worldObject] = {x =0, y=0}
+  end
+  
+  clangsByWorldObject[worldObject].x = clangsByWorldObject[worldObject].x + dVel.x
+  clangsByWorldObject[worldObject].y = clangsByWorldObject[worldObject].y + dVel.y
+end
+
 --[[
 this code modified from https://gamedevelopment.tutsplus.com/series/how-to-create-a-custom-physics-engine--gamedev-12715
 ]]--
@@ -243,6 +252,7 @@ function Collisions.run(game, dt)
   local resolutionsByWorldObject = {}
   local frictionsByWorldObject = {}
   local buoyancyByWorldObject = {}
+  local clangsByWorldObject = {}
   
   --walk over all the active objects in the world
   for collisionObject, _ in pairs(activeCollisionObjects) do
@@ -283,6 +293,7 @@ function Collisions.run(game, dt)
                   
                   resultVector = { x = separatingVector.x, y = separatingVector.y }
                   otherResultVector = { x = 0, y = 0 }
+                  recordClang(clangsByWorldObject, worldObject, {x=resultVector.x/dt, y=resultVector.y/dt})
                   collided = true
                   
                 elseif collisionObject.user.properties.colType == "none" then
@@ -343,6 +354,8 @@ function Collisions.run(game, dt)
                       x = otherVelInc.x * dt + otherCorrection.x,
                       y = otherVelInc.y * dt + otherCorrection.y
                     }
+                    recordClang(clangsByWorldObject, worldObject, thisVelInc)
+                    recordClang(clangsByWorldObject, otherWorldUser.object, otherVelInc)
                   end
                 else
                   collided = false
@@ -396,6 +409,7 @@ function Collisions.run(game, dt)
                 end
                 resultVector = { x = separatingVector.x, y = separatingVector.y }
                 otherResultVector = { x = 0, y = 0 }
+                recordClang(clangsByWorldObject, worldObject, {x=resultVector.x/dt, y=resultVector.y/dt})
                 collided = true
               elseif collisionObject.user.properties.colType == "none" then
                 if collisionObject.user.properties.colFriction then
@@ -469,8 +483,8 @@ function Collisions.run(game, dt)
         fricR.y = Collisions:calcFriction(dt, frictionData.y[1], frictionData.y[2], frictionData.y[3], frictionData.y[4])
       end
       if resolutionsByWorldObject[worldObject] then
-      local old = resolutionsByWorldObject[worldObject][collisionObject]
-      resolutionsByWorldObject[worldObject][collisionObject] = { x = old.x + fricR.x, y = old.y + fricR.y }
+        local old = resolutionsByWorldObject[worldObject][collisionObject]
+        resolutionsByWorldObject[worldObject][collisionObject] = { x = old.x + fricR.x, y = old.y + fricR.y }
       end
     end
   end
@@ -480,6 +494,12 @@ function Collisions.run(game, dt)
     netBuoyancyByWorldObject[worldObject] = {x=0, y=0}
     for _, waterPoint in pairs(waterPointsForWorldObject) do
       netBuoyancyByWorldObject[worldObject].y = netBuoyancyByWorldObject[worldObject].y + worldObject.buoyancyPerWaterPoint * dt
+    end
+  end
+  
+  for worldObject, clangForWorldObject in pairs(clangsByWorldObject) do
+    if worldObject.clang then
+      worldObject:clang(game, clangForWorldObject)
     end
   end
   

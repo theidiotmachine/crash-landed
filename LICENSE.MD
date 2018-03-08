@@ -183,10 +183,39 @@ http://creativecommons.org/licenses/by/3.0/
 ## Sound
 
 Sounds come either from [Freesound](https://freesound.org), Kenney, or are made by us. They are all CC0.
+We would like to thank the sound artists for generously licencing their amazing work.
 
 ### sophiehall3535
 
 [sophiehall3535](https://freesound.org/people/sophiehall3535/)
+
+### skullsmasha
+
+[Skullsmasha](https://freesound.org/people/Skullsmasha/)
+
+### godowan
+
+[Godowan](https://freesound.org/people/Godowan/)
+
+### fenrirfangs
+
+[fenrirfangs](https://freesound.org/people/fenrirfangs/)
+
+### bbrocer
+
+[bbrocer](https://freesound.org/people/bbrocer/)
+
+### studiomandragore
+
+[studiomandragore](https://freesound.org/people/studiomandragore/)
+
+### Patrick Lieberkind
+
+[Patrick Lieberkind](https://freesound.org/people/PatrickLieberkind)
+
+### kiddofish86
+
+[kiddofish86](https://freesound.org/people/kiddofish86)
 
 ### Kenney
 
@@ -194,4 +223,4 @@ Sounds come either from [Freesound](https://freesound.org), Kenney, or are made 
 
 ### Us
 
-The alien noises are by Theo Dinsdale, with postprocessing by Tim Dinsdale
+The alien noises are by Theo Dinsdale, with postprocessing by Tim Dinsdale. CC0.

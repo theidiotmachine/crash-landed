@@ -8,6 +8,7 @@ end
 
 local Object = require 'game.object'
 local Collisions = require 'game.collisions'
+local Sound = require 'sound'
 
 local Button = {}
 
@@ -93,7 +94,7 @@ function Button:press(silent)
   if self.state == "up" then
     self.queuedState = "down"
     if not silent then
---      love.audio.play("assets/sound/button1.ogg", 'static', false, 'fx')
+      Sound.playFXAtLoc("assets/sound/switch37.ogg", self.pos)
     end
   elseif self.state == "down" then
     self.queuedState = nil

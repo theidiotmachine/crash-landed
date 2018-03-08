@@ -115,6 +115,30 @@ function Title.openCreditsSoundMenu()
       {text = "Sound - sophiehall3535", 
         cb = function() love.system.openURL('https://freesound.org/people/sophiehall3535/') end
       },
+      {text = "Sound - Kenney", 
+        cb = function() love.system.openURL('http://www.kenney.nl') end
+      },
+      {text = "Sound - Skullsmasha", 
+        cb = function() love.system.openURL('https://freesound.org/people/skullsmasha/') end
+      },
+      {text = "Sound - Godowan", 
+        cb = function() love.system.openURL('https://freesound.org/people/godowan/') end
+      },
+      {text = "Sound - fenrirfangs", 
+        cb = function() love.system.openURL('https://freesound.org/people/fenrirfangs/') end
+      },
+      {text = "Sound - bbrocer", 
+        cb = function() love.system.openURL('https://freesound.org/people/bbrocer/') end
+      },
+      {text = "Sound - studiomandragore", 
+        cb = function() love.system.openURL('https://freesound.org/people/studiomandragore/') end
+      },
+      {text = "Sound - Patrick Lieberkind", 
+        cb = function() love.system.openURL('https://freesound.org/people/PatrickLieberkind/') end
+      },
+      {text = "Sound - kiddofish86", 
+        cb = function() love.system.openURL('https://freesound.org/people/kiddofish86/') end
+      },
       {text = 'back', cb = back}
     },
     Title.mode.keyboardState, 
@@ -247,7 +271,7 @@ function Title.loadGameMenu()
 end
 
 function Title.load()
-  Title.bgm = love.audio.play("assets/music/Sheep May Safely Graze - BWV 208.ogg", "stream", true, 'music')
+  Title.bgm = Sound.playMusic("assets/music/Sheep May Safely Graze - BWV 208.ogg")
   
   local elems = {
     --{text = "New Game", cb = function() Title.mode.toGame("saucer01", {}, "eng", false, "The Show Must Be Go") end},
@@ -267,7 +291,7 @@ end
 function Title.unload()
   Title.mode.keyboardState.clear()
   Title.menu = nil
-  love.audio.stop(Title.bgm)
+  Sound.stop(Title.bgm)
 end
 
 function Title.update(dt)

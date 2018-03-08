@@ -1,7 +1,7 @@
 local Object = require 'game.object'
 local Particles = require 'particles'
 local Hud = require 'hud'
-
+local Sound = require 'sound'
 local Saucer01Script = {}
   
 local levelState = {
@@ -352,6 +352,7 @@ end
 local powerSwitch = {}
 
 function powerSwitch.right(switch, game)
+  Sound.playFX("assets/sound/shutdown1.ogg")
   levelState.powerOn = false
   levelState.lightFadeTime = 1
   levelState.lightFade = { r = ambient.ambientColor.r - 64, g = ambient.ambientColor.g - 64, b = ambient.ambientColor.b - 96 }
@@ -380,6 +381,7 @@ function powerSwitch.right(switch, game)
 end
 
 function powerSwitch.left(switch, game)
+  Sound.playFX("assets/sound/bong1.ogg")
   levelState.powerOn = true
   levelState.powerReset = true
   levelState.lightFadeTime = 1
@@ -462,6 +464,7 @@ local function init(game)
           options = {{text='Um ok', dest='exit', cb = function() 
                 levelState.initialDialog=false 
                 ambient:setBGColor(255, 255, 255)
+                game.bgm = Sound.playMusic("assets/music/Mighty Like Us.ogg")
                 end}}},
       },
       start = 'a'

@@ -7,6 +7,7 @@ if not (type(common) == 'table' and common.class and common.instance) then
 end
 
 local DynamicObject = require 'game.dynamicObject'
+local Sound = require 'sound'
 
 local Door = {}
 
@@ -95,14 +96,14 @@ end
 function Door:open(silent)
   self.state = "opening"
   if not silent then
---    love.audio.play("assets/sound/door1.ogg", 'static', false, 'fx')
+    Sound.playFXAtLoc("assets/sound/door1.ogg", self.pos)
   end
 end
 
 function Door:close(silent)
   self.state = "closing"
   if not silent then
---    love.audio.play("assets/sound/door1.ogg", 'static', false, 'fx')
+    Sound.playFXAtLoc("assets/sound/door1.ogg", self.pos)
   end
 end
 

@@ -1,3 +1,5 @@
+local Sound = require 'sound'
+
 local Hud = {}
 
 local hudSprites = {}
@@ -323,6 +325,8 @@ function Hud.dialogKeypressed(key, scancode, isrepeat)
     else
       hudDialogData = hudDialogTree[newNodeName]
       hudDialogSelectedOption = 1
+      local sound = love.math.random(5)
+      Sound.playFX("assets/sound/theo-alien-speech" .. sound .. ".ogg")
     end
   end
 end
@@ -335,6 +339,8 @@ function Hud.inDialog(dialogData)
     hudDialogSelectedOption = 1
     player.inDialog = true
     hudKeyboadState.push(function(k, s, r) Hud.dialogKeypressed(k, s, r) end, nil)
+    local sound = love.math.random(5)
+    Sound.playFX("assets/sound/theo-alien-speech" .. sound .. ".ogg")
   end
 end
 
@@ -369,17 +375,7 @@ local function drawDialog(game, player)
   local headSize = 128
   local textWidth = blockWidth - border*2
   local textHeight = getTextHeight(fontVecBold32, text, textWidth)
-  --[[
-  local width, something = fontVecBold32:getWrap(text, textWidth)
-  local numLines = 0
-  if type(something) == 'number' then
-    --old impl
-    numLines = something
-  else
-    --new impl
-    numLines = #something
-  end
-  ]]--
+  
   local optionHeights = {}
   local optionsHeight = 0
   for i, option in ipairs(options) do
@@ -388,8 +384,6 @@ local function drawDialog(game, player)
     optionsHeight = optionsHeight + optionHeight
   end
   
-  --local lineHeight = fontVecBold32:getHeight()
-  --local textHeight = numLines * lineHeight
   local blockHeight = textHeight + border*3 + optionsHeight
   local blockY = (windowHeight - (blockHeight))/2
   

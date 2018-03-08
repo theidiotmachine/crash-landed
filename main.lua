@@ -1,3 +1,4 @@
+local Sound = require 'sound'
 local Particles = require 'particles'
 local Game = require 'game.game'
 local World = require 'world.world'
@@ -22,6 +23,10 @@ function love.load()
   else
     love.window.setMode(0, 0, {resizable=false, vsync=true, fullscreen = true})
   end
+  
+  love.audio.setOrientation(0, 0, 1, 0, -1, 0)
+  love.audio.setPosition(0, 0, 0)
+  love.audio.setDistanceModel('linear')
 
   fontVecBold32 = love.graphics.newFont("assets/fonts/Kenney Future Narrow.ttf", 24)
   fontVecBold64 = love.graphics.newFont("assets/fonts/Kenney Future Narrow.ttf", 48)
@@ -42,7 +47,7 @@ end
 
 
 function love.update(dt)
-  love.audio.update()
+  Sound.update()
   Mode.update(dt)
 end
 

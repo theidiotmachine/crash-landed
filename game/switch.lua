@@ -7,6 +7,7 @@ if not (type(common) == 'table' and common.class and common.instance) then
 end
 
 local Object = require 'game.object'
+local Sound = require 'sound'
 --local HC = require 'HC'
 
 local Switch = {}
@@ -69,7 +70,7 @@ function Switch:change(game, newDirection)
   if self.script and self.script[newDirection] then
     self.script[newDirection](self, game)
   end
---  love.audio.play("assets/sound/switch1.ogg", 'static', false, 'fx')
+  Sound.playFXAtLoc("assets/sound/switch16.ogg", self.pos)
 end
 
 function Switch:collision(game, dt, selfCollisionObject, otherCollisionObject, otherType, otherUser, separatingVector)

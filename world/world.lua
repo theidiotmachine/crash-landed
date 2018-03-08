@@ -248,6 +248,7 @@ function World.update(dt)
   saucer:update(World, dt)
   World.camera.pos.x = saucer.pos.x
   World.camera.pos.y = saucer.pos.y
+  love.audio.setPosition(World.camera.pos.x, World.camera.pos.y, 0)
   
   Particles.update(dt)
 end

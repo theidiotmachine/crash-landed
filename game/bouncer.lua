@@ -7,6 +7,7 @@ if not (type(common) == 'table' and common.class and common.instance) then
 end
 
 local Object = require 'game.object'
+local Sound = require 'sound'
 local Bouncer = {}
 
 local function newBouncer(...)
@@ -42,6 +43,7 @@ function Bouncer:collision(game, dt, selfCollisionObject, otherCollisionObject, 
       self.quad = self.up.quad
       self.state = 'up'
       self.upTimer = 1
+      Sound.playFXAtLoc("assets/sound/boing1.ogg", self.pos)
     end
   end
 end

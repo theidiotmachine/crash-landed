@@ -7,6 +7,7 @@ if not (type(common) == 'table' and common.class and common.instance) then
 end
 
 local Object = require 'game.object'
+local Sound = require 'sound'
 
 local Flag = {}
 
@@ -22,7 +23,8 @@ function Flag:init(game, object, tile, map)
   self.down = {
     image = downTile.image,
     quad = downTile.quad
-    }
+  }
+  self.state = 'up'
 end
 
 function Flag:draw(cx, cy)
@@ -34,12 +36,14 @@ function Flag:update(game, dt)
 end
 
 function Flag:collision(game, dt, selfCollisionObject, otherCollisionObject, otherType, otherUser, separatingVector)
-  if otherType == "player" then
+  if otherType == "player" and self.state == 'up' then
+    self.state = 'down'
     self.animation = nil
     self.image = self.down.image
     self.quad = self.down.quad
     --we have an origin at the center of the tile; the player has an origin at the tile base. So adjust
     game.restartPoint = { x = self.pos.x, y = self.pos.y + self.tilesize.y / 2 }
+    Sound.playFX("assets/sound/powerUp11.ogg")
   end
   
 end

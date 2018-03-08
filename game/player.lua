@@ -11,6 +11,7 @@ local Object = require 'game.object'
 local json = require "json" 
 local Collisions = require 'game.collisions'
 local Particles = require 'particles'
+local Sound = require 'sound'
 
 local player = {}
 local Player = {}
@@ -259,6 +260,7 @@ function Player:updateFromInput(game, dt)
     
     self:playAnimation("stand")
     self:setHCShapes(game, "stand")
+    Sound.playFX("assets/sound/teleport1.ogg")
     return
   end
   
@@ -460,7 +462,7 @@ function Player:updateFromInput(game, dt)
       self.vel.y = -200
     elseif self.onGround then
       self.vel.y = self.vel.y - 520
-      love.audio.play("assets/sound/theo-alien-jump.ogg", 'static', false, 'fx')
+      Sound.playFX("assets/sound/theo-alien-jump.ogg")
     end
   end
   
@@ -522,7 +524,7 @@ end
 
 function Player:takeDamage(game, dt, damageType, amount, separatingVector, source)
   if self.invulerableCounter == 0 then
-    love.audio.play("assets/sound/theo-alien-ow.ogg", 'static', false, 'fx')
+    Sound.playFX("assets/sound/theo-alien-ow.ogg")
     
     self.health = self.health - amount
       
@@ -583,9 +585,11 @@ function Player:collision(game, dt, selfCollisionObject, otherCollisionObject, o
   elseif otherType == "coin" then
     local otherObject = otherUser.object
     game.money = game.money + otherObject.properties.money
+    Sound.playFX("assets/sound/coin1.ogg")
   elseif otherType == "gem" then
     local otherObject = otherUser.object
     game.state.gems[otherObject.properties.color] = true
+    Sound.playFX("assets/sound/powerUp9.ogg")
   elseif otherType == "ladder" then
     local ladderPoint = self:getWaterPoints()[3]
     if otherCollisionObject:contains(ladderPoint.x, ladderPoint.y) then

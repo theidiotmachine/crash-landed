@@ -4,7 +4,7 @@
  - From world to game -- maxHealth
  - Fluff
 - Dialog based cutscenes
- - Hints for playing on l1
+ - Hints for playing on l1 [x]
  - Plot
 - Shop (using dialog stuff, probably)
 - Menus
@@ -29,6 +29,6 @@
 - saucer power down/up
 - ouch [x]
 - bang
-- splash
-- door
+- splash [x]
+- door [x]
 - bouncer

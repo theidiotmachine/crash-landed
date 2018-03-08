@@ -17,7 +17,7 @@ function WorldState.init(dir)
       transition = "saucerLand",
       smoke = true,
       canQuitToWorld = false,
-      bgmName = 'Mighty Like Us'
+      --bgmName = 'Mighty Like Us'
     },
     map01 = {
       pos = {x = 2, y = 1},
