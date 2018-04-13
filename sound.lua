@@ -8,51 +8,6 @@ local Sound = {
   sources = {}
 }
 
---[[
-do
-  -- will hold the currently playing sources
-  --local sources = {}
-
-  -- check for sources that finished playing and remove them
-  -- add to love.update
-  function love.audio.update()
-    local remove = {}
-    for _, sPair in pairs(Sound.sources) do
-      if sPair.src:isStopped() then
-        remove[#remove + 1] = sPair.src
-      end
-    end
-
-    for i,s in ipairs(remove) do
-      Sound.sources[s] = nil
-    end
-  end
-   
-  -- overwrite love.audio.play to create and register source if needed
-  local play = love.audio.play
-  function love.audio.play(what, how, loop, soundType)
-    local src = what
-    if type(what) ~= "userdata" or not what:typeOf("Source") then
-      src = love.audio.newSource(what, how)
-      src:setLooping(loop or false)
-    end
-    
-    src:setVolume(Sound.volumes[soundType or 'fx'])
-
-    play(src)
-    Sound.sources[src] = { src = src, soundType = soundType }
-    return src
-  end
-   
-  -- stops a source
-  local stop = love.audio.stop
-  function love.audio.stop(src)
-    if not src then return end
-    stop(src)
-    Sound.sources[src] = nil
-  end
-end
-]]--
 function Sound.playMusic(what)
   local src = what
   if type(what) ~= "userdata" or not what:typeOf("Source") then
@@ -99,7 +54,7 @@ function Sound.playFXAtLoc(what, loc, vol, pitch)
   src:setPosition(loc.x, loc.y, 0)
   src:setRelative(false)
   --src:setDistanceModel('linear')
-  src:setAttenuationDistances(256, 1920)
+  src:setAttenuationDistances(256, MAX_INTERACT_DIST)
   
   love.audio.play(src)
   Sound.sources[src] = { src = src, soundType = 'fx' }

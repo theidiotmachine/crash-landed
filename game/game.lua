@@ -26,6 +26,7 @@ local Door = require 'game.door'
 local Button = require 'game.button'
 local Conveyer = require 'game.conveyer'
 local Fish = require 'game.fish'
+local BigFish = require 'game.bigFish'
 local CollisionArea = require 'game.collisionArea'
 local Flares = require 'game.flares'
 local Mine = require 'game.mine'
@@ -64,6 +65,7 @@ function Game.globalInit()
   Object.registerObjectType("button", function(...) return Button.newButton(...) end)
   Object.registerObjectType("conveyer", function(...) return Conveyer.newConveyer(...) end)
   Object.registerObjectType("fish", function(...) return Fish.newFish(...) end)
+  Object.registerObjectType("bigFish", function(...) return BigFish.newBigFish(...) end)
   Object.registerObjectType("collisionArea", function(...) return CollisionArea.newCollisionArea(...) end)
   Object.registerObjectType("mine", function(...) return Mine.newMine(...) end)
   Object.registerObjectType("jelly", function(...) return Jelly.newJelly(...) end)
@@ -146,6 +148,7 @@ function Game.load()
     
   debugDrawCollisionShapes = false
   profiler = false
+  MAX_INTERACT_DIST = 1920
   
   Game.camera = Camera.new(player.pos.x, player.pos.y - 64)
     

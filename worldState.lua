@@ -69,6 +69,17 @@ function WorldState.init(dir)
       transition = "saucerBeam",
       canQuitToWorld = true,
       bgmName = 'The Show Must Be Go'
+    },
+    
+    testwat = {
+      pos = {x = 4, y = 101},
+      stuff = "grass",
+      feature = "greenSmilies",
+      title = "Test level",
+      level = "testwat",
+      transition = "saucerBeam",
+      canQuitToWorld = true,
+      bgmName = 'The Show Must Be Go'
     }
   }
   

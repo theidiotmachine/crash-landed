@@ -52,6 +52,39 @@ function Fish:update(game, dt)
     self.resetRequest = nil
   end
   
+  if self.pos.y > game.map.height * game.map.tileheight then
+    self.vel.y = self.vel.y - 100 * dt
+  end
+  
+  if self.pos.y < 0 then
+    self.vel.y = self.vel.y + 100 * dt
+  end
+  
+  local flipped = false
+  
+  if self.pos.x > game.map.width * game.map.tilewidth then
+    self.vel.x = self.vel.x - 100 * dt
+    if self.direction ~= -1 then
+      self.direction = -1
+      flipped = true
+    end
+  end
+  
+  if self.pos.x < 0 then
+    self.vel.x = self.vel.x + 100 * dt
+    
+    if self.direction ~= 1 then
+      self.direction = 1
+      flipped = true
+    end
+  end
+  
+  if flipped then
+    for _, hcShape in pairs(self.hcShapes) do
+      hcShape:flipX()
+    end
+  end  
+  
   DynamicObject.update(self, game, dt)
   
   self.vel.x = self.vel.x + 500 * dt * self.direction

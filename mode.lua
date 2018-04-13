@@ -3,6 +3,7 @@ local Game = require 'game.game'
 local Title = require 'title.title'
 local KeyboardState = require 'keyboardState'
 local WorldState = require 'worldState'
+local Cutscene = require 'cutscene.cutscene'
 
 local Mode = {
   queuedModeData = nil,
@@ -32,39 +33,16 @@ function Mode.changeMode(newModeData)
 end
 
 function Mode.toGame(
-    --[[levelName, absState, language, canQuitToWorld, bgmName, worldStateName]]--
     worldStateName,
     lang
   )
-  --[[
-  local stateCopy = { gems = {} }
-  if absState and absState.gems then 
-    for k, v in pairs(absState.gems) do
-      stateCopy.gems[k] = v
-    end
-  end
-  ]]--
-  --Game.prep(levelName, stateCopy, language, Mode, canQuitToWorld, bgmName, worldStateName)
   Game.prep(worldStateName, lang, Mode)
   Mode.changeMode(Game)
 end
 
-function Mode.toWorld(
-    --absState, 
-    incState
-  )
+function Mode.toWorld(incState)
   if Mode.modeData then
     --come from the game
-    
-    --[[
-    incState.money = Mode.modeData.money
-    local newGems = {}
-    for k, v in pairs(Mode.modeData.state.gems) do
-      newGems[k] = v
-    end
-    incState.levelState = {gems = newGems, name = Mode.modeData.mapName}
-    ]]--
-    
     if incState.finished then
       WorldState.incMoney(Mode.modeData.money)
       WorldState.gotGems(Mode.modeData.worldStateName, Mode.modeData.state.gems)
@@ -78,15 +56,18 @@ function Mode.toWorld(
     love.filesystem.write(WorldState.dir .. '/save.json', json)
     end
   end
-  World.prep(
-    --absState, incState, 
-    Mode)
+  World.prep(Mode)
   Mode.changeMode(World)
 end
 
 function Mode.toTitle()
   Title.prep(Mode)
   Mode.changeMode(Title)
+end
+
+function Mode.toCutscene(name)
+  Cutscene.prep(name, Mode)
+  Mode.changeMode(Cutscene)
 end
 
 return Mode

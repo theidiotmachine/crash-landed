@@ -35,4 +35,24 @@
    <frame tileid="1" duration="100"/>
   </animation>
  </tile>
+ <tile id="15" type="fish">
+  <objectgroup draworder="index">
+   <object id="1" x="25.6" y="76.8">
+    <properties>
+     <property name="colType" value="massy"/>
+     <property name="mass" type="float" value="0.1"/>
+    </properties>
+    <polygon points="0,0 12.8,-25.6 51.2,-25.6 76.8,-12.8 89.6,12.8 64,25.6"/>
+   </object>
+  </objectgroup>
+  <animation>
+   <frame tileid="15" duration="100"/>
+   <frame tileid="16" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="17">
+  <properties>
+   <property name="deadid" type="int" value="17"/>
+  </properties>
+ </tile>
 </tileset>

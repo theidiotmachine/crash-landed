@@ -35,14 +35,20 @@ function love.load()
   Particles.globalInit()
   Hud.load()
   
-  --WorldState.init("__nosave__")
+  
+  --[[
+  WorldState.init("__nosave__")
   --Mode.toGame('testfac', 'eng')
+  Mode.toGame('testwat', 'eng')
+  ]]--
   
   --
   Mode.toTitle()
   
   --WorldState.init("__nosave__")
   --Mode.toWorld({})
+  
+  --Mode.toCutscene("open")
 end
 
 

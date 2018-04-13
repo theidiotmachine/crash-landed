@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="industrial ground.tsx"/>
  <tileset firstgid="29" source="industrial tiles.tsx"/>
  <tileset firstgid="137" source="water enemies.tsx"/>
- <tileset firstgid="146" source="tiles.tsx"/>
+ <tileset firstgid="152" source="tiles.tsx"/>
  <imagelayer name="Image Layer 1">
   <image source="../art/blue_land.png" width="1080" height="1080"/>
   <properties>
@@ -74,6 +74,6 @@
   <object id="232" gid="137" x="2368" y="4352" width="128" height="128"/>
   <object id="233" gid="137" x="2252.8" y="4352" width="128" height="128"/>
   <object id="234" gid="137" x="3072" y="4352" width="128" height="128"/>
-  <object id="236" gid="182" x="1664" y="4224" width="128" height="128"/>
+  <object id="236" gid="188" x="1664" y="4224" width="128" height="128"/>
  </objectgroup>
 </map>

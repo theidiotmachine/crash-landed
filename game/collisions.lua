@@ -234,12 +234,35 @@ function Collisions.run(game, dt)
   local pt = {}
   local pt0 = {}
   local ptd = { 0 }
+  
+  local cx = game.camera.pos.x
+  local cy = game.camera.pos.y
+  local clampSq = MAX_INTERACT_DIST * MAX_INTERACT_DIST
+  local theseActiveWoldObjects = {}
+  local theseActiveCollisionObjects = {}
+  for k, v in pairs(activeWorldObjects) do
+    local dx = k.pos.x - cx
+    local dy = k.pos.y - cy
+    if dx*dx+dy*dy < clampSq then
+      theseActiveWoldObjects[k] = v
+    end
+  end
+  
+  for k, v in pairs(activeCollisionObjects) do
+    local worldObject = k.user.object
+    local dx = worldObject.pos.x - cx
+    local dy = worldObject.pos.y - cy
+    if dx*dx+dy*dy < clampSq then
+      theseActiveCollisionObjects[k] = v
+    end
+  end
+  
   --[[
   if profiler then
     pt[1] = love.timer.getTime()
   end
   ]]--
-  for worldObject, _ in pairs(activeWorldObjects) do
+  for worldObject, _ in pairs(theseActiveWoldObjects) do
     worldObject:beginCollision(dt)
   end
   
@@ -255,7 +278,7 @@ function Collisions.run(game, dt)
   local clangsByWorldObject = {}
   
   --walk over all the active objects in the world
-  for collisionObject, _ in pairs(activeCollisionObjects) do
+  for collisionObject, _ in pairs(theseActiveCollisionObjects) do
     local worldObject = collisionObject.user.object
     numACO = numACO + 1
     --actually run the collisions

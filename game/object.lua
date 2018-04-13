@@ -15,6 +15,16 @@ local objects = {}
 local namedObjects = {}
 local objectsOfType = {}
 
+function Object:loadAuxTile(propertyName, memberName, origTile, map)
+  local tileId = origTile.properties[propertyName]
+  local gid = tileId + origTile.tilesetObject.firstgid
+  local thisTile = map.tiles[gid]
+  self[memberName] = {
+    image = thisTile.image,
+    quad = thisTile.quad
+  }
+end
+
 function Object:getHCShapeFromObjectGroup(game, tile, object, objectType, x, y)
   local HC = game.HC
   local shape = object.shape
@@ -255,8 +265,17 @@ local function drawAll(cx, cy, ww, wh)
 end
 
 local function updateAll(game, dt)
+  local cx = game.camera.pos.x
+  local cy = game.camera.pos.y
+  local clampSq = MAX_INTERACT_DIST * MAX_INTERACT_DIST
   for object, _ in pairs(objects) do
+    local dx = object.pos.x - cx
+    local dy = object.pos.y - cy
+    --
+    
+    if dx*dx+dy*dy < clampSq then
     object:update(game, dt)
+    end
   end
 end
 
@@ -317,4 +336,5 @@ return {
   getPreCollisionVel = Object.getPreCollisionVel,
   getAllObjectsOfType = Object.getAllObjectsOfType,
   sendResetRequestToAll = sendResetRequestToAll,
+  loadAuxTile = Object.loadAuxTile,
 }

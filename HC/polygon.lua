@@ -155,6 +155,9 @@ end
 local Polygon = {}
 function Polygon:init(...)
 	local vertices = removeCollinear( toVertexList({}, ...) )
+  if #vertices < 3 then
+    local i = 3
+  end
 	assert(#vertices >= 3, "Need at least 3 non collinear points to build polygon (got "..#vertices..")")
 
 	-- assert polygon is oriented counter clockwise
@@ -391,41 +394,22 @@ function Polygon:triangulate()
 	if #self.vertices == 3 then return {self:clone()} end
 
 	local vertices = self.vertices
-
-	local next_idx, prev_idx = {}, {}
-	for i = 1,#vertices do
-		next_idx[i], prev_idx[i] = i+1,i-1
-	end
-	next_idx[#next_idx], prev_idx[1] = 1, #prev_idx
-
-	local concave = {}
-	for i, v in ipairs(vertices) do
-		if not ccw(vertices[prev_idx[i]], v, vertices[next_idx[i]]) then
-			concave[v] = true
-		end
-	end
-
-	local triangles = {}
-	local n_vert, current, skipped, next, prev = #vertices, 1, 0
-	while n_vert > 3 do
-		next, prev = next_idx[current], prev_idx[current]
-		local p,q,r = vertices[prev], vertices[current], vertices[next]
-		if isEar(p,q,r, concave) then
-			triangles[#triangles+1] = newPolygon(p.x,p.y, q.x,q.y, r.x,r.y)
-			next_idx[prev], prev_idx[next] = next, prev
-			concave[q] = nil
-			n_vert, skipped = n_vert - 1, 0
-		else
-			skipped = skipped + 1
-			assert(skipped <= n_vert, "Cannot triangulate polygon")
-		end
-		current = next
-	end
-
-	next, prev = next_idx[current], prev_idx[current]
-	local p,q,r = vertices[prev], vertices[current], vertices[next]
-	triangles[#triangles+1] = newPolygon(p.x,p.y, q.x,q.y, r.x,r.y)
-	return triangles
+  
+  --*_*
+  local vlist = {}
+  for i=1, #vertices do
+    table.insert(vlist, vertices[i].x)
+    table.insert(vlist, vertices[i].y)
+  end
+  
+  local tris = love.math.triangulate(unpack(vlist))
+  local out = {}
+  for _, tri in ipairs(tris) do
+    table.insert(out, newPolygon(unpack(tri)))
+  end
+  
+  return out
+	
 end
 
 -- return merged polygon if possible or nil otherwise

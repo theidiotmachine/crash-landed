@@ -270,12 +270,7 @@ function Player:updateFromInput(game, dt)
     return
   end
   
-  --[[
-  if self.inDialog then
-    return
-  end
-  ]]--
-  
+
   --let's set up!
   self.prevpos.x = self.pos.x
   self.prevpos.y = self.pos.y
@@ -490,7 +485,7 @@ function Player:updateFromInput(game, dt)
   --max speeds
   local minSpeed = -700
   if self.inLiquid then
-    minSpeed = -400
+    minSpeed = -500
   end
   local maxSpeed = 700
   local maxFallSpeed = 1400
@@ -599,7 +594,7 @@ function Player:collision(game, dt, selfCollisionObject, otherCollisionObject, o
     self.inSlime = true
     
   elseif otherType == "barnacle" or otherType == "spikes" or otherType == "fish" 
-    or otherType == "jelly"
+    or otherType == "jelly" or otherType == "bigFish"
     or (otherType == "cog" and otherUser.object.properties.spinning) then
       self:takeDamage(game, dt, 'spike', 1, separatingVector, otherUser.object.pos)
   end

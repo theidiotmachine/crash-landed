@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="water_enemies" tilewidth="128" tileheight="128" tilecount="9" columns="3">
- <image source="../art/water_enemies.png" width="384" height="384"/>
+<tileset name="water_enemies" tilewidth="128" tileheight="128" tilecount="15" columns="3">
+ <image source="../art/water_enemies.png" width="384" height="640"/>
  <tile id="0" type="mine">
   <properties>
    <property name="flashid" type="int" value="2"/>
@@ -97,6 +97,25 @@
   <animation>
    <frame tileid="6" duration="180"/>
    <frame tileid="7" duration="180"/>
+  </animation>
+ </tile>
+ <tile id="9" type="bigFish">
+  <properties>
+   <property name="bodyid" type="int" value="10"/>
+   <property name="tailid" type="int" value="11"/>
+  </properties>
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="64">
+    <properties>
+     <property name="colType" value="massy"/>
+     <property name="mass" type="float" value="2"/>
+    </properties>
+    <polygon points="0,0 51.2,-51.2 128,-51.2 128,51.2 38.4,38.4"/>
+   </object>
+  </objectgroup>
+  <animation>
+   <frame tileid="9" duration="200"/>
+   <frame tileid="12" duration="200"/>
   </animation>
  </tile>
 </tileset>

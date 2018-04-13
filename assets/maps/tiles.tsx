@@ -39,6 +39,18 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="32" type="crate">
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="12.8">
+    <properties>
+     <property name="colFriction" type="bool" value="true"/>
+     <property name="colType" value="massy"/>
+     <property name="mass" type="float" value="1"/>
+    </properties>
+    <polygon points="0,0 12.8,-12.8 115.2,-12.8 128,0 128,102.4 115.2,115.2 12.8,115.2 0,102.4"/>
+   </object>
+  </objectgroup>
+ </tile>
  <tile id="35" type="ladder">
   <objectgroup draworder="index">
    <object id="1" x="0" y="0" width="128" height="128">

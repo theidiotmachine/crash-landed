@@ -182,6 +182,8 @@ function Map:setTiles(index, tileset, gid)
 					tileW,  tileH,
 					imageW, imageH
 				),
+        --*_* added this
+        offsetInTileset = { x = quadX, y = quadY },
 				properties  = properties or {},
         type        = tiletype or "",
 				terrain     = terrain,
