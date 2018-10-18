@@ -5,11 +5,9 @@ if not (type(common) == 'table' and common.class and common.instance) then
   common_local = common
 end
 
---local HC = require 'HC'
 local Polygon = require 'HC.polygon'
 
 local Object = {}
---local object = {}
 local factoryFuncs = {}
 local objects = {}
 local namedObjects = {}
@@ -17,6 +15,9 @@ local objectsOfType = {}
 
 function Object:loadAuxTile(propertyName, memberName, origTile, map)
   local tileId = origTile.properties[propertyName]
+  if not tileId then
+    return
+  end
   local gid = tileId + origTile.tilesetObject.firstgid
   local thisTile = map.tiles[gid]
   self[memberName] = {
@@ -160,7 +161,6 @@ function Object:init(game, object, tile, drawLayer, map)
   Object.initLoc(self, x, y, drawLayer)
 end
 
-
 function Object:destroy(game)
   if self.hcShapes then
   for _, hcShape in pairs(self.hcShapes) do
@@ -196,8 +196,8 @@ function Object:cull(cx, cy, ww, wh)
   local x = self.pos.x + cx
   local y = self.pos.y + cy
   --deliberately double so we have a margin for rotations
-  local w = self.tilesize.x * self.sx
-  local h = self.tilesize.y * self.sy
+  local w = self.tilesize.x
+  local h = self.tilesize.y
   if x + w < 0 or x - w > ww or y + h < 0 or y - h > wh then
     return true
   else
@@ -252,11 +252,6 @@ local function drawAll(cx, cy, ww, wh)
   end
   for _, objectsForLayer in ipairs(drawOrder) do
     for _, object in pairs(objectsForLayer) do
-      --[[
-      if not object.cull then
-        local i = 3
-      end
-      ]]--
       if object:cull(cx, cy, ww, wh) == false then
         object:draw(cx, cy)
       end
@@ -274,7 +269,7 @@ local function updateAll(game, dt)
     --
     
     if dx*dx+dy*dy < clampSq then
-    object:update(game, dt)
+      object:update(game, dt)
     end
   end
 end

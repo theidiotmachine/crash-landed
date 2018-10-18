@@ -19,13 +19,7 @@ end
 --location is centre
 function Barnacle:init(game, object, tile, map)
   Object.init(self, game, object, tile, 1, map)
-  local downTileId = tile.properties.deadid
-  local gid = downTileId + tile.tilesetObject.firstgid
-  local downTile = map.tiles[gid]
-  self.down = {
-    image = downTile.image,
-    quad = downTile.quad
-  }
+  Object.loadAuxTile(self, 'deadid', 'down', tile, map)
   self.alive = true
 end
 

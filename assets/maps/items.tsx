@@ -37,6 +37,22 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="25" type="flag">
+  <properties>
+   <property name="downTileid" type="int" value="10"/>
+  </properties>
+  <objectgroup draworder="index">
+   <object id="1" x="0" y="0" width="128" height="128">
+    <properties>
+     <property name="colType" value="none"/>
+    </properties>
+   </object>
+  </objectgroup>
+  <animation>
+   <frame tileid="25" duration="200"/>
+   <frame tileid="2" duration="200"/>
+  </animation>
+ </tile>
  <tile id="28" type="gem">
   <properties>
    <property name="color" value="red"/>

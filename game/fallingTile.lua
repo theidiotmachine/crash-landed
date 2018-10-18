@@ -87,8 +87,10 @@ function FallingTile:collision(game, dt, selfCollisionObject, otherCollisionObje
     return
   end
   
+  if separatingVector.y > 0 then
   self.flasher:setOff()
   self.status = 'flashing'
+  end
 end
 
 function FallingTile:draw(cx, cy)

@@ -1,7 +1,4 @@
 local WorldMap = require 'world.worldMap'
---local Game = require 'game.game'
---local World = require 'world.world'
---local Mode = require 'mode'
 local Particles = require 'particles'
 local WorldState = require 'worldState'
 local Sound = require 'sound'
@@ -29,7 +26,6 @@ function Saucer.new(mapLoc, sprites, shadowSprite)
     pos = {x = pos.x, y = pos.y}, 
     origMapLoc = {x = mapLoc.x, y = mapLoc.y},
     destMapLoc = {x = mapLoc.x, y = mapLoc.y},
-    --mode = 'atDest',
     mode = mode,
     teleportTimer = teleportTimer,
     landDist = landDist,
@@ -155,7 +151,6 @@ function Saucer:update(world, dt)
       self.teleportTimer = 0        
       if self.mode == 'teleportDown' then
         local island = worldMap.islands[self.destMapLoc.x][self.destMapLoc.y]
-        --world.mode.toGame(island.level, island.state, "eng", island.canQuitToWorld, island.bgm)
         world.mode.toGame(island.worldStateName, 'eng')
       end
       self.mode = 'atDest' 
@@ -226,48 +221,45 @@ function Saucer:update(world, dt)
   end
       
   if atDest then
-      local proposedDest = {x=self.destMapLoc.x, y=self.destMapLoc.y}
-      if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
-        proposedDest.y = proposedDest.y - 1
-      elseif love.keyboard.isDown('a') or love.keyboard.isDown('left') then
-        proposedDest.x = proposedDest.x - 1
-      elseif love.keyboard.isDown('s') or love.keyboard.isDown('down') then
-        proposedDest.y = proposedDest.y + 1
-      elseif love.keyboard.isDown('d') or love.keyboard.isDown('right') then
-        proposedDest.x = proposedDest.x + 1
-      elseif love.keyboard.isDown(' ') or love.keyboard.isDown('return') then
-        local island = worldMap.islands[self.destMapLoc.x][self.destMapLoc.y]
-        local islandData = WorldState.data.islands[island.worldStateName]
-        if islandData.level then
-          if islandData.transition == 'saucerBeam' then
-            self.mode = 'teleportDown'
-            self.teleportTimer = TELEPORT_TIME
-            Sound.playFX("assets/sound/teleport1.ogg", 0.2)
-          else
-            self.mode = 'land'
-            self.landDist = 0
-          end
+    local proposedDest = {x=self.destMapLoc.x, y=self.destMapLoc.y}
+    if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
+      proposedDest.y = proposedDest.y - 1
+    elseif love.keyboard.isDown('a') or love.keyboard.isDown('left') then
+      proposedDest.x = proposedDest.x - 1
+    elseif love.keyboard.isDown('s') or love.keyboard.isDown('down') then
+      proposedDest.y = proposedDest.y + 1
+    elseif love.keyboard.isDown('d') or love.keyboard.isDown('right') then
+      proposedDest.x = proposedDest.x + 1
+    elseif love.keyboard.isDown(' ') or love.keyboard.isDown('return') then
+      local island = worldMap.islands[self.destMapLoc.x][self.destMapLoc.y]
+      local islandData = WorldState.data.islands[island.worldStateName]
+      if islandData.level then
+        if islandData.transition == 'saucerBeam' then
+          self.mode = 'teleportDown'
+          self.teleportTimer = TELEPORT_TIME
+          Sound.playFX("assets/sound/teleport1.ogg", 0.2)
+        else
+          self.mode = 'land'
+          self.landDist = 0
         end
       end
-      local destCode, bx, by = worldMap:isValidDest(proposedDest.x, proposedDest.y)
-      if destCode == 'yes' then
-        self.destMapLoc = proposedDest
-      elseif destCode == 'barrier' then
-        self.mode = 'bumpOff'
-        self.bumpOffLoc = { 
-          x = self.pos.x + (proposedDest.x - self.destMapLoc.x) * 128,
-          y = self.pos.y + (proposedDest.y - self.destMapLoc.y) * 128
-        }
-        self.bumpBackLoc = {
-          x = self.pos.x,
-          y = self.pos.y
-        }
-        self.bpos = { x = bx, y = by }
-      end
-    
+    end
+    local destCode, bx, by = worldMap:isValidDest(proposedDest.x, proposedDest.y)
+    if destCode == 'yes' then
+      self.destMapLoc = proposedDest
+    elseif destCode == 'barrier' then
+      self.mode = 'bumpOff'
+      self.bumpOffLoc = { 
+        x = self.pos.x + (proposedDest.x - self.destMapLoc.x) * 128,
+        y = self.pos.y + (proposedDest.y - self.destMapLoc.y) * 128
+      }
+      self.bumpBackLoc = {
+        x = self.pos.x,
+        y = self.pos.y
+      }
+      self.bpos = { x = bx, y = by }
+    end
   end
-  
-  --if self.destPos.x ~= self.pos.x then
 end
 
 

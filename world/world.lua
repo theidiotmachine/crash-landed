@@ -6,7 +6,8 @@ local WorldMap = require 'world.worldMap'
 local Particles = require 'particles'
 local Hud = require 'hud'
 local WorldState = require 'worldState'
-
+local FullScreenMenu = require 'ui.fullScreenMenu'
+local Sound = require 'sound'
 local function loadAssets()
   local imageFile = love.graphics.newImage("assets/art/world2.png")
   sprites["grassOct"] = {
@@ -181,55 +182,34 @@ end
 
 World.state = {removedBarriers={}, saucerLoc={x=1, y=1}, money = 0, levels = {}}
 
-function World.prep(
-    --absState, incState, 
-    mode)
+function World.prep(mode)
   World.mode = mode
-  --World.incState = incState
-  --World.absState = absState
 end
+
+function World.keypressed(key, scancode, isrepeat)
+  if key == 'escape' then
+    World.paused = not World.paused
+  end
+end
+
+function World.resume()
+  World.paused = false
+end
+
 
 function World.load()
   loadAssets()
   
-  --[[
-  local absState = World.absState
-  World.absState = nil
-  local incState = World.incState
-  World.incState = nil
-  local newState = World.state
-  if absState then
-    newState = absState
-  end
-  
-  if incState then
-    if incState.removedBarriers then
-      for k, v in pairs(incState.removedBarriers) do 
-        newState.removedBarriers[k] = v
-      end
-    end
-    if incState.saucerLoc then
-      newState.saucerLoc.x = incState.saucerLoc.x
-      newState.saucerLoc.y = incState.saucerLoc.y
-    end
-    if incState.money then
-      newState.money = newState.money + incState.money
-    end
-  
-    if incState.levelState then
-      newState.levels[incState.levelState.name] = { gems = incState.levelState.gems }
-    end
-  end
-  ]]--
-  
-  --worldMap = WorldMap.new(sprites, newState)
   worldMap = WorldMap.fromWorldState(sprites, WorldState.data)
-  saucer = Saucer.new(--newState.saucerLoc, 
+  saucer = Saucer.new(
     WorldState.data.saucerLoc,
     {sprites["playerUFO1"], sprites["playerUFO2"], sprites["playerUFO3"]}, sprites["playerUFOShadow"])
   World.camera = Camera.new(saucer.pos.x, saucer.pos.y)
   
-  --World.state = newState
+  World.mode.keyboardState.push(World.keypressed, nil)
+  Hud.setKeyboadState(World.mode.keyboardState)
+  
+  World.paused = false
 end
 
 function World.unload()
@@ -243,7 +223,96 @@ function World.unload()
   worldMap = nil
 end
 
+
+function World.openQuitToTitleMenu()
+  local function quitToTitle() 
+    World.mode.toTitle() 
+  end
+  local oldPauseMenu = World.pauseMenu
+  local function back() 
+    World.pauseMenu:shutDown() 
+    World.pauseMenu = oldPauseMenu
+  end 
+  World.pauseMenu = FullScreenMenu.newFullScreenMenu( {
+      {text = 'Quit', cb = quitToTitle},
+      {text = 'Cancel', cb = back}
+    },
+    World.mode.keyboardState, 
+    back
+  )
+end
+
+function World.openQuitMenu()
+  local function quitCb() 
+    love.event.push('quit')
+  end
+  local oldPauseMenu = World.pauseMenu
+  local function back() 
+    World.pauseMenu:shutDown() 
+    World.pauseMenu = oldPauseMenu
+  end 
+  World.pauseMenu = FullScreenMenu.newFullScreenMenu( {
+      {text = 'Quit', cb = quitCb},
+      {text = 'Cancel', cb = back}
+    },
+    World.mode.keyboardState, 
+    back
+  )
+end
+
+function World.openOptionsMenu()
+  local oldPauseMenu = World.pauseMenu
+  local function back() 
+    World.pauseMenu:shutDown() 
+    World.pauseMenu = oldPauseMenu
+  end 
+  World.pauseMenu = FullScreenMenu.newFullScreenMenu( {
+      {text = 'Music Volume', quantity = { 
+          getValue = Sound.getMusicVolume,
+          cb = Sound.incMusicVolume
+      } },
+      {text = 'Sound Effect Volume', quantity = {
+          getValue = Sound.getFXVolume,
+          cb = Sound.incFXVolume
+      } },
+      {text = 'Back', cb = back},
+    },
+    World.mode.keyboardState, 
+    back
+  )
+end
+
+
+function World.openPauseMenu(canReturnToWorld)
+  local elems = { {text = "Resume", cb = World.resume} }
+  
+  table.insert(elems, {text = "Options", cb = World.openOptionsMenu})
+  
+  table.insert(elems, {text = "Quit To Title", cb = World.openQuitToTitleMenu})
+
+  table.insert(elems, {text = "Quit Game", cb = World.openQuitMenu})
+  
+  World.pauseMenu = FullScreenMenu.newFullScreenMenu(      
+    elems, 
+    World.mode.keyboardState, 
+    World.resume
+  ) 
+end
+
 function World.update(dt)
+  if World.paused then
+    if not World.pauseMenu then
+      World.openPauseMenu(true)
+    end
+    World.pauseMenu:update(dt)
+    return
+  else
+    if World.pauseMenu then
+      World.pauseMenu:shutDown()
+      World.pauseMenu = nil
+    end
+  end
+  
   worldMap:update(dt)
   saucer:update(World, dt)
   World.camera.pos.x = saucer.pos.x
@@ -262,7 +331,14 @@ function World.draw()
   
   Particles.draw(cx, cy)
   
-  Hud.worldDraw(world, saucer)
+  if not World.paused then
+    if saucer.destMapLoc.x == saucer.origMapLoc.x and saucer.destMapLoc.y == saucer.origMapLoc.y then
+    Hud.worldDraw(world, saucer)
+    end
+  else
+    World.pauseMenu:draw()
+  end
+  
 end
 
 return World

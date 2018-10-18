@@ -102,6 +102,7 @@
  <tile id="9" type="bigFish">
   <properties>
    <property name="bodyid" type="int" value="10"/>
+   <property name="deadid" type="int" value="13"/>
    <property name="tailid" type="int" value="11"/>
   </properties>
   <objectgroup draworder="index">

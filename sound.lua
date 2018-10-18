@@ -8,6 +8,8 @@ local Sound = {
   sources = {}
 }
 
+MAX_INTERACT_DIST = 1920
+
 function Sound.playMusic(what)
   local src = what
   if type(what) ~= "userdata" or not what:typeOf("Source") then

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="128" tileheight="128" infinite="0" nextobjectid="237">
+<map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="128" tileheight="128" infinite="0" nextobjectid="239">
  <tileset firstgid="1" source="industrial ground.tsx"/>
  <tileset firstgid="29" source="industrial tiles.tsx"/>
  <tileset firstgid="137" source="water enemies.tsx"/>
  <tileset firstgid="152" source="tiles.tsx"/>
+ <tileset firstgid="280" source="items.tsx"/>
  <imagelayer name="Image Layer 1">
   <image source="../art/blue_land.png" width="1080" height="1080"/>
   <properties>
@@ -74,6 +75,7 @@
   <object id="232" gid="137" x="2368" y="4352" width="128" height="128"/>
   <object id="233" gid="137" x="2252.8" y="4352" width="128" height="128"/>
   <object id="234" gid="137" x="3072" y="4352" width="128" height="128"/>
-  <object id="236" gid="188" x="1664" y="4224" width="128" height="128"/>
+  <object id="236" gid="188" x="1536" y="4224" width="128" height="128"/>
+  <object id="237" gid="305" x="1792" y="4352" width="128" height="128"/>
  </objectgroup>
 </map>

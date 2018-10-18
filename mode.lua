@@ -49,6 +49,9 @@ function Mode.toWorld(incState)
       if incState.removedBarriers then
         WorldState.destroyBarriers(incState.removedBarriers)
       end
+      if incState.changedLevels then
+        WorldState.changeLevels(incState.changedLevels)
+      end
     end
   
     if WorldState.dir ~= "__nosave__" then

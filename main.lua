@@ -28,7 +28,7 @@ function love.load()
   love.audio.setPosition(0, 0, 0)
   love.audio.setDistanceModel('linear')
 
-  fontVecBold32 = love.graphics.newFont("assets/fonts/Kenney Future Narrow.ttf", 24)
+  fontVecBold32 = love.graphics.newFont("assets/fonts/kenvector_future_thin2.ttf", 24)
   fontVecBold64 = love.graphics.newFont("assets/fonts/Kenney Future Narrow.ttf", 48)
 
   Game.globalInit()
@@ -36,13 +36,11 @@ function love.load()
   Hud.load()
   
   
-  --[[
-  WorldState.init("__nosave__")
+  --WorldState.init("__nosave__")
   --Mode.toGame('testfac', 'eng')
-  Mode.toGame('testwat', 'eng')
-  ]]--
+  --Mode.toGame('testwat', 'eng')
   
-  --
+  --Main one
   Mode.toTitle()
   
   --WorldState.init("__nosave__")

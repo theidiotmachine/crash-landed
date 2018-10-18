@@ -8,7 +8,7 @@ return {
   height = 50,
   tilewidth = 128,
   tileheight = 128,
-  nextobjectid = 237,
+  nextobjectid = 239,
   properties = {},
   tilesets = {
     {
@@ -354,6 +354,9 @@ return {
         {
           id = 2,
           type = "crate",
+          properties = {
+            ["crateType"] = "metal"
+          },
           objectGroup = {
             type = "objectgroup",
             name = "",
@@ -1652,7 +1655,7 @@ return {
       margin = 0,
       image = "../art/water_enemies.png",
       imagewidth = 384,
-      imageheight = 384,
+      imageheight = 640,
       tileoffset = {
         x = 0,
         y = 0
@@ -1664,7 +1667,7 @@ return {
       },
       properties = {},
       terrains = {},
-      tilecount = 9,
+      tilecount = 15,
       tiles = {
         {
           id = 0,
@@ -1961,12 +1964,66 @@ return {
               duration = 180
             }
           }
+        },
+        {
+          id = 9,
+          type = "bigFish",
+          properties = {
+            ["bodyid"] = 10,
+            ["deadid"] = 13,
+            ["tailid"] = 11
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "polygon",
+                x = 0,
+                y = 64,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polygon = {
+                  { x = 0, y = 0 },
+                  { x = 51.2, y = -51.2 },
+                  { x = 128, y = -51.2 },
+                  { x = 128, y = 51.2 },
+                  { x = 38.4, y = 38.4 }
+                },
+                properties = {
+                  ["colType"] = "massy",
+                  ["mass"] = 2
+                }
+              }
+            }
+          },
+          animation = {
+            {
+              tileid = 9,
+              duration = 200
+            },
+            {
+              tileid = 12,
+              duration = 200
+            }
+          }
         }
       }
     },
     {
       name = "spritesheet_tiles",
-      firstgid = 146,
+      firstgid = 152,
       filename = "tiles.tsx",
       tilewidth = 128,
       tileheight = 128,
@@ -2098,6 +2155,49 @@ return {
                 visible = true,
                 properties = {
                   ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 32,
+          type = "crate",
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "polygon",
+                x = 0,
+                y = 12.8,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polygon = {
+                  { x = 0, y = 0 },
+                  { x = 12.8, y = -12.8 },
+                  { x = 115.2, y = -12.8 },
+                  { x = 128, y = 0 },
+                  { x = 128, y = 102.4 },
+                  { x = 115.2, y = 115.2 },
+                  { x = 12.8, y = 115.2 },
+                  { x = 0, y = 102.4 }
+                },
+                properties = {
+                  ["colFriction"] = true,
+                  ["colType"] = "massy",
+                  ["mass"] = 1
                 }
               }
             }
@@ -2679,6 +2779,212 @@ return {
           }
         }
       }
+    },
+    {
+      name = "spritesheet_items",
+      firstgid = 280,
+      filename = "items.tsx",
+      tilewidth = 128,
+      tileheight = 128,
+      spacing = 0,
+      margin = 0,
+      image = "../art/spritesheet_items.png",
+      imagewidth = 1024,
+      imageheight = 512,
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 128,
+        height = 128
+      },
+      properties = {},
+      terrains = {},
+      tilecount = 32,
+      tiles = {
+        {
+          id = 5,
+          type = "gem",
+          properties = {
+            ["color"] = "green"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 25.6,
+                y = 38.4,
+                width = 76.8,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 13,
+          type = "gem",
+          properties = {
+            ["color"] = "blue"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 25.6,
+                y = 38.4,
+                width = 76.8,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 20,
+          type = "gem",
+          properties = {
+            ["color"] = "yellow"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 25.6,
+                y = 38.4,
+                width = 76.8,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 25,
+          type = "flag",
+          properties = {
+            ["downTileid"] = 10
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 128,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          },
+          animation = {
+            {
+              tileid = 25,
+              duration = 200
+            },
+            {
+              tileid = 2,
+              duration = 200
+            }
+          }
+        },
+        {
+          id = 28,
+          type = "gem",
+          properties = {
+            ["color"] = "red"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 25.6,
+                y = 38.4,
+                width = 76.8,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   layers = {
@@ -2901,12 +3207,26 @@ return {
           name = "",
           type = "",
           shape = "rectangle",
-          x = 1664,
+          x = 1536,
           y = 4224,
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 182,
+          gid = 188,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 237,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1792,
+          y = 4352,
+          width = 128,
+          height = 128,
+          rotation = 0,
+          gid = 305,
           visible = true,
           properties = {}
         }

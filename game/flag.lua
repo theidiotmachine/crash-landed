@@ -8,7 +8,7 @@ end
 
 local Object = require 'game.object'
 local Sound = require 'sound'
-
+local Particles = require 'particles'
 local Flag = {}
 
 local function newFlag(...)
@@ -43,6 +43,7 @@ function Flag:collision(game, dt, selfCollisionObject, otherCollisionObject, oth
     self.quad = self.down.quad
     --we have an origin at the center of the tile; the player has an origin at the tile base. So adjust
     game.restartPoint = { x = self.pos.x, y = self.pos.y + self.tilesize.y / 2 }
+    Particles.createNewCheckpointSet(game.restartPoint)
     Sound.playFX("assets/sound/powerUp11.ogg")
   end
   

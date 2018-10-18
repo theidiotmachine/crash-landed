@@ -79,6 +79,8 @@ function Title.openCreditsArtMenu()
         cb = function() love.system.openURL('http://www.kenney.nl') end},
       {text = "Art - Alexandra Alarie",
         cb = function() love.system.openURL('https://opengameart.org/users/pinkcannon') end},
+      {text = "Art - MedicineStorm",
+        cb = function() love.system.openURL('https://opengameart.org/users/medicinestorm') end},
       {text = "Art - Tim Dinsdale",
         cb = function() love.system.openURL('https://opengameart.org/users/theididotmachine') end},
       {text = 'back', cb = back}

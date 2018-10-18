@@ -6,7 +6,6 @@ local smokeEmitters = {}
 local smokeDefs = {}
 local boomDefs = {}
 local smallBoomDefs = {}
---new particles
 local particles = {}
 
 function Particles.globalInit()
@@ -48,6 +47,13 @@ function Particles.globalInit()
     h = 32
   }
   
+  sprites["teleportspark1"] = {
+    quad=love.graphics.newQuad(96, 80, 16, 16, imageFile:getDimensions()),
+    texture=imageFile,
+    w = 16,
+    h = 16
+  }
+  
   sprites["circle4"] = {
     quad=love.graphics.newQuad(128, 0, 64, 64, imageFile:getDimensions()),
     texture=imageFile,
@@ -75,14 +81,6 @@ function Particles.globalInit()
     {life = 0.6, sprite = sprites["smokesmall3"]},
   }
   
-  --[[
-  cols = 
-  { r = 255, g = 255, b = 255 },
-  { r = 255, g = 204, b = 0 },
-  { r = 240, g = 157, b = 30 },
-  { r = 240, g = 114, b = 30 },
-  { r = 51, g = 51, b = 51 }
-  ]]--
   boomDefs = {
     --[[
     {life = 0.4, sprite = sprites["circle4"], 
@@ -414,7 +412,6 @@ function Particles.createNewSmallSparkSet(pos)
 end
 
 function Particles.createNewSplashSet(pos, yVel)
-  
   local set = {}
   yVel = math.min(math.abs(yVel), 700)
   
@@ -426,7 +423,6 @@ function Particles.createNewSplashSet(pos, yVel)
     number = number + 4
   end
   
-  
   local radius = 10 + yVel / 35
   for i = 1, number, 1 do
     local xOffs, yOffs = randPointInCircle(math.pi, math.pi)
@@ -435,18 +431,9 @@ function Particles.createNewSplashSet(pos, yVel)
       sprite = sprites["water"],
       time = 0, 
       life = 0.5 + 0.5 * math.random(),
-      pos = {
-        x = pos.x + radius * xOffs,
-        y = pos.y + radius * yOffs,
-      },
-      vel = {
-        x = xOffs * 500,
-        y = yOffs * 200 - 200
-      },
-      acc = {
-        x = 0,
-        y = 500
-      },
+      pos = { x = pos.x + radius * xOffs, y = pos.y + radius * yOffs, },
+      vel = { x = xOffs * 500, y = yOffs * 200 - 200 },
+      acc = { x = 0, y = 500 },
       update = particleUpdateDynamics,
       draw = particleDrawFade,
       evolve = particleEvolveSimple
@@ -454,6 +441,31 @@ function Particles.createNewSplashSet(pos, yVel)
     table.insert(particles, particle)
   end
 end
+
+function Particles.createNewCheckpointSet(pos)
+  local set = {}
+  
+  local number = 25
+  
+  for i = 1, number, 1 do
+    local xOffs = (math.random() - 0.5) * 128
+    local yOffs = -64 * math.random()
+    
+    local particle = {
+      sprite = sprites["teleportspark1"],
+      time = 0, 
+      life = 0.3 + 0.3 * math.random(),
+      pos = { x = pos.x + xOffs, y = pos.y + yOffs, },
+      vel = { x = 0, y = -50 + -200 * math.random() },
+      acc = { x = 0, y = -100 + -300 * math.random() },
+      update = particleUpdateDynamics,
+      draw = particleDrawFade,
+      evolve = particleEvolveSimple
+    }
+    table.insert(particles, particle)
+  end
+end
+
 
 function Particles.createNewBigExplosion(pos)
   Sound.playFXAtLoc("assets/sound/boom1.ogg", pos)

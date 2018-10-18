@@ -11,6 +11,7 @@ local DynamicObject = require 'game.dynamicObject'
 local Collisions = require 'game.collisions'
 
 local BigFish = {}
+local FadeTime = 0.25
 
 local function newBigFish(...)
 	return common_local.instance(BigFish, ...)
@@ -41,9 +42,10 @@ function BigFish:init(game, object, tile, map)
   self.buoyancyPerWaterPoint = -1.597
   self.resetLoc = { x = self.pos.x, y = self.pos.y }
 
+  Object.loadAuxTile(self, 'deadid', 'dead', tile, map)
+
   Object.loadAuxTile(self, 'bodyid', 'body', tile, map)
   
-  --Object.loadAuxTile(self, 'tailid', 'tail', tile, map)
   local tailTileId = tile.properties.tailid
   
   local tailGid = tailTileId + tile.tilesetObject.firstgid
@@ -75,6 +77,8 @@ function BigFish:init(game, object, tile, map)
   self.tailScaleTimer = 0
   
   self.mode = 'seeking'
+  
+  self.alive = true
 end
 
 function BigFish:getWaterPoints()
@@ -96,6 +100,14 @@ function BigFish:update(game, dt)
     self:moveTo(self.resetRequest.x, self.resetRequest.y)
     self:initState(game)
     self.resetRequest = nil
+  end
+  
+  if self.alive == false then
+    self.aliveCounter = self.aliveCounter - dt
+    if self.aliveCounter < 0 then
+      Object.destroy(self, game)
+      return
+    end
   end
   
   DynamicObject.update(self, game, dt)
@@ -194,9 +206,16 @@ function BigFish:collision(game, dt, selfCollisionObject, otherCollisionObject, 
     
     self.wanderTarget = { x = newX, y = newY }
   end
-  
 end
 
+function BigFish:takeDamage(game, dt, damageType, amount, separatingVector, source)
+  if damageType == 'explosion' then
+    self.aliveCounter = FadeTime
+    self.alive = false
+    self.image = self.dead.image
+    self.quad = self.dead.quad
+  end
+end
 
 function BigFish:draw(cx, cy)
   if self.direction == 1 then
@@ -204,8 +223,16 @@ function BigFish:draw(cx, cy)
   else 
     self.sx = 1
   end
-  DynamicObject.draw(self, cx, cy)
+  local a = 255
+  if not self.alive then
+    a = 255 * (1 - ((FadeTime - self.aliveCounter) / FadeTime))
+  end
   
+  DynamicObject.draw(self, cx, cy, a)
+  --aaaaaaaaaaaaaaalpha
+  local oldR, oldG, oldB, oldA = love.graphics.getColor()
+  love.graphics.setColor(oldR, oldG, oldB, a)
+    
   local coreLoc = { x = self.pos.x+cx+(-self.tilesize.x/2 * self.sx), y = self.pos.y+cy+(-self.tilesize.y/2 * self.sy) }
   love.graphics.draw(self.body.image, self.body.quad, 
         coreLoc.x - (self.tilesize.x * self.direction), coreLoc.y, self.r, self.sx, self.sy)
@@ -226,9 +253,20 @@ function BigFish:draw(cx, cy)
         self.sx , 
         self.sy 
         - (0.2 + (0.2 * math.sin(self.tailScaleTimer)))
-        )
-      
-      
+      )
+  love.graphics.setColor(oldR, oldG, oldB, oldA)
+end
+
+function BigFish:cull(cx, cy, ww, wh)
+  local x = self.pos.x + cx
+  local y = self.pos.y + cy
+  local w = self.tilesize.x 
+  local h = self.tilesize.y * 2 
+  if x + w < 0 or x - w > ww or y + h < 0 or y - h > wh then
+    return true
+  else
+    return false
+  end
 end
 
 function BigFish:receiveResetRequest(game)

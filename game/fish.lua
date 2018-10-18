@@ -11,6 +11,7 @@ local DynamicObject = require 'game.dynamicObject'
 local Collisions = require 'game.collisions'
 
 local Fish = {}
+local FadeTime = 0.25
 
 local function newFish(...)
 	return common_local.instance(Fish, ...)
@@ -34,6 +35,9 @@ function Fish:init(game, object, tile, map)
   self.waterPoints = {{x=0, y=0}}
   self.buoyancyPerWaterPoint = -1.597
   self.resetLoc = { x = self.pos.x, y = self.pos.y }
+  self.alive = true
+  
+  Object.loadAuxTile(self, 'deadid', 'deadSprite', tile, map)
 end
 
 function Fish:getWaterPoints()
@@ -50,6 +54,14 @@ function Fish:update(game, dt)
     self:moveTo(self.resetRequest.x, self.resetRequest.y)
     self:initState(game)
     self.resetRequest = nil
+  end
+  
+  if self.alive == false then
+    self.aliveCounter = self.aliveCounter - dt
+    if self.aliveCounter < 0 then
+      Object.destroy(self, game)
+      return
+    end
   end
   
   if self.pos.y > game.map.height * game.map.tileheight then
@@ -143,7 +155,21 @@ function Fish:draw(cx, cy)
   else 
     self.sx = 1
   end
-  DynamicObject.draw(self, cx, cy)
+    
+  local a = 255
+  if not self.alive then
+    a = 255 * (1 - ((FadeTime - self.aliveCounter) / FadeTime))
+  end
+  DynamicObject.draw(self, cx, cy, a)
+end
+
+function Fish:takeDamage(game, dt, damageType, amount, separatingVector, source)
+  if damageType == 'explosion' then
+    self.aliveCounter = FadeTime
+    self.alive = false
+    self.image = self.deadSprite.image
+    self.quad = self.deadSprite.quad
+  end
 end
 
 function Fish:receiveResetRequest(game)

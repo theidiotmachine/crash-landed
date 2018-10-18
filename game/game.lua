@@ -148,7 +148,6 @@ function Game.load()
     
   debugDrawCollisionShapes = false
   profiler = false
-  MAX_INTERACT_DIST = 1920
   
   Game.camera = Camera.new(player.pos.x, player.pos.y - 64)
     

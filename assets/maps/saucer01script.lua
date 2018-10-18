@@ -443,7 +443,14 @@ local saucerDoor = {}
 
 function saucerDoor.collide(colArea, game, object)
   if object.type == "player" and levelState.podReady then
-    game.mode.toWorld({finished = true})
+    game.mode.toWorld({finished = true, 
+        changedLevels = 
+          {saucer = 
+            {
+              level = "saucer02",
+              canQuitToWorld = true,
+              bgmName = 'Mighty Like Us'
+            }} })
   end
 end
 

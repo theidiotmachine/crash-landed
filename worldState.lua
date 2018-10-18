@@ -49,6 +49,18 @@ function WorldState.init(dir)
       canQuitToWorld = true,
       bgmName = 'The Show Must Be Go'
     },
+    
+    map07 = {
+      pos = {x = 5, y = 1},
+      stuff = "ice",
+      --feature = "",
+      title = "Brrrrr",
+      level = "map07",
+      transition = "saucerBeam",
+      canQuitToWorld = true,
+      bgmName = 'Mighty Like Us'
+    },
+    
     mapSecret01 = {
       pos = {x = 2, y = 2},
       stuff = "grass",
@@ -103,6 +115,12 @@ function WorldState.init(dir)
       from = {x=3,y=1},
       to = {x=4,y=1},
     },
+    
+    map05green = {
+      color = "Green",
+      from = {x=4,y=1},
+      to = {x=5,y=1},
+    },
   }
   WorldState.data.saucerLoc = {x=1, y=1} 
   WorldState.data.money = 0
@@ -115,6 +133,14 @@ end
 function WorldState.destroyBarriers(barrierNames)
   for barrierName, _ in pairs(barrierNames) do
     WorldState.data.barriers[barrierName] = nil
+  end
+end
+
+function WorldState.changeLevels(changedLevels)
+  for islandName, islandData in pairs(changedLevels) do
+    for k, v in pairs(islandData) do
+      WorldState.data.islands[islandName][k] = v
+    end
   end
 end
 

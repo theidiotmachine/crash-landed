@@ -149,6 +149,10 @@ Most of the art comes from Kenney. This is all licenced CC0. Kenney can be found
 
 Some of the extra art comes from Alexandra Alarie aka [PINKCANNON](https://opengameart.org/users/pinkcannon).
 
+### MedicineStorm
+
+One of the fonts - [kenvector_future_thin2](https://opengameart.org/content/font-kenvector-future-2-modified) - was by Kenney, but modified by [MedicineStorm](https://opengameart.org/users/medicinestorm).
+
 ### theidiotmachine
 
 The rest of the art - remixes of the above, plus some original things -
