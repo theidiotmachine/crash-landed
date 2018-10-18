@@ -495,7 +495,7 @@ function Hud.gameDraw(game, player)
     
     local textWidth = fontVecBold32:getWidth(hudSignData.signText)
     local numLines = 1
-    for i in string.gfind( hudSignData.signText, '\n' ) do
+    for i in string.gmatch( hudSignData.signText, '\n' ) do
       numLines =  numLines + 1
     end
     
@@ -537,32 +537,30 @@ end
 function Hud.worldDraw(world, saucer)
   local windowWidth  = love.graphics.getWidth()
   local windowHeight  = love.graphics.getHeight()
+
+  local island = worldMap.islands[saucer.destMapLoc.x][saucer.destMapLoc.y]
+  love.graphics.setFont(fontVecBold32)
+  local title = island.title
+  local textWidth = fontVecBold32:getWidth(title)
+  local blockWidth = math.max(textWidth + 32*2, 512)
   
-  if saucer.mode == 'atDest' then
-    local island = worldMap.islands[saucer.destMapLoc.x][saucer.destMapLoc.y]
-    love.graphics.setFont(fontVecBold32)
-    local title = island.title
-    local textWidth = fontVecBold32:getWidth(title)
-    local blockWidth = math.max(textWidth + 32*2, 512)
-    
-    local blockX = (windowWidth - blockWidth) / 2
-    local textX = (windowWidth - textWidth) / 2
-    local textY = windowHeight/2 - 200
-    local rectH = 32*3
-    if island.state then
-      textY = textY - 64
-      rectH = rectH + 64
-    end
-    
-    love.graphics.setColor(0, 0, 0, 128)
-    love.graphics.rectangle('fill', blockX, textY - 32, blockWidth, rectH )
-    
-    love.graphics.setColor(255, 255, 255, 255)
-    love.graphics.print(title, textX, textY)
-    
-    if island.state then
-      drawGems(island.state.gems, (windowWidth/2 - 110) - 8, textY + 48, 0.5)
-    end
+  local blockX = (windowWidth - blockWidth) / 2
+  local textX = (windowWidth - textWidth) / 2
+  local textY = windowHeight/2 - 200
+  local rectH = 32*3
+  if island.state then
+    textY = textY - 64
+    rectH = rectH + 64
+  end
+  
+  love.graphics.setColor(0, 0, 0, 128)
+  love.graphics.rectangle('fill', blockX, textY - 32, blockWidth, rectH )
+  
+  love.graphics.setColor(255, 255, 255, 255)
+  love.graphics.print(title, textX, textY)
+  
+  if island.state then
+    drawGems(island.state.gems, (windowWidth/2 - 110) - 8, textY + 48, 0.5)
   end
 end
 
