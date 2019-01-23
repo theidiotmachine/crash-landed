@@ -74,7 +74,7 @@ end
 function Sound.update()
   local remove = {}
     for _, sPair in pairs(Sound.sources) do
-      if sPair.src:isStopped() then
+      if not sPair.src:isPlaying() then
         remove[#remove + 1] = sPair.src
       end
     end
