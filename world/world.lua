@@ -323,7 +323,7 @@ function World.update(dt)
 end
 
 function World.draw()
-  love.graphics.setBackgroundColor(150, 228, 237)
+  love.graphics.setBackgroundColor(150/255, 228/255, 237/255)
   
   local cx, cy = Camera.getOffset(World.camera)
   worldMap:draw(cx, cy)

@@ -770,7 +770,7 @@ function Map:draw(tx, ty, sx, sy)
   
   --*_*
   local oldR, oldG, oldB, oldA = love.graphics.getColor()
-  love.graphics.setColor(255, 255, 255, 255)
+  love.graphics.setColor(1, 1, 1, 1)
 	lg.draw(self.canvas)
   love.graphics.setColor(oldR, oldG, oldB, oldA)
 
@@ -967,7 +967,6 @@ function Map:setFlippedGID(gid)
 	end
 
 	self.tiles[gid] = data
-
 	return self.tiles[gid]
 end
 

@@ -387,10 +387,10 @@ local function drawDialog(game, player)
   local blockHeight = textHeight + border*3 + optionsHeight
   local blockY = (windowHeight - (blockHeight))/2
   
-  love.graphics.setColor(0, 0, 0, 128)
+  love.graphics.setColor(0, 0, 0, 128/255)
   love.graphics.rectangle('fill', blockX, blockY, blockWidth, blockHeight)
   
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
   love.graphics.draw(face.texture, face.quad, windowWidth/2 - face.w/2, blockY-(face.h))
   
   love.graphics.setFont(fontVecBold32)
@@ -399,9 +399,9 @@ local function drawDialog(game, player)
   local y = blockY + border*2 + textHeight
   for i, option in ipairs(options) do 
     if i == selectedOption then
-      love.graphics.setColor(255, 255, 255)
+      love.graphics.setColor(1, 1, 1)
     else
-      love.graphics.setColor(150, 150, 150)
+      love.graphics.setColor(150/255, 150/255, 150/255)
     end
     love.graphics.printf(option.text, blockX + border, y, textWidth)
     y = y + optionHeights[i]
@@ -409,7 +409,7 @@ local function drawDialog(game, player)
 end
 
 function Hud.gameDraw(game, player)
-  love.graphics.setColor(255, 255, 255, 255)
+  love.graphics.setColor(255/255, 255/255, 255/255, 255/255)
       
   local windowWidth  = love.graphics.getWidth()
   local windowHeight  = love.graphics.getHeight()
@@ -469,7 +469,7 @@ function Hud.gameDraw(game, player)
   
   --signs
   if hudSignTime > 0 then
-    love.graphics.setColor(255, 255, 255, 255 * hudSignTime / HUD_SIGN_SHOW_TIME ) 
+    love.graphics.setColor(255/255, 255/255, 255/255, hudSignTime / HUD_SIGN_SHOW_TIME ) 
     
     local tPad = 16
     local bPad = 32
@@ -553,10 +553,10 @@ function Hud.worldDraw(world, saucer)
     rectH = rectH + 64
   end
   
-  love.graphics.setColor(0, 0, 0, 128)
+  love.graphics.setColor(0, 0, 0, 128/255)
   love.graphics.rectangle('fill', blockX, textY - 32, blockWidth, rectH )
   
-  love.graphics.setColor(255, 255, 255, 255)
+  love.graphics.setColor(1, 1, 1, 1)
   love.graphics.print(title, textX, textY)
   
   if island.state then

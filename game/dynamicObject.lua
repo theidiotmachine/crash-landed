@@ -66,7 +66,7 @@ function DynamicObject:draw(cx, cy)
   if debugDrawCollisionShapes then
     local oldR, oldG, oldB, oldA = love.graphics.getColor()
     if not (self.vel.x == 0) or not (self.vel.y == 0) then
-      love.graphics.setColor(0, 127 + 64, 0, 255) 
+      love.graphics.setColor(0, (127 + 64)/255, 0, 1) 
       love.graphics.line(
         cx + self.pos.x, cy + self.pos.y, 
         cx + self.pos.x + self.vel.x,
@@ -77,9 +77,9 @@ function DynamicObject:draw(cx, cy)
       local wps = self:getWaterPoints()
       for idx, wp in pairs(wps) do
         if self.immersedWaterPoints[idx] then
-          love.graphics.setColor(128, 128, 255, 255)
+          love.graphics.setColor(128/255, 128/255, 1, 1)
         else
-          love.graphics.setColor(255, 255, 255, 255)
+          love.graphics.setColor(1, 1, 1, 1)
         end
         
         love.graphics.polygon("fill", 

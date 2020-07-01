@@ -53,7 +53,7 @@ local function calcDistSq(l, r)
 end
 
 function Saucer:draw(cx, cy)
-  love.graphics.setColor(255, 255, 255, 255)
+  love.graphics.setColor(1, 1, 1, 1)
   local sprite = self.sprites[self.animFrame]
   local shadowOffset = 0
   if self.shadowMode == 'sea' then 
@@ -61,7 +61,7 @@ function Saucer:draw(cx, cy)
   elseif self.shadowMode == 'feature' then
     shadowOffset = self.featureShadowOffset
   end
-  love.graphics.setColor(255, 255, 255, 255)
+  love.graphics.setColor(1, 1, 1, 1)
   love.graphics.draw(self.shadowSprite.texture, self.shadowSprite.quad, 
     self.pos.x - self.shadowSprite.w/2 + cx, self.pos.y - self.shadowSprite.h/2 + cy + shadowOffset)
   if self.mode == 'teleportDown' or self.mode == 'teleportUp' then
@@ -70,18 +70,18 @@ function Saucer:draw(cx, cy)
       if self.mode == 'teleportUp' then
         teleportRatio = 1 - teleportRatio
       end
-      a = 255 * teleportRatio
+      a = teleportRatio
       
-      love.graphics.setColor(255, 255, 255, (255-a))
+      love.graphics.setColor(1, 1, 1, (1-a))
       local w = 16 * teleportRatio
       local h  = 64 + shadowOffset
       love.graphics.rectangle("fill", cx + self.pos.x - w / 2, cy + self.pos.y -64, w, h )
-      love.graphics.setColor(241, 156, 183, 255-a)
+      love.graphics.setColor(241/255, 156/255, 183/255, 1-a)
       love.graphics.rectangle("fill", cx + self.pos.x - w / 2 - 4, cy + self.pos.y - 64, 4, h )
       love.graphics.rectangle("fill", cx + self.pos.x + w / 2, cy + self.pos.y - 64, 4, h )
     end
   end
-  love.graphics.setColor(255, 255, 255, 255)
+  love.graphics.setColor(1, 1, 1, 1)
   love.graphics.draw(sprite.texture, sprite.quad, 
     self.pos.x - sprite.w/2 + cx, 
     (self.pos.y - sprite.h/2 + cy - 64) + self.landDist
@@ -230,7 +230,7 @@ function Saucer:update(world, dt)
       proposedDest.y = proposedDest.y + 1
     elseif love.keyboard.isDown('d') or love.keyboard.isDown('right') then
       proposedDest.x = proposedDest.x + 1
-    elseif love.keyboard.isDown(' ') or love.keyboard.isDown('return') then
+    elseif love.keyboard.isDown('space') or love.keyboard.isDown('return') then
       local island = worldMap.islands[self.destMapLoc.x][self.destMapLoc.y]
       local islandData = WorldState.data.islands[island.worldStateName]
       if islandData.level then

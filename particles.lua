@@ -91,26 +91,26 @@ function Particles.globalInit()
     },
     ]]--
     {life = 0.2, sprite = sprites["circle4"], 
-      colorFrom = { r = 255, g = 204, b = 0, a = 255 },
-      colorTo = { r = 240, g = 157, b = 30, a = 255 }, 
+      colorFrom = { r = 255/255, g = 204/255, b = 0, a = 255/255 },
+      colorTo = { r = 240/255, g = 157/255, b = 30/255, a = 255/255 }, 
       sizeFrom = 0.4,
       sizeTo = 0.6,
     },
     {life = 0.2, sprite = sprites["circle4"], 
-      colorFrom = { r = 240, g = 157, b = 30, a = 255 },
-      colorTo = { r = 240, g = 114, b = 30, a = 255 }, 
+      colorFrom = { r = 240/255, g = 157/255, b = 30/255, a = 255/255 },
+      colorTo = { r = 240/255, g = 114/255, b = 30/255, a = 255/255 }, 
       sizeFrom = 0.6,
       sizeTo = 0.8,
     },
     {life = 0.2, sprite = sprites["circle4"], 
-      colorFrom = { r = 240, g = 114, b = 30, a = 255 },
-      colorTo = { r = 51, g = 51, b = 51, a = 255 }, 
+      colorFrom = { r = 240/255, g = 114/255, b = 30/255, a = 255/255 },
+      colorTo = { r = 51/255, g = 51/255, b = 51/255, a = 255/255 }, 
       sizeFrom = 0.8,
       sizeTo = 1.0,
     },
     {life = 0.2, sprite = sprites["circle4"], 
-      colorFrom = { r = 51, g = 51, b = 51, a = 255 }, 
-      colorTo = { r = 51, g = 51, b = 51, a = 0 }, 
+      colorFrom = { r = 51/255, g = 51/255, b = 51/255, a = 255/255 }, 
+      colorTo = { r = 51/255, g = 51/255, b = 51/255, a = 0 }, 
       sizeFrom = 1.0,
       sizeTo = 0.2,
     },
@@ -118,20 +118,20 @@ function Particles.globalInit()
   
   smallBoomDefs = {
     {life = 0.4, sprite = sprites["circle2"], 
-      colorFrom = {r = 255, g = 255, b = 255},
-      colorTo = { r = 255, g = 204, b = 0 }, 
+      colorFrom = {r = 1, g = 1, b = 1},
+      colorTo = { r = 1, g = 204/255, b = 0 }, 
       sizeFrom = 0.4,
       sizeTo = 0.6,
     },
     {life = 0.3, sprite = sprites["circle2"], 
-      colorFrom = { r = 255, g = 204, b = 0 },
-      colorTo = { r = 240, g = 157, b = 30 }, 
+      colorFrom = { r = 255/255, g = 204/255, b = 0 },
+      colorTo = { r = 240/255, g = 157/255, b = 30/255 }, 
       sizeFrom = 0.6,
       sizeTo = 0.8,
     },
     {life = 0.2, sprite = sprites["circle2"], 
-      colorFrom = { r = 240, g = 157, b = 30 },
-      colorTo = { r = 240, g = 114, b = 30 }, 
+      colorFrom = { r = 240/255, g = 157/255, b = 30/255 },
+      colorTo = { r = 240/255, g = 114/255, b = 30/255 }, 
       sizeFrom = 0.8,
       sizeTo = 1,
     },
@@ -192,7 +192,7 @@ local function particleEvolveDef(self, dt)
 end
 
 local function particleDrawDefSimple(self, cx, cy)
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(1, 1, 1)
   local sprite = self.def[self.defIndex].sprite
   love.graphics.draw(sprite.texture, sprite.quad, 
     cx + self.pos.x - sprite.w/2, 
@@ -229,7 +229,7 @@ end
 
 local function particleDrawFade(self, cx, cy)
   local a = 128 + 128 * ((self.life - self.time) / self.life)
-  love.graphics.setColor(255, 255, 255, a)
+  love.graphics.setColor(1, 1, 1, a/255)
   love.graphics.draw(self.sprite.texture, self.sprite.quad, 
     cx + self.pos.x - self.sprite.w/2, 
     cy + self.pos.y - self.sprite.h/2)
@@ -241,7 +241,7 @@ local function particleDrawCircleFade(self, cx, cy)
   local life = self.life
   local t = 1 - ((life - self.time) / life)
   assert(t>=0 and t<=1)
-  local a = 255 * (1 - t)
+  local a = (1 - t)
   love.graphics.setColor(
     linearInterp(colorFrom.r, colorTo.r, t), 
     linearInterp(colorFrom.g, colorTo.g, t), 

@@ -34,7 +34,7 @@ end
 
 function Flares.draw(cx, cy)
   for flare, _ in pairs(Flares.flares) do
-    love.graphics.setColor(255, 255, 255, flare.a)
+    love.graphics.setColor(1, 1, 1, flare.a)
     love.graphics.draw(flare.sprite.image, flare.sprite.quad, 
       flare.x + cx, 
       flare.y + cy)

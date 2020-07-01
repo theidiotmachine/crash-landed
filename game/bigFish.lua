@@ -223,9 +223,9 @@ function BigFish:draw(cx, cy)
   else 
     self.sx = 1
   end
-  local a = 255
+  local a = 1
   if not self.alive then
-    a = 255 * (1 - ((FadeTime - self.aliveCounter) / FadeTime))
+    a = (1 - ((FadeTime - self.aliveCounter) / FadeTime))
   end
   
   DynamicObject.draw(self, cx, cy, a)

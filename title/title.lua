@@ -301,7 +301,7 @@ function Title.update(dt)
 end
 
 function Title.draw(dt)
-  love.graphics.setBackgroundColor(150, 228, 237)
+  love.graphics.setBackgroundColor(150/255, 228/255, 237/255)
   Title.menu:draw()
 end
 

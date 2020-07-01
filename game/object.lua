@@ -206,7 +206,7 @@ function Object:cull(cx, cy, ww, wh)
 end
 
 function Object:draw(cx, cy, a)
-  local alpha = a or 255
+  local alpha = a or 1
   if not self.hidden then
     local oldR, oldG, oldB, oldA = love.graphics.getColor()
     love.graphics.setColor(oldR, oldG, oldB, alpha)

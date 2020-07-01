@@ -16,7 +16,7 @@ local function newLight(...)
 end
 
 function Light:calcA()
-  return (1 + math.sin(self.rot)) * 128
+  return (1 + math.sin(self.rot)) * 0.5
 end
 
 function Light:setUpLightType(game, lightType, tile)

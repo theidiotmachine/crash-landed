@@ -43,9 +43,9 @@ function CollisionArea:draw(cx, cy)
   if debugDrawCollisionShapes then
     local oldR, oldG, oldB, oldA = love.graphics.getColor()
     for _, hcShape in pairs(self.hcShapes) do 
-      love.graphics.setColor(127, 255, 127, 128)
+      love.graphics.setColor(127/255, 1, 127/255, 128/255)
       hcShape:draw(cx, cy, 'fill')
-      love.graphics.setColor(127 , 255, 127, 255)
+      love.graphics.setColor(127 /255, 1, 127/255, 1)
       hcShape:draw(cx, cy, 'line')
     end
     love.graphics.setColor(oldR, oldG, oldB, oldA)

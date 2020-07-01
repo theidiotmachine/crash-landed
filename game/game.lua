@@ -472,13 +472,13 @@ function Game.draw()
     local zz = Game.HC.hash():shapes()
     local i = 1
     for _, hc_poly in pairs(zz) do
-      love.graphics.setColor(127 + math.fmod(i * 23, 128), 255 - math.fmod(i * 19, 128), 127 + math.fmod(i * 29, 128), 128)
+      love.graphics.setColor((127 + math.fmod(i * 23, 128))/255, (255 - math.fmod(i * 19, 128))/255, (127 + math.fmod(i * 29, 128))/255, 128/255)
       hc_poly:draw(cx, cy, 'fill')
-      love.graphics.setColor(127 + math.fmod(i * 23, 128), 255 - math.fmod(i * 19, 128), 127 + math.fmod(i * 29, 128), 255)
+      love.graphics.setColor((127 + math.fmod(i * 23, 128))/255, (255 - math.fmod(i * 19, 128))/255, (127 + math.fmod(i * 29, 128))/255, 1)
       hc_poly:draw(cx, cy, 'line')
       local hx, hy = hc_poly:center()
       love.graphics.setFont(fontDebug)
-      love.graphics.setColor(255, 255, 255, 255)
+      love.graphics.setColor(1, 1, 1, 1)
       i = i + 1
       if hc_poly.user.stuff then
         love.graphics.print(i .. " - " .. hc_poly.user.stuff, hx+cx, hy+cy)
@@ -486,7 +486,7 @@ function Game.draw()
         love.graphics.print(i .. " - " .. hc_poly.user.object.type, hx+cx, hy+cy)
       end
     end
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
     love.graphics.print("dt: " .. debugDt, 400, 10)
     love.graphics.print("fps: " .. 1/debugDt, 400, 30)
     love.graphics.print("c: " .. cx .. ", " .. cy, 400, 50)
@@ -505,7 +505,7 @@ function Game.draw()
     Game.updateProfilerForDraw(pt0, pt1, pt2, pt3)
     
     love.graphics.setFont(fontDebug)
-    love.graphics.setColor(128, 128, 128, 255)
+    love.graphics.setColor(128/255, 128/255, 128/255, 1)
     
     local profilerDrawData = {
       "update", "updatePre", "updateDynamics", "updateDynamicsMap", "updateDynamicsObjects",

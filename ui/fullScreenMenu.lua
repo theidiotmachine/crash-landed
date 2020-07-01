@@ -58,9 +58,9 @@ end
 function FullScreenMenu:drawElem(elem, x, y, isSelected, maxfw)
   love.graphics.setFont(fontVecBold64)
   if isSelected then
-    love.graphics.setColor(255, 255, 255)
+    love.graphics.setColor(1, 1, 1)
   else
-    love.graphics.setColor(150, 150, 150)
+    love.graphics.setColor(150/255, 150/255, 150/255)
   end
   love.graphics.print(elem.text, x, y)
   
@@ -106,7 +106,7 @@ function FullScreenMenu:draw()
   local y = (wh - menuH) / 2
   local x = (ww - menuW) / 2
   
-  love.graphics.setColor(0, 0, 0, 128)
+  love.graphics.setColor(0, 0, 0, 128/255)
   love.graphics.rectangle('fill', x, y, menuW, menuH)
   
   for i, elem in ipairs(self.elems) do

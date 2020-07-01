@@ -693,13 +693,13 @@ function Player:draw(cx, cy)
   end
   
   local oldR, oldG, oldB, oldA = love.graphics.getColor()
-  local a = 255
+  local a = 1
   local teleportRatio = (TELEPORT_TIME - self.teleportTimer) / TELEPORT_TIME
   if self.teleportMode == 'out' then
     teleportRatio = 1 - teleportRatio
   end
   if self.teleportTimer > 0 then
-    a = 255 * teleportRatio
+    a = 1 * teleportRatio
   end
   
   love.graphics.setColor(oldR, oldG, oldB, a)
@@ -707,7 +707,7 @@ function Player:draw(cx, cy)
     self.pos.x+cx, self.pos.y+cy, 0, sx, 1, ox, oy)
   
   if self.teleportTimer > 0 then
-    love.graphics.setColor(255, 255, 255, (255-a))
+    love.graphics.setColor(1, 1, 1, (1-a))
     local w = 128 * teleportRatio
     local h  = self.pos.y + cy
     love.graphics.rectangle("fill", cx + self.teleportLoc.x - w / 2, 0, w, h )
@@ -718,26 +718,26 @@ function Player:draw(cx, cy)
 
   if debugDrawCollisionShapes then
     
-    love.graphics.setColor(127 + 64, 255 - 64, 127 + 64, 128)
+    love.graphics.setColor((127 + 64)/255, (255 - 64)/255, (127 + 64)/255, 128/255)
     self.mainHCShape:draw(cx, cy, 'fill')
-    love.graphics.setColor(127 + 64, 255 - 64, 127 + 64, 255)
+    love.graphics.setColor((127 + 64)/255, (255 - 64)/255, (127 + 64)/255, 1)
     self.mainHCShape:draw(cx, cy, 'line')
     
-    love.graphics.setColor(127 + 64, 255, 127 + 64, 128)
+    love.graphics.setColor((127 + 64)/255, 1, (127 + 64)/255, 128/255)
     self.footHCShape:draw(cx, cy, 'fill')
-    love.graphics.setColor(127 + 64, 255, 127 + 64, 255)
+    love.graphics.setColor((127 + 64)/255, 1, (127 + 64)/255, 1)
     self.footHCShape:draw(cx, cy, 'line')
     
     local ogText = "jump"
     if self.onGround then 
       ogText = self.onStuff
     end 
-    love.graphics.setColor(0, 128, 0, 255) 
+    love.graphics.setColor(0, 0.5, 0, 1) 
     love.graphics.setFont(fontDebug)
     love.graphics.print(ogText, cx + self.pos.x, cy + self.pos.y - frame.h / 2)
     
     if not (self.groundNSV.x == 0) or not (self.groundNSV.y == 0) then
-      love.graphics.setColor(127 + 64, 0, 0, 255) 
+      love.graphics.setColor((127 + 64)/255, 0, 0, 1) 
       love.graphics.line(
         cx + self.pos.x, cy + self.pos.y, 
         cx + self.pos.x + 1000 * self.groundNSV.x,
@@ -745,7 +745,7 @@ function Player:draw(cx, cy)
       )
     end
     if not (self.vel.x == 0) or not (self.vel.y == 0) then
-      love.graphics.setColor(0, 127 + 64, 0, 255) 
+      love.graphics.setColor(0, (127 + 64)/255, 0, 1) 
       love.graphics.line(
         cx + self.pos.x, cy + self.pos.y, 
         cx + self.pos.x + self.vel.x,
@@ -755,9 +755,9 @@ function Player:draw(cx, cy)
     local wps = self:getWaterPoints()
     for idx, wp in pairs(wps) do
       if self.immersedWaterPoints[idx] then
-        love.graphics.setColor(128, 128, 255, 255)
+        love.graphics.setColor(128/255, 128/255, 1, 1)
       else
-        love.graphics.setColor(255, 255, 255, 255)
+        love.graphics.setColor(1, 1, 1, 1)
       end
       
       love.graphics.polygon("fill", 

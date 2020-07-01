@@ -355,7 +355,7 @@ function powerSwitch.right(switch, game)
   Sound.playFX("assets/sound/shutdown1.ogg")
   levelState.powerOn = false
   levelState.lightFadeTime = 1
-  levelState.lightFade = { r = ambient.ambientColor.r - 64, g = ambient.ambientColor.g - 64, b = ambient.ambientColor.b - 96 }
+  levelState.lightFade = { r = ambient.ambientColor.r - 64/255, g = ambient.ambientColor.g - 64/255, b = ambient.ambientColor.b - 96/255 }
  
   local powerScreen = Object.getNamedObject("powerScreen")
   powerScreen.signText = Saucer01Script.text["powerOff"]
@@ -385,7 +385,7 @@ function powerSwitch.left(switch, game)
   levelState.powerOn = true
   levelState.powerReset = true
   levelState.lightFadeTime = 1
-  levelState.lightFade = { r = ambient.ambientColor.r - 255, g = ambient.ambientColor.g - 255, b = ambient.ambientColor.b - 255 }
+  levelState.lightFade = { r = ambient.ambientColor.r - 255/255, g = ambient.ambientColor.g - 255/255, b = ambient.ambientColor.b - 255/255 }
   
   local powerScreen = Object.getNamedObject("powerScreen")
   powerScreen.signText = Saucer01Script.text["powerOn"]
@@ -487,10 +487,10 @@ local function update(game, dt)
     if levelState.lightFadeTime > 0 then
       local fade = levelState.lightFadeTime / 1
       ambient:setAmbientColor(
-        64 + fade * levelState.lightFade.r, 64 + fade * levelState.lightFade.g, 96 + fade * levelState.lightFade.b)
+        (64 + fade * levelState.lightFade.r)/255, (64 + fade * levelState.lightFade.g)/255, (96 + fade * levelState.lightFade.b)/255)
       levelState.lightFadeTime = levelState.lightFadeTime - dt
     else
-      ambient:setAmbientColor(64, 64, 96)
+      ambient:setAmbientColor(64/255, 64/255, 96/255)
     end
   elseif not levelState.powerReset then
     local LIGHT_CYCLE_TIME = 3
@@ -502,15 +502,15 @@ local function update(game, dt)
     if levelState.lightCycle > LIGHT_CYCLE_TIME * 0.5 then
       fade = LIGHT_CYCLE_TIME - levelState.lightCycle
     end
-    ambient:setAmbientColor(255 - fade * 48, 128 - fade * 64, 128 - fade * 64)
+    ambient:setAmbientColor((255 - fade * 48)/255, (128 - fade * 64)/255, (128 - fade * 64)/255)
   else
     if levelState.lightFadeTime > 0 then
       local fade = levelState.lightFadeTime / 1
       ambient:setAmbientColor(
-        255 + fade * levelState.lightFade.r, 255 + fade * levelState.lightFade.g, 255 + fade * levelState.lightFade.b)
+        (255 + fade * levelState.lightFade.r)/255, (255 + fade * levelState.lightFade.g)/255, (255 + fade * levelState.lightFade.b)/255)
       levelState.lightFadeTime = levelState.lightFadeTime - dt
     else
-      ambient:setAmbientColor(255, 255, 255)
+      ambient:setAmbientColor(1, 1, 1)
     end
   end
 end

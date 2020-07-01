@@ -19,7 +19,7 @@ function WorldMap:update(dt)
 end
 
 function WorldMap:draw(cx, cy)
-  love.graphics.setColor(255, 255, 255, 255)
+  love.graphics.setColor(1, 1, 1, 1)
   
   for x, colData in ipairs(self.islands) do
     for y, datum in ipairs(colData) do
@@ -38,7 +38,7 @@ function WorldMap:draw(cx, cy)
   
     
   for _, datum in pairs(self.barriers) do 
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
   
     love.graphics.draw(datum.shadowSprite.texture, 
         datum.shadowSprite.quad, 

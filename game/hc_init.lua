@@ -196,7 +196,7 @@ function hc_init.buildShapeFromMapLayers(game, scriptName, textName, map)
             
             function layer.draw(self, tx, ty, sx, sy)
               --local oldR, oldG, oldB, oldA = love.graphics.getColor()
-              --love.graphics.setColor(255, 255, 255, 255)
+              --love.graphics.setColor(1, 1, 1, 1)
               local windowWidth  = love.graphics.getWidth()
               local windowHeight  = love.graphics.getHeight()
               for y = 1, endY, 1 do
