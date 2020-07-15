@@ -60,8 +60,12 @@ function Fish:update(game, dt)
     self.aliveCounter = self.aliveCounter - dt
     if self.aliveCounter < 0 then
       Object.destroy(self, game)
-      return
+      for _, hcShape in pairs(self.hcShapes) do
+        Collisions.unregisterObject(hcShape)
+        game.HC.remove(hcShape)
+      end
     end
+    return
   end
   
   if self.pos.y > game.map.height * game.map.tileheight then
@@ -156,9 +160,9 @@ function Fish:draw(cx, cy)
     self.sx = 1
   end
     
-  local a = 255
-  if not self.alive then
-    a = 255 * (1 - ((FadeTime - self.aliveCounter) / FadeTime))
+  local a = 1
+  if self.alive == false then
+    a = 1 - ((FadeTime - self.aliveCounter) / FadeTime)
   end
   DynamicObject.draw(self, cx, cy, a)
 end
@@ -167,6 +171,7 @@ function Fish:takeDamage(game, dt, damageType, amount, separatingVector, source)
   if damageType == 'explosion' then
     self.aliveCounter = FadeTime
     self.alive = false
+    self.animation = false
     self.image = self.deadSprite.image
     self.quad = self.deadSprite.quad
   end

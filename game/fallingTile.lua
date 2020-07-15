@@ -97,7 +97,7 @@ function FallingTile:draw(cx, cy)
   if self.status == 'flashing' then
     self.flasher:draw(cx, cy, self.pos.x, self.pos.y, self.r, self.sx, self.sy)
   elseif self.status == 'falling' then
-    Object.draw(self, cx, cy, 255 * (self.fallingTimer - MAX_FALLING_TILE_FLASHING_TIME)/MAX_FALLING_TILE_FLASHING_TIME)
+    Object.draw(self, cx, cy, (self.fallingTimer - MAX_FALLING_TILE_FLASHING_TIME)/MAX_FALLING_TILE_FLASHING_TIME)
   else
     Object.draw(self, cx, cy)
   end

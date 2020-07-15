@@ -61,8 +61,8 @@ function DynamicObject:cull(cx, cy, ww, wh)
   return Object.cull(self, cx, cy, ww, wh)
 end
 
-function DynamicObject:draw(cx, cy)
-  Object.draw(self, cx, cy)
+function DynamicObject:draw(cx, cy, a)
+  Object.draw(self, cx, cy, a)
   if debugDrawCollisionShapes then
     local oldR, oldG, oldB, oldA = love.graphics.getColor()
     if not (self.vel.x == 0) or not (self.vel.y == 0) then
