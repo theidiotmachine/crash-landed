@@ -27,6 +27,7 @@ function love.load()
   love.audio.setOrientation(0, 0, 1, 0, -1, 0)
   love.audio.setPosition(0, 0, 0)
   love.audio.setDistanceModel('linear')
+  love.mouse.setVisible(false)
 
   fontVecBold32 = love.graphics.newFont("assets/fonts/kenvector_future_thin2.ttf", 24)
   fontVecBold64 = love.graphics.newFont("assets/fonts/Kenney Future Narrow.ttf", 48)

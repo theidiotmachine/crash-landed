@@ -20,6 +20,8 @@ local Cog = require 'game.cog'
 local Decoration = require 'game.decoration'
 local Switch = require 'game.switch'
 local Sign = require 'game.sign'
+local Arrow = require 'game.arrow'
+local Fan = require 'game.fan'
 local Ladder = require 'game.ladder'
 local Light = require 'game.light'
 local Door = require 'game.door'
@@ -59,6 +61,8 @@ function Game.globalInit()
   Object.registerObjectType("decoration", function(...) return Decoration.newDecoration(...) end)
   Object.registerObjectType("switch", function(...) return Switch.newSwitch(...) end)
   Object.registerObjectType("sign", function(...) return Sign.newSign(...) end)
+  Object.registerObjectType("arrow", function(...) return Arrow.newArrow(...) end)
+  Object.registerObjectType("fan", function(...) return Fan.newFan(...) end)
   Object.registerObjectType("ladder", function(...) return Ladder.newLadder(...) end)
   Object.registerObjectType("light", function(...) return Light.newLight(...) end)
   Object.registerObjectType("door", function(...) return Door.newDoor(...) end)

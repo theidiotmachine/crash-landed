@@ -77,8 +77,6 @@ function Light:init(game, object, tile, map)
     quad = tile.quad
   }
   self:setFlare()
-
-  
 end
 
 function Light:change(newLightType)

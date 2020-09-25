@@ -2,7 +2,7 @@
 <map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="128" tileheight="128" infinite="0" nextobjectid="248">
  <tileset firstgid="1" source="industrial ground.tsx"/>
  <tileset firstgid="29" source="industrial tiles.tsx"/>
- <tileset firstgid="137" source="items.tsx"/>
+ <tileset firstgid="425" source="items.tsx"/>
  <imagelayer name="Image Layer 1">
   <image source="../art/blue_land.png" width="1080" height="1080"/>
   <properties>
@@ -127,229 +127,229 @@
 </data>
  </layer>
  <objectgroup name="Object Layer 1">
-  <object id="1" gid="47" x="3584" y="3584" width="128" height="128"/>
-  <object id="2" gid="56" x="3584" y="3840" width="128" height="128"/>
-  <object id="3" gid="56" x="3584" y="3968" width="128" height="128"/>
-  <object id="4" gid="56" x="3584" y="4096" width="128" height="128"/>
-  <object id="5" gid="47" x="4736" y="4096" width="128" height="128"/>
-  <object id="6" gid="56" x="4736" y="4352" width="128" height="128"/>
-  <object id="7" gid="56" x="4736" y="4480" width="128" height="128"/>
-  <object id="8" gid="56" x="4736" y="4608" width="128" height="128"/>
-  <object id="11" gid="42" x="2432" y="5248" width="128" height="128">
+  <object id="1" gid="49" x="3584" y="3584" width="128" height="128"/>
+  <object id="2" gid="59" x="3584" y="3840" width="128" height="128"/>
+  <object id="3" gid="59" x="3584" y="3968" width="128" height="128"/>
+  <object id="4" gid="59" x="3584" y="4096" width="128" height="128"/>
+  <object id="5" gid="49" x="4736" y="4096" width="128" height="128"/>
+  <object id="6" gid="59" x="4736" y="4352" width="128" height="128"/>
+  <object id="7" gid="59" x="4736" y="4480" width="128" height="128"/>
+  <object id="8" gid="59" x="4736" y="4608" width="128" height="128"/>
+  <object id="11" gid="43" x="2432" y="5248" width="128" height="128">
    <properties>
     <property name="signText" value="art1"/>
    </properties>
   </object>
-  <object id="13" gid="43" x="2560" y="5248" width="128" height="128">
+  <object id="13" gid="44" x="2560" y="5248" width="128" height="128">
    <properties>
     <property name="signText" value="art2"/>
    </properties>
   </object>
-  <object id="14" gid="44" x="2688" y="5248" width="128" height="128">
+  <object id="14" gid="45" x="2688" y="5248" width="128" height="128">
    <properties>
     <property name="signText" value="art3"/>
    </properties>
   </object>
-  <object id="20" name="lp0Screen" gid="38" x="5248" y="3456" width="128" height="128">
+  <object id="20" name="lp0Screen" gid="39" x="5248" y="3456" width="128" height="128">
    <properties>
     <property name="signText" value="lp0OutOfPaper"/>
    </properties>
   </object>
-  <object id="21" gid="56" x="4736" y="4736" width="128" height="128"/>
-  <object id="22" gid="75" x="3328" y="4992" width="128" height="128"/>
-  <object id="23" gid="74" x="3328" y="4864" width="128" height="128"/>
-  <object id="24" gid="74" x="3328" y="4736" width="128" height="128"/>
-  <object id="25" gid="83" x="3328" y="4608" width="128" height="128"/>
-  <object id="34" gid="74" x="2828.8" y="4736" width="128" height="128"/>
-  <object id="35" gid="75" x="2828.8" y="4992" width="128" height="128"/>
-  <object id="36" gid="74" x="2828.8" y="4864" width="128" height="128"/>
-  <object id="37" gid="83" x="2828.8" y="4608" width="128" height="128"/>
-  <object id="39" gid="89" x="2944" y="3520" width="128" height="128">
+  <object id="21" gid="59" x="4736" y="4736" width="128" height="128"/>
+  <object id="22" gid="80" x="3328" y="4992" width="128" height="128"/>
+  <object id="23" gid="79" x="3328" y="4864" width="128" height="128"/>
+  <object id="24" gid="79" x="3328" y="4736" width="128" height="128"/>
+  <object id="25" gid="89" x="3328" y="4608" width="128" height="128"/>
+  <object id="34" gid="79" x="2828.8" y="4736" width="128" height="128"/>
+  <object id="35" gid="80" x="2828.8" y="4992" width="128" height="128"/>
+  <object id="36" gid="79" x="2828.8" y="4864" width="128" height="128"/>
+  <object id="37" gid="89" x="2828.8" y="4608" width="128" height="128"/>
+  <object id="39" gid="95" x="2944" y="3520" width="128" height="128">
    <properties>
     <property name="signText" value="runScreaming"/>
    </properties>
   </object>
-  <object id="43" gid="56" x="4736" y="4864" width="128" height="128"/>
-  <object id="44" gid="56" x="4736" y="4992" width="128" height="128"/>
-  <object id="45" gid="95" x="7104" y="4480" width="128" height="128"/>
-  <object id="46" gid="95" x="6720" y="4480" width="128" height="128"/>
-  <object id="47" gid="95" x="6912" y="4480" width="128" height="128"/>
-  <object id="48" gid="95" x="6336" y="4480" width="128" height="128"/>
-  <object id="49" gid="95" x="6528" y="4480" width="128" height="128"/>
-  <object id="50" gid="95" x="3712" y="4556.8" width="128" height="128"/>
-  <object id="51" gid="95" x="3456" y="4556.8" width="128" height="128"/>
-  <object id="52" gid="95" x="3200" y="4556.8" width="128" height="128"/>
-  <object id="53" gid="95" x="2944" y="4556.8" width="128" height="128"/>
-  <object id="54" gid="95" x="2688" y="4556.8" width="128" height="128"/>
-  <object id="64" gid="70" x="6592" y="4096" width="128" height="128"/>
-  <object id="76" gid="52" x="3712" y="4480" width="128" height="128"/>
-  <object id="77" gid="52" x="3456" y="4480" width="128" height="128"/>
-  <object id="79" gid="52" x="2688" y="4480" width="128" height="128"/>
-  <object id="80" gid="52" x="2944" y="4480" width="128" height="128"/>
-  <object id="81" gid="52" x="3200" y="4480" width="128" height="128"/>
-  <object id="82" gid="89" x="1280" y="3968" width="128" height="128">
+  <object id="43" gid="59" x="4736" y="4864" width="128" height="128"/>
+  <object id="44" gid="59" x="4736" y="4992" width="128" height="128"/>
+  <object id="45" gid="102" x="7104" y="4480" width="128" height="128"/>
+  <object id="46" gid="102" x="6720" y="4480" width="128" height="128"/>
+  <object id="47" gid="102" x="6912" y="4480" width="128" height="128"/>
+  <object id="48" gid="102" x="6336" y="4480" width="128" height="128"/>
+  <object id="49" gid="102" x="6528" y="4480" width="128" height="128"/>
+  <object id="50" gid="102" x="3712" y="4556.8" width="128" height="128"/>
+  <object id="51" gid="102" x="3456" y="4556.8" width="128" height="128"/>
+  <object id="52" gid="102" x="3200" y="4556.8" width="128" height="128"/>
+  <object id="53" gid="102" x="2944" y="4556.8" width="128" height="128"/>
+  <object id="54" gid="102" x="2688" y="4556.8" width="128" height="128"/>
+  <object id="64" gid="74" x="6592" y="4096" width="128" height="128"/>
+  <object id="76" gid="54" x="3712" y="4480" width="128" height="128"/>
+  <object id="77" gid="54" x="3456" y="4480" width="128" height="128"/>
+  <object id="79" gid="54" x="2688" y="4480" width="128" height="128"/>
+  <object id="80" gid="54" x="2944" y="4480" width="128" height="128"/>
+  <object id="81" gid="54" x="3200" y="4480" width="128" height="128"/>
+  <object id="82" gid="95" x="1280" y="3968" width="128" height="128">
    <properties>
     <property name="signText" value="youCanRead"/>
    </properties>
   </object>
-  <object id="102" gid="47" x="3712" y="2688" width="128" height="128"/>
-  <object id="103" gid="56" x="3712" y="2944" width="128" height="128"/>
-  <object id="104" gid="56" x="3712" y="3072" width="128" height="128"/>
-  <object id="105" gid="56" x="3712" y="3200" width="128" height="128"/>
-  <object id="107" gid="56" x="6912" y="3456" width="128" height="128"/>
-  <object id="108" gid="56" x="6912" y="3584" width="128" height="128"/>
-  <object id="109" gid="124" x="4608" y="2560" width="128" height="128"/>
-  <object id="110" gid="47" x="7040" y="4992" width="128" height="128"/>
-  <object id="111" gid="56" x="7040" y="5248" width="128" height="128"/>
-  <object id="112" gid="56" x="7040" y="5376" width="128" height="128"/>
-  <object id="114" gid="89" x="5248" y="3136" width="128" height="128">
+  <object id="102" gid="49" x="3712" y="2688" width="128" height="128"/>
+  <object id="103" gid="59" x="3712" y="2944" width="128" height="128"/>
+  <object id="104" gid="59" x="3712" y="3072" width="128" height="128"/>
+  <object id="105" gid="59" x="3712" y="3200" width="128" height="128"/>
+  <object id="107" gid="59" x="6912" y="3456" width="128" height="128"/>
+  <object id="108" gid="59" x="6912" y="3584" width="128" height="128"/>
+  <object id="109" gid="134" x="4608" y="2560" width="128" height="128"/>
+  <object id="110" gid="49" x="7040" y="4992" width="128" height="128"/>
+  <object id="111" gid="59" x="7040" y="5248" width="128" height="128"/>
+  <object id="112" gid="59" x="7040" y="5376" width="128" height="128"/>
+  <object id="114" gid="95" x="5248" y="3136" width="128" height="128">
    <properties>
     <property name="signText" value="inTheEvent"/>
    </properties>
   </object>
-  <object id="115" gid="89" x="8192" y="3840" width="128" height="128">
+  <object id="115" gid="95" x="8192" y="3840" width="128" height="128">
    <properties>
     <property name="signText" value="warningJumping"/>
    </properties>
   </object>
-  <object id="116" gid="89" x="2304" y="3136" width="128" height="128">
+  <object id="116" gid="95" x="2304" y="3136" width="128" height="128">
    <properties>
     <property name="signText" value="youHaveNoIdea"/>
    </properties>
   </object>
-  <object id="117" gid="56" x="3712" y="2816" width="128" height="128"/>
-  <object id="118" gid="47" x="6912" y="3200" width="128" height="128"/>
-  <object id="119" gid="56" x="6912" y="3328" width="128" height="128"/>
-  <object id="120" gid="56" x="4736" y="4224" width="128" height="128"/>
-  <object id="121" gid="56" x="7040" y="5120" width="128" height="128"/>
-  <object id="122" gid="56" x="3584" y="3712" width="128" height="128"/>
-  <object id="123" gid="79" x="6208" y="4096" width="128" height="128"/>
+  <object id="117" gid="59" x="3712" y="2816" width="128" height="128"/>
+  <object id="118" gid="49" x="6912" y="3200" width="128" height="128"/>
+  <object id="119" gid="59" x="6912" y="3328" width="128" height="128"/>
+  <object id="120" gid="59" x="4736" y="4224" width="128" height="128"/>
+  <object id="121" gid="59" x="7040" y="5120" width="128" height="128"/>
+  <object id="122" gid="59" x="3584" y="3712" width="128" height="128"/>
+  <object id="123" gid="84" x="6208" y="4096" width="128" height="128"/>
   <object id="126" gid="31" x="1702.4" y="4992" width="128" height="128"/>
   <object id="127" gid="31" x="1830.4" y="4992" width="128" height="128"/>
   <object id="128" gid="31" x="1779.2" y="4864" width="128" height="128"/>
-  <object id="129" name="door2u" gid="127" x="4096" y="3072" width="128" height="128"/>
-  <object id="130" name="door2d" gid="136" x="4096" y="3200" width="128" height="128"/>
-  <object id="131" name="door1u" gid="127" x="2176" y="3456" width="128" height="128">
+  <object id="129" name="door2u" gid="137" x="4096" y="3072" width="128" height="128"/>
+  <object id="130" name="door2d" gid="147" x="4096" y="3200" width="128" height="128"/>
+  <object id="131" name="door1u" gid="137" x="2176" y="3456" width="128" height="128">
    <properties>
     <property name="state" value="closed"/>
    </properties>
   </object>
-  <object id="132" name="door1d" gid="136" x="2176" y="3584" width="128" height="128"/>
-  <object id="136" name="button1l" gid="125" x="2048" y="3584" width="128" height="128"/>
-  <object id="138" name="button1r" gid="125" x="2304" y="3584" width="128" height="128"/>
-  <object id="139" name="button2l" gid="125" x="3968" y="3200" width="128" height="128"/>
-  <object id="140" name="button2r" gid="125" x="4224" y="3200" width="128" height="128"/>
-  <object id="141" name="door2screen" gid="38" x="4224" y="3072" width="128" height="128">
+  <object id="132" name="door1d" gid="147" x="2176" y="3584" width="128" height="128"/>
+  <object id="136" name="button1l" gid="135" x="2048" y="3584" width="128" height="128"/>
+  <object id="138" name="button1r" gid="135" x="2304" y="3584" width="128" height="128"/>
+  <object id="139" name="button2l" gid="135" x="3968" y="3200" width="128" height="128"/>
+  <object id="140" name="button2r" gid="135" x="4224" y="3200" width="128" height="128"/>
+  <object id="141" name="door2screen" gid="39" x="4224" y="3072" width="128" height="128">
    <properties>
     <property name="signText" value="nominal"/>
    </properties>
   </object>
-  <object id="147" gid="102" x="3456" y="3584" width="128" height="128">
+  <object id="147" gid="110" x="3456" y="3584" width="128" height="128">
    <properties>
     <property name="signText" value="signToEngines"/>
    </properties>
   </object>
-  <object id="148" gid="101" x="3200" y="3584" width="128" height="128">
+  <object id="148" gid="109" x="3200" y="3584" width="128" height="128">
    <properties>
     <property name="signText" value="signBridge"/>
    </properties>
   </object>
-  <object id="149" gid="103" x="3840" y="3584" width="128" height="128">
+  <object id="149" gid="111" x="3840" y="3584" width="128" height="128">
    <properties>
     <property name="signText" value="signToEscapePod"/>
    </properties>
   </object>
-  <object id="150" gid="102" x="6784" y="3584" width="128" height="128">
+  <object id="150" gid="110" x="6784" y="3584" width="128" height="128">
    <properties>
     <property name="signText" value="signToEscapePod"/>
    </properties>
   </object>
-  <object id="151" gid="102" x="6784" y="3200" width="128" height="128">
+  <object id="151" gid="110" x="6784" y="3200" width="128" height="128">
    <properties>
     <property name="signText" value="signToBoring"/>
    </properties>
   </object>
-  <object id="152" gid="101" x="6528" y="3200" width="128" height="128">
+  <object id="152" gid="109" x="6528" y="3200" width="128" height="128">
    <properties>
     <property name="signText" value="signToSafety"/>
    </properties>
   </object>
-  <object id="153" gid="102" x="3712" y="4096" width="128" height="128">
+  <object id="153" gid="110" x="3712" y="4096" width="128" height="128">
    <properties>
     <property name="signText" value="signToBridgeAndPod"/>
    </properties>
   </object>
-  <object id="155" gid="102" x="4608" y="4096" width="128" height="128">
+  <object id="155" gid="110" x="4608" y="4096" width="128" height="128">
    <properties>
     <property name="signText" value="signToEngines"/>
    </properties>
   </object>
-  <object id="157" gid="89" x="5888" y="4032" width="128" height="128">
+  <object id="157" gid="95" x="5888" y="4032" width="128" height="128">
    <properties>
     <property name="signText" value="observationRoomNote"/>
    </properties>
   </object>
-  <object id="158" name="bridgeScreen" gid="38" x="1856" y="3520" width="128" height="128">
+  <object id="158" name="bridgeScreen" gid="39" x="1856" y="3520" width="128" height="128">
    <properties>
     <property name="signText" value="bridge"/>
    </properties>
   </object>
-  <object id="160" gid="135" x="1651.2" y="3584" width="128" height="128"/>
-  <object id="162" gid="89" x="1280" y="4480" width="128" height="128">
+  <object id="160" gid="146" x="1651.2" y="3584" width="128" height="128"/>
+  <object id="162" gid="95" x="1280" y="4480" width="128" height="128">
    <properties>
     <property name="signText" value="involvedIn"/>
    </properties>
   </object>
-  <object id="167" name="powerSwitch" gid="132" x="6784" y="4992" width="128" height="128"/>
-  <object id="168" gid="89" x="6528" y="4928" width="128" height="128">
+  <object id="167" name="powerSwitch" gid="143" x="6784" y="4992" width="128" height="128"/>
+  <object id="168" gid="95" x="6528" y="4928" width="128" height="128">
    <properties>
     <property name="signText" value="areYouSure"/>
    </properties>
   </object>
-  <object id="169" name="powerScreen" gid="38" x="6771.2" y="4864" width="128" height="128">
+  <object id="169" name="powerScreen" gid="39" x="6771.2" y="4864" width="128" height="128">
    <properties>
     <property name="signText" value="powerOn"/>
    </properties>
   </object>
-  <object id="174" name="door3u" gid="127" x="6144" y="4864" width="128" height="128"/>
-  <object id="175" name="door3d" gid="136" x="6144" y="4992" width="128" height="128"/>
-  <object id="176" name="button3l" gid="125" x="4480" y="4992" width="128" height="128"/>
+  <object id="174" name="door3u" gid="137" x="6144" y="4864" width="128" height="128"/>
+  <object id="175" name="door3d" gid="147" x="6144" y="4992" width="128" height="128"/>
+  <object id="176" name="button3l" gid="135" x="4480" y="4992" width="128" height="128"/>
   <object id="177" gid="31" x="4480" y="4992" width="128" height="128"/>
-  <object id="178" name="button3r" gid="125" x="6272" y="4992" width="128" height="128"/>
-  <object id="179" gid="89" x="6016" y="4928" width="128" height="128">
+  <object id="178" name="button3r" gid="135" x="6272" y="4992" width="128" height="128"/>
+  <object id="179" gid="95" x="6016" y="4928" width="128" height="128">
    <properties>
     <property name="signText" value="asASafetyFeature"/>
    </properties>
   </object>
   <object id="180" gid="31" x="4928" y="5504" width="128" height="128"/>
   <object id="181" gid="31" x="5120" y="5504" width="128" height="128"/>
-  <object id="182" gid="70" x="5017.6" y="5376" width="128" height="128"/>
-  <object id="183" gid="102" x="7168" y="4992" width="128" height="128">
+  <object id="182" gid="74" x="5017.6" y="5376" width="128" height="128"/>
+  <object id="183" gid="110" x="7168" y="4992" width="128" height="128">
    <properties>
     <property name="signText" value="signBasement"/>
    </properties>
   </object>
-  <object id="187" name="conv1" gid="49" x="5376" y="2508.8" width="128" height="128"/>
-  <object id="188" name="conv2" gid="50" x="5504" y="2508.8" width="128" height="128"/>
-  <object id="189" name="conv3" gid="50" x="5632" y="2508.8" width="128" height="128"/>
-  <object id="190" name="conv4" gid="50" x="5760" y="2508.8" width="128" height="128"/>
-  <object id="192" gid="79" x="4224" y="2688" width="128" height="128"/>
-  <object id="193" name="convSwitch" gid="134" x="5644.8" y="2688" width="128" height="128"/>
-  <object id="197" gid="89" x="4224" y="2560" width="128" height="128">
+  <object id="187" name="conv1" gid="51" x="5376" y="2508.8" width="128" height="128"/>
+  <object id="188" name="conv2" gid="52" x="5504" y="2508.8" width="128" height="128"/>
+  <object id="189" name="conv3" gid="52" x="5632" y="2508.8" width="128" height="128"/>
+  <object id="190" name="conv4" gid="52" x="5760" y="2508.8" width="128" height="128"/>
+  <object id="192" gid="84" x="4224" y="2688" width="128" height="128"/>
+  <object id="193" name="convSwitch" gid="145" x="5644.8" y="2688" width="128" height="128"/>
+  <object id="197" gid="95" x="4224" y="2560" width="128" height="128">
    <properties>
     <property name="signText" value="chargerNote"/>
    </properties>
   </object>
-  <object id="201" name="chargerLight" gid="130" x="4096" y="2636.8" width="128" height="128"/>
-  <object id="206" gid="111" x="6976" y="4096" width="128" height="128"/>
-  <object id="207" gid="110" x="6848" y="4096" width="128" height="128"/>
-  <object id="208" gid="111" x="7104" y="4096" width="128" height="128"/>
-  <object id="209" gid="111" x="7232" y="4096" width="128" height="128"/>
-  <object id="210" gid="114" x="7360" y="4096" width="128" height="128"/>
-  <object id="211" gid="113" x="7936" y="4096" width="128" height="128"/>
-  <object id="212" gid="113" x="7616" y="4096" width="128" height="128"/>
-  <object id="213" gid="113" x="6336" y="4096" width="128" height="128"/>
-  <object id="215" gid="103" x="4864" y="4992" width="128" height="128">
+  <object id="201" name="chargerLight" gid="141" x="4096" y="2636.8" width="128" height="128"/>
+  <object id="206" gid="120" x="6976" y="4096" width="128" height="128"/>
+  <object id="207" gid="119" x="6848" y="4096" width="128" height="128"/>
+  <object id="208" gid="120" x="7104" y="4096" width="128" height="128"/>
+  <object id="209" gid="120" x="7232" y="4096" width="128" height="128"/>
+  <object id="210" gid="123" x="7360" y="4096" width="128" height="128"/>
+  <object id="211" gid="122" x="7936" y="4096" width="128" height="128"/>
+  <object id="212" gid="122" x="7616" y="4096" width="128" height="128"/>
+  <object id="213" gid="122" x="6336" y="4096" width="128" height="128"/>
+  <object id="215" gid="111" x="4864" y="4992" width="128" height="128">
    <properties>
     <property name="signText" value="signToReset"/>
    </properties>
@@ -359,16 +359,16 @@
     <property name="colType" value="none"/>
    </properties>
   </object>
-  <object id="224" gid="142" x="2304" y="5376" width="128" height="128"/>
-  <object id="228" gid="165" x="1408" y="4608" width="128" height="128"/>
-  <object id="229" gid="157" x="8064" y="3840" width="128" height="128"/>
-  <object id="230" gid="150" x="2432" y="3200" width="128" height="128"/>
-  <object id="239" gid="1073741929" x="4352" y="2944" width="128" height="128"/>
-  <object id="241" gid="1073741929" x="5376" y="3456" width="128" height="128"/>
-  <object id="242" gid="1073741929" x="6656" y="2944" width="128" height="128"/>
-  <object id="243" gid="1073741929" x="2688" y="3456" width="128" height="128"/>
-  <object id="244" gid="1073741929" x="4480" y="4480" width="128" height="128"/>
-  <object id="245" gid="1073741929" x="4992" y="4480" width="128" height="128"/>
-  <object id="247" gid="100" x="6912" y="4992" width="128" height="128"/>
+  <object id="224" gid="430" x="2304" y="5376" width="128" height="128"/>
+  <object id="228" gid="453" x="1408" y="4608" width="128" height="128"/>
+  <object id="229" gid="445" x="8064" y="3840" width="128" height="128"/>
+  <object id="230" gid="438" x="2432" y="3200" width="128" height="128"/>
+  <object id="239" gid="1073741937" x="4352" y="2944" width="128" height="128"/>
+  <object id="241" gid="1073741937" x="5376" y="3456" width="128" height="128"/>
+  <object id="242" gid="1073741937" x="6656" y="2944" width="128" height="128"/>
+  <object id="243" gid="1073741937" x="2688" y="3456" width="128" height="128"/>
+  <object id="244" gid="1073741937" x="4480" y="4480" width="128" height="128"/>
+  <object id="245" gid="1073741937" x="4992" y="4480" width="128" height="128"/>
+  <object id="247" gid="107" x="6912" y="4992" width="128" height="128"/>
  </objectgroup>
 </map>

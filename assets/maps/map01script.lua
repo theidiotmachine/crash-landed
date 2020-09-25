@@ -31,5 +31,7 @@ end
 return {
   switch1 = switch1,
   buttonGreenEnd = buttonGreenEnd,
-  buttonBlueEnd = buttonBlueEnd
+  buttonBlueEnd = buttonBlueEnd,
+
+  init = init
 }

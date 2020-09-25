@@ -60,6 +60,17 @@ function WorldState.init(dir)
       canQuitToWorld = true,
       bgmName = 'Mighty Like Us'
     },
+
+    map09 = {
+      pos = {x = 6, y = 1},
+      stuff = "grass",
+      feature = "factory",
+      title = "Pressin my buttons",
+      level = "map09",
+      transition = "saucerBeam",
+      canQuitToWorld = true,
+      bgmName = 'The Show Must Be Go'
+    },
     
     mapSecret01 = {
       pos = {x = 2, y = 2},

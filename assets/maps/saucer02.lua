@@ -1413,6 +1413,39 @@ return {
           }
         },
         {
+          id = 100,
+          type = "platform",
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 16,
+                width = 128,
+                height = 32,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colFriction"] = false,
+                  ["colType"] = "massy",
+                  ["mass"] = 10000
+                }
+              }
+            }
+          }
+        },
+        {
           id = 101,
           type = "light",
           properties = {

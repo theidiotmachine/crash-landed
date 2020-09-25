@@ -184,6 +184,42 @@ return {
           }
         },
         {
+          id = 14,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "polyline",
+                x = 0,
+                y = 44,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polyline = {
+                  { x = 0, y = 0 },
+                  { x = 0, y = -33 },
+                  { x = 10, y = -43 },
+                  { x = 128, y = -44 },
+                  { x = 128, y = 84 },
+                  { x = 0, y = 0 }
+                },
+                properties = {}
+              }
+            }
+          }
+        },
+        {
           id = 16,
           objectGroup = {
             type = "objectgroup",
@@ -336,7 +372,7 @@ return {
       spacing = 0,
       margin = 0,
       image = "../art/platformerPack_industrial_vector - redux remix - tiles.png",
-      imagewidth = 1152,
+      imagewidth = 1280,
       imageheight = 1536,
       tileoffset = {
         x = 0,
@@ -349,8 +385,102 @@ return {
       },
       properties = {},
       terrains = {},
-      tilecount = 108,
+      tilecount = 120,
       tiles = {
+        {
+          id = 0,
+          type = "crate",
+          properties = {
+            ["crateType"] = "metal"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "polyline",
+                x = 0,
+                y = 16,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polyline = {
+                  { x = 0, y = 0 },
+                  { x = 16, y = -16 },
+                  { x = 112, y = -16 },
+                  { x = 128, y = 0 },
+                  { x = 128, y = 96 },
+                  { x = 112, y = 112 },
+                  { x = 16, y = 112 },
+                  { x = 0, y = 96 },
+                  { x = 0, y = 0 }
+                },
+                properties = {
+                  ["colFriction"] = true,
+                  ["colType"] = "massy",
+                  ["mass"] = 1
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 1,
+          type = "crate",
+          properties = {
+            ["crateType"] = "metal"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "polyline",
+                x = 0,
+                y = 16,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polyline = {
+                  { x = 0, y = 0 },
+                  { x = 16, y = -16 },
+                  { x = 112, y = -16 },
+                  { x = 128, y = 0 },
+                  { x = 128, y = 96 },
+                  { x = 112, y = 112 },
+                  { x = 16, y = 112 },
+                  { x = 0, y = 96 },
+                  { x = 0, y = 0 }
+                },
+                properties = {
+                  ["colFriction"] = true,
+                  ["colType"] = "massy",
+                  ["mass"] = 1
+                }
+              }
+            }
+          }
+        },
         {
           id = 2,
           type = "crate",
@@ -398,7 +528,164 @@ return {
           }
         },
         {
+          id = 3,
+          type = "crate",
+          properties = {
+            ["crateType"] = "metal"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "polyline",
+                x = 0,
+                y = 16,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polyline = {
+                  { x = 0, y = 0 },
+                  { x = 16, y = -16 },
+                  { x = 112, y = -16 },
+                  { x = 128, y = 0 },
+                  { x = 128, y = 96 },
+                  { x = 112, y = 112 },
+                  { x = 16, y = 112 },
+                  { x = 0, y = 96 },
+                  { x = 0, y = 0 }
+                },
+                properties = {
+                  ["colFriction"] = true,
+                  ["colType"] = "massy",
+                  ["mass"] = 1
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 4,
+          type = "crate",
+          properties = {
+            ["crateType"] = "metal"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "polyline",
+                x = 0,
+                y = 16,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polyline = {
+                  { x = 0, y = 0 },
+                  { x = 16, y = -16 },
+                  { x = 112, y = -16 },
+                  { x = 128, y = 0 },
+                  { x = 128, y = 96 },
+                  { x = 112, y = 112 },
+                  { x = 16, y = 112 },
+                  { x = 0, y = 96 },
+                  { x = 0, y = 0 }
+                },
+                properties = {
+                  ["colFriction"] = true,
+                  ["colType"] = "massy",
+                  ["mass"] = 1
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 5,
+          type = "crate",
+          properties = {
+            ["crateType"] = "metal"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "polyline",
+                x = 0,
+                y = 16,
+                width = 0,
+                height = 0,
+                rotation = 0,
+                visible = true,
+                polyline = {
+                  { x = 0, y = 0 },
+                  { x = 16, y = -16 },
+                  { x = 112, y = -16 },
+                  { x = 128, y = 0 },
+                  { x = 128, y = 96 },
+                  { x = 112, y = 112 },
+                  { x = 16, y = 112 },
+                  { x = 0, y = 96 },
+                  { x = 0, y = 0 }
+                },
+                properties = {
+                  ["colFriction"] = true,
+                  ["colType"] = "massy",
+                  ["mass"] = 1
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 6,
+          type = "crate"
+        },
+        {
+          id = 7,
+          type = "crate"
+        },
+        {
+          id = 8,
+          type = "sign"
+        },
+        {
           id = 9,
+          type = "sign"
+        },
+        {
+          id = 10,
           type = "sign",
           properties = {
             ["signType"] = "screen1"
@@ -432,38 +719,16 @@ return {
           }
         },
         {
+          id = 11,
+          type = "sign"
+        },
+        {
+          id = 12,
+          type = "sign"
+        },
+        {
           id = 13,
-          type = "sign",
-          properties = {
-            ["signType"] = "screen1"
-          },
-          objectGroup = {
-            type = "objectgroup",
-            name = "",
-            visible = true,
-            opacity = 1,
-            offsetx = 0,
-            offsety = 0,
-            draworder = "index",
-            properties = {},
-            objects = {
-              {
-                id = 1,
-                name = "",
-                type = "",
-                shape = "rectangle",
-                x = 0,
-                y = 0,
-                width = 128,
-                height = 128,
-                rotation = 0,
-                visible = true,
-                properties = {
-                  ["colType"] = "none"
-                }
-              }
-            }
-          }
+          type = "sign"
         },
         {
           id = 14,
@@ -534,7 +799,53 @@ return {
           }
         },
         {
+          id = 16,
+          type = "sign",
+          properties = {
+            ["signType"] = "screen1"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 128,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 17,
+          type = "sign"
+        },
+        {
           id = 18,
+          type = "sign"
+        },
+        {
+          id = 19,
+          type = "ladder"
+        },
+        {
+          id = 20,
           type = "ladder",
           objectGroup = {
             type = "objectgroup",
@@ -565,7 +876,7 @@ return {
           }
         },
         {
-          id = 19,
+          id = 21,
           type = "ladder",
           objectGroup = {
             type = "objectgroup",
@@ -590,74 +901,6 @@ return {
                 visible = true,
                 properties = {
                   ["colType"] = "none"
-                }
-              }
-            }
-          }
-        },
-        {
-          id = 20,
-          type = "conveyer",
-          properties = {
-            ["moving"] = "off"
-          },
-          objectGroup = {
-            type = "objectgroup",
-            name = "",
-            visible = true,
-            opacity = 1,
-            offsetx = 0,
-            offsety = 0,
-            draworder = "index",
-            properties = {},
-            objects = {
-              {
-                id = 1,
-                name = "",
-                type = "",
-                shape = "rectangle",
-                x = 0,
-                y = 0,
-                width = 128,
-                height = 51.2,
-                rotation = 0,
-                visible = true,
-                properties = {
-                  ["colType"] = "conveyer"
-                }
-              }
-            }
-          }
-        },
-        {
-          id = 21,
-          type = "conveyer",
-          properties = {
-            ["moving"] = "off"
-          },
-          objectGroup = {
-            type = "objectgroup",
-            name = "",
-            visible = true,
-            opacity = 1,
-            offsetx = 0,
-            offsety = 0,
-            draworder = "index",
-            properties = {},
-            objects = {
-              {
-                id = 1,
-                name = "",
-                type = "",
-                shape = "rectangle",
-                x = 0,
-                y = 0,
-                width = 128,
-                height = 51.2,
-                rotation = 0,
-                visible = true,
-                properties = {
-                  ["colType"] = "conveyer"
                 }
               }
             }
@@ -699,6 +942,74 @@ return {
         },
         {
           id = 23,
+          type = "conveyer",
+          properties = {
+            ["moving"] = "off"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "conveyer"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 24,
+          type = "conveyer",
+          properties = {
+            ["moving"] = "off"
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 51.2,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "conveyer"
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 25,
           type = "spikes",
           objectGroup = {
             type = "objectgroup",
@@ -735,7 +1046,7 @@ return {
           }
         },
         {
-          id = 27,
+          id = 30,
           type = "ladder",
           objectGroup = {
             type = "objectgroup",
@@ -766,7 +1077,7 @@ return {
           }
         },
         {
-          id = 28,
+          id = 31,
           type = "ladder",
           objectGroup = {
             type = "objectgroup",
@@ -798,6 +1109,18 @@ return {
         },
         {
           id = 32,
+          type = "conveyer"
+        },
+        {
+          id = 33,
+          type = "conveyer"
+        },
+        {
+          id = 34,
+          type = "conveyer"
+        },
+        {
+          id = 35,
           type = "spikes",
           objectGroup = {
             type = "objectgroup",
@@ -834,7 +1157,19 @@ return {
           }
         },
         {
-          id = 41,
+          id = 42,
+          type = "crate"
+        },
+        {
+          id = 43,
+          type = "crate"
+        },
+        {
+          id = 44,
+          type = "crate"
+        },
+        {
+          id = 45,
           type = "crate",
           properties = {
             ["crateType"] = "fuel"
@@ -870,15 +1205,23 @@ return {
           }
         },
         {
-          id = 45,
-          type = "decoration"
-        },
-        {
           id = 46,
           type = "decoration"
         },
         {
-          id = 50,
+          id = 52,
+          type = "crate"
+        },
+        {
+          id = 53,
+          type = "crate"
+        },
+        {
+          id = 54,
+          type = "crate"
+        },
+        {
+          id = 55,
           type = "crate",
           properties = {
             ["crateType"] = "fuel"
@@ -914,15 +1257,44 @@ return {
           }
         },
         {
-          id = 54,
-          type = "decoration"
-        },
-        {
-          id = 55,
-          type = "decoration"
-        },
-        {
           id = 60,
+          type = "sign"
+        },
+        {
+          id = 64,
+          type = "platform",
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = -1,
+                y = 43,
+                width = 130,
+                height = 52,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colFriction"] = false,
+                  ["colType"] = "massy",
+                  ["mass"] = 10000
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 66,
           type = "sign",
           properties = {
             ["signType"] = "greenWarn"
@@ -956,7 +1328,23 @@ return {
           }
         },
         {
-          id = 66,
+          id = 69,
+          type = "light"
+        },
+        {
+          id = 70,
+          type = "sign"
+        },
+        {
+          id = 71,
+          type = "sign"
+        },
+        {
+          id = 72,
+          type = "sign"
+        },
+        {
+          id = 73,
           type = "cog",
           properties = {
             ["spinning"] = true
@@ -990,28 +1378,40 @@ return {
           }
         },
         {
-          id = 69,
+          id = 74,
+          type = "sign"
+        },
+        {
+          id = 76,
           type = "light",
           properties = {
-            ["green"] = 71,
+            ["green"] = 78,
             ["lightType"] = "blue",
             ["lightY"] = -35,
-            ["off"] = 101,
-            ["red"] = 79
+            ["off"] = 112,
+            ["red"] = 87
           }
         },
         {
-          id = 71,
+          id = 77,
+          type = "light"
+        },
+        {
+          id = 78,
           type = "light",
           properties = {
-            ["blue"] = 69,
+            ["blue"] = 76,
             ["lightType"] = "green",
             ["lightY"] = -40,
-            ["off"] = 101
+            ["off"] = 112
           }
         },
         {
-          id = 72,
+          id = 79,
+          type = "light"
+        },
+        {
+          id = 80,
           type = "sign",
           properties = {
             ["signType"] = "arrowl"
@@ -1045,7 +1445,7 @@ return {
           }
         },
         {
-          id = 73,
+          id = 81,
           type = "sign",
           properties = {
             ["signType"] = "arrowc"
@@ -1079,7 +1479,7 @@ return {
           }
         },
         {
-          id = 74,
+          id = 82,
           type = "sign",
           properties = {
             ["signType"] = "arrowr"
@@ -1113,31 +1513,35 @@ return {
           }
         },
         {
-          id = 76,
+          id = 83,
+          type = "light"
+        },
+        {
+          id = 84,
           type = "light",
           properties = {
             ["lightType"] = "green",
             ["lightY"] = 26,
-            ["off"] = 102,
-            ["red"] = 78
+            ["off"] = 113,
+            ["red"] = 86
           }
         },
         {
-          id = 77,
+          id = 85,
           type = "light"
         },
         {
-          id = 78,
+          id = 86,
           type = "light",
           properties = {
-            ["green"] = 76,
+            ["green"] = 84,
             ["lightType"] = "red",
             ["lightY"] = 26,
-            ["off"] = 102
+            ["off"] = 114
           }
         },
         {
-          id = 79,
+          id = 87,
           type = "light",
           properties = {
             ["blue"] = 69,
@@ -1148,7 +1552,7 @@ return {
           }
         },
         {
-          id = 81,
+          id = 90,
           type = "slime",
           objectGroup = {
             type = "objectgroup",
@@ -1179,7 +1583,7 @@ return {
           }
         },
         {
-          id = 82,
+          id = 91,
           type = "slime",
           objectGroup = {
             type = "objectgroup",
@@ -1210,7 +1614,7 @@ return {
           }
         },
         {
-          id = 83,
+          id = 92,
           type = "slime",
           objectGroup = {
             type = "objectgroup",
@@ -1241,7 +1645,7 @@ return {
           }
         },
         {
-          id = 84,
+          id = 93,
           type = "slime",
           objectGroup = {
             type = "objectgroup",
@@ -1272,7 +1676,7 @@ return {
           }
         },
         {
-          id = 85,
+          id = 94,
           type = "slime",
           objectGroup = {
             type = "objectgroup",
@@ -1304,13 +1708,69 @@ return {
         },
         {
           id = 95,
-          type = "p1start"
+          type = "arrow",
+          properties = {
+            ["off"] = 96,
+            ["state"] = "on"
+          }
         },
         {
           id = 96,
+          type = "arrow",
+          properties = {
+            ["on"] = 95,
+            ["state"] = "off"
+          }
+        },
+        {
+          id = 97,
+          type = "button"
+        },
+        {
+          id = 98,
+          type = "arrow",
+          properties = {
+            ["off"] = 99,
+            ["state"] = "on"
+          }
+        },
+        {
+          id = 99,
+          type = "arrow",
+          properties = {
+            ["on"] = 98,
+            ["state"] = "off"
+          }
+        },
+        {
+          id = 100,
+          type = "platform"
+        },
+        {
+          id = 101,
+          type = "light"
+        },
+        {
+          id = 102,
+          type = "light"
+        },
+        {
+          id = 103,
+          type = "switch"
+        },
+        {
+          id = 104,
+          type = "switch"
+        },
+        {
+          id = 105,
+          type = "p1start"
+        },
+        {
+          id = 106,
           type = "button",
           properties = {
-            ["down"] = 97,
+            ["down"] = 107,
             ["state"] = "up"
           },
           objectGroup = {
@@ -1342,10 +1802,10 @@ return {
           }
         },
         {
-          id = 97,
+          id = 107,
           type = "button",
           properties = {
-            ["down"] = 96,
+            ["down"] = 106,
             ["state"] = "up"
           },
           objectGroup = {
@@ -1377,7 +1837,7 @@ return {
           }
         },
         {
-          id = 98,
+          id = 108,
           type = "door",
           properties = {
             ["doorType"] = "slideUp",
@@ -1413,32 +1873,64 @@ return {
           }
         },
         {
-          id = 101,
+          id = 111,
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 2,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 16,
+                width = 128,
+                height = 32,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colFriction"] = false,
+                  ["colType"] = "massy",
+                  ["mass"] = 10000
+                }
+              }
+            }
+          }
+        },
+        {
+          id = 112,
           type = "light",
           properties = {
-            ["blue"] = 69,
-            ["green"] = 71,
+            ["blue"] = 76,
+            ["green"] = 78,
             ["lightType"] = "off",
             ["lightY"] = -40,
-            ["red"] = 79
+            ["red"] = 87
           }
         },
         {
-          id = 102,
+          id = 113,
           type = "light",
           properties = {
-            ["green"] = 76,
+            ["green"] = 84,
             ["lightType"] = "off",
-            ["red"] = 78
+            ["red"] = 86
           }
         },
         {
-          id = 103,
+          id = 114,
           type = "switch",
           properties = {
-            ["centre"] = 104,
+            ["centre"] = 115,
             ["direction"] = "left",
-            ["right"] = 105
+            ["right"] = 116
           },
           objectGroup = {
             type = "objectgroup",
@@ -1490,12 +1982,11 @@ return {
           }
         },
         {
-          id = 104,
-          type = "switch",
+          id = 115,
           properties = {
             ["direction"] = "centre",
-            ["left"] = 103,
-            ["right"] = 105
+            ["left"] = 114,
+            ["right"] = 116
           },
           objectGroup = {
             type = "objectgroup",
@@ -1547,12 +2038,11 @@ return {
           }
         },
         {
-          id = 105,
-          type = "switch",
+          id = 116,
           properties = {
-            ["centre"] = 104,
+            ["centre"] = 115,
             ["direction"] = "right",
-            ["left"] = 103
+            ["left"] = 114
           },
           objectGroup = {
             type = "objectgroup",
@@ -1604,11 +2094,7 @@ return {
           }
         },
         {
-          id = 106,
-          type = "decoration"
-        },
-        {
-          id = 107,
+          id = 118,
           type = "door",
           properties = {
             ["doorType"] = "slideDown",
@@ -1647,7 +2133,7 @@ return {
     },
     {
       name = "spritesheet_items",
-      firstgid = 137,
+      firstgid = 149,
       filename = "items.tsx",
       tilewidth = 128,
       tileheight = 128,
@@ -1669,6 +2155,29 @@ return {
       terrains = {},
       tilecount = 32,
       tiles = {
+        {
+          id = 1,
+          properties = {
+            ["downTileid"] = 17
+          },
+          animation = {
+            {
+              tileid = 1,
+              duration = 200
+            },
+            {
+              tileid = 9,
+              duration = 200
+            }
+          }
+        },
+        {
+          id = 2,
+          type = "flag",
+          properties = {
+            ["downTileid"] = 10
+          }
+        },
         {
           id = 5,
           type = "gem",
@@ -1700,6 +2209,39 @@ return {
                   ["colType"] = "none"
                 }
               }
+            }
+          }
+        },
+        {
+          id = 8,
+          type = "flag",
+          properties = {
+            ["downTileid"] = 24
+          },
+          animation = {
+            {
+              tileid = 8,
+              duration = 200
+            },
+            {
+              tileid = 16,
+              duration = 200
+            }
+          }
+        },
+        {
+          id = 9,
+          properties = {
+            ["downTileid"] = 17
+          },
+          animation = {
+            {
+              tileid = 1,
+              duration = 200
+            },
+            {
+              tileid = 9,
+              duration = 200
             }
           }
         },
@@ -1738,6 +2280,13 @@ return {
           }
         },
         {
+          id = 16,
+          type = "flag",
+          properties = {
+            ["downTileid"] = 24
+          }
+        },
+        {
           id = 20,
           type = "gem",
           properties = {
@@ -1769,6 +2318,64 @@ return {
                 }
               }
             }
+          }
+        },
+        {
+          id = 21,
+          type = "flag",
+          properties = {
+            ["downTileid"] = 0
+          }
+        },
+        {
+          id = 25,
+          type = "flag",
+          properties = {
+            ["downTileid"] = 10
+          },
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 128,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          },
+          animation = {
+            {
+              tileid = 25,
+              duration = 200
+            },
+            {
+              tileid = 2,
+              duration = 200
+            }
+          }
+        },
+        {
+          id = 26,
+          type = "flag",
+          properties = {
+            ["downTileid"] = 0
           }
         },
         {
@@ -1995,7 +2602,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 47,
+          gid = 49,
           visible = true,
           properties = {}
         },
@@ -2009,7 +2616,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2023,7 +2630,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2037,7 +2644,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2051,7 +2658,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 47,
+          gid = 49,
           visible = true,
           properties = {}
         },
@@ -2065,7 +2672,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2079,7 +2686,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2093,7 +2700,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2107,7 +2714,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 42,
+          gid = 43,
           visible = true,
           properties = {
             ["signText"] = "art1"
@@ -2123,7 +2730,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 43,
+          gid = 44,
           visible = true,
           properties = {
             ["signText"] = "art2"
@@ -2139,7 +2746,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 44,
+          gid = 45,
           visible = true,
           properties = {
             ["signText"] = "art3"
@@ -2155,7 +2762,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 38,
+          gid = 39,
           visible = true,
           properties = {
             ["signText"] = "lp0OnFire"
@@ -2171,7 +2778,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2185,7 +2792,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 75,
+          gid = 80,
           visible = true,
           properties = {}
         },
@@ -2199,7 +2806,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 74,
+          gid = 79,
           visible = true,
           properties = {}
         },
@@ -2213,7 +2820,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 74,
+          gid = 79,
           visible = true,
           properties = {}
         },
@@ -2227,7 +2834,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 83,
+          gid = 89,
           visible = true,
           properties = {}
         },
@@ -2241,7 +2848,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 74,
+          gid = 79,
           visible = true,
           properties = {}
         },
@@ -2255,7 +2862,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 75,
+          gid = 80,
           visible = true,
           properties = {}
         },
@@ -2269,7 +2876,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 74,
+          gid = 79,
           visible = true,
           properties = {}
         },
@@ -2283,7 +2890,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 83,
+          gid = 89,
           visible = true,
           properties = {}
         },
@@ -2297,7 +2904,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 89,
+          gid = 95,
           visible = true,
           properties = {
             ["signText"] = "runScreaming"
@@ -2313,7 +2920,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2327,7 +2934,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2341,7 +2948,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 95,
+          gid = 102,
           visible = true,
           properties = {}
         },
@@ -2355,7 +2962,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 95,
+          gid = 102,
           visible = true,
           properties = {}
         },
@@ -2369,7 +2976,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 95,
+          gid = 102,
           visible = true,
           properties = {}
         },
@@ -2383,7 +2990,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 95,
+          gid = 102,
           visible = true,
           properties = {}
         },
@@ -2397,7 +3004,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 95,
+          gid = 102,
           visible = true,
           properties = {}
         },
@@ -2411,7 +3018,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 95,
+          gid = 102,
           visible = true,
           properties = {}
         },
@@ -2425,7 +3032,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 95,
+          gid = 102,
           visible = true,
           properties = {}
         },
@@ -2439,7 +3046,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 95,
+          gid = 102,
           visible = true,
           properties = {}
         },
@@ -2453,7 +3060,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 95,
+          gid = 102,
           visible = true,
           properties = {}
         },
@@ -2467,7 +3074,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 95,
+          gid = 102,
           visible = true,
           properties = {}
         },
@@ -2481,7 +3088,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 70,
+          gid = 74,
           visible = true,
           properties = {}
         },
@@ -2495,7 +3102,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 52,
+          gid = 54,
           visible = true,
           properties = {}
         },
@@ -2509,7 +3116,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 52,
+          gid = 54,
           visible = true,
           properties = {}
         },
@@ -2523,7 +3130,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 52,
+          gid = 54,
           visible = true,
           properties = {}
         },
@@ -2537,7 +3144,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 52,
+          gid = 54,
           visible = true,
           properties = {}
         },
@@ -2551,7 +3158,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 52,
+          gid = 54,
           visible = true,
           properties = {}
         },
@@ -2565,7 +3172,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 89,
+          gid = 95,
           visible = true,
           properties = {
             ["signText"] = "youCanRead"
@@ -2581,7 +3188,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 1073741931,
+          gid = 1073741939,
           visible = true,
           properties = {}
         },
@@ -2595,7 +3202,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 1073741931,
+          gid = 1073741939,
           visible = true,
           properties = {}
         },
@@ -2609,7 +3216,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 47,
+          gid = 49,
           visible = true,
           properties = {}
         },
@@ -2623,7 +3230,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2637,7 +3244,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2651,7 +3258,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2665,7 +3272,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2679,7 +3286,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2693,7 +3300,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 124,
+          gid = 134,
           visible = true,
           properties = {}
         },
@@ -2707,7 +3314,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 47,
+          gid = 49,
           visible = true,
           properties = {}
         },
@@ -2721,7 +3328,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2735,7 +3342,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2749,7 +3356,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 89,
+          gid = 95,
           visible = true,
           properties = {
             ["signText"] = "inTheEvent"
@@ -2765,7 +3372,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 89,
+          gid = 95,
           visible = true,
           properties = {
             ["signText"] = "warningJumping"
@@ -2781,7 +3388,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 89,
+          gid = 95,
           visible = true,
           properties = {
             ["signText"] = "youHaveNoIdea"
@@ -2797,7 +3404,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2811,7 +3418,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 47,
+          gid = 49,
           visible = true,
           properties = {}
         },
@@ -2825,7 +3432,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2839,7 +3446,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2853,7 +3460,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2867,7 +3474,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 56,
+          gid = 59,
           visible = true,
           properties = {}
         },
@@ -2881,7 +3488,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 79,
+          gid = 84,
           visible = true,
           properties = {}
         },
@@ -2937,7 +3544,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 127,
+          gid = 137,
           visible = true,
           properties = {}
         },
@@ -2951,7 +3558,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 136,
+          gid = 147,
           visible = true,
           properties = {}
         },
@@ -2965,7 +3572,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 127,
+          gid = 137,
           visible = true,
           properties = {
             ["state"] = "closed"
@@ -2981,7 +3588,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 136,
+          gid = 147,
           visible = true,
           properties = {}
         },
@@ -2995,7 +3602,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 125,
+          gid = 135,
           visible = true,
           properties = {}
         },
@@ -3009,7 +3616,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 125,
+          gid = 135,
           visible = true,
           properties = {}
         },
@@ -3023,7 +3630,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 125,
+          gid = 135,
           visible = true,
           properties = {}
         },
@@ -3037,7 +3644,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 125,
+          gid = 135,
           visible = true,
           properties = {}
         },
@@ -3051,7 +3658,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 38,
+          gid = 39,
           visible = true,
           properties = {
             ["signText"] = "resetMainPower"
@@ -3067,7 +3674,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 102,
+          gid = 110,
           visible = true,
           properties = {
             ["signText"] = "signToEngines"
@@ -3083,7 +3690,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 101,
+          gid = 109,
           visible = true,
           properties = {
             ["signText"] = "signBridge"
@@ -3099,7 +3706,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 103,
+          gid = 111,
           visible = true,
           properties = {
             ["signText"] = "signToEscapePod"
@@ -3115,7 +3722,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 102,
+          gid = 110,
           visible = true,
           properties = {
             ["signText"] = "signToEscapePod"
@@ -3131,7 +3738,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 102,
+          gid = 110,
           visible = true,
           properties = {
             ["signText"] = "signToBoring"
@@ -3147,7 +3754,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 101,
+          gid = 109,
           visible = true,
           properties = {
             ["signText"] = "signToSafety"
@@ -3163,7 +3770,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 102,
+          gid = 110,
           visible = true,
           properties = {
             ["signText"] = "signToBridgeAndPod"
@@ -3179,7 +3786,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 102,
+          gid = 110,
           visible = true,
           properties = {
             ["signText"] = "signToEngines"
@@ -3195,7 +3802,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 89,
+          gid = 95,
           visible = true,
           properties = {
             ["signText"] = "observationRoomNote"
@@ -3211,7 +3818,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 38,
+          gid = 39,
           visible = true,
           properties = {
             ["signText"] = "allSystemsBust"
@@ -3227,7 +3834,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 135,
+          gid = 146,
           visible = true,
           properties = {}
         },
@@ -3241,7 +3848,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 89,
+          gid = 95,
           visible = true,
           properties = {
             ["signText"] = "involvedIn"
@@ -3257,7 +3864,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 132,
+          gid = 143,
           visible = true,
           properties = {}
         },
@@ -3271,7 +3878,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 89,
+          gid = 95,
           visible = true,
           properties = {
             ["signText"] = "areYouSure"
@@ -3287,7 +3894,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 38,
+          gid = 39,
           visible = true,
           properties = {
             ["signText"] = "powerOn"
@@ -3303,7 +3910,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 127,
+          gid = 137,
           visible = true,
           properties = {}
         },
@@ -3317,7 +3924,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 136,
+          gid = 147,
           visible = true,
           properties = {}
         },
@@ -3331,7 +3938,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 125,
+          gid = 135,
           visible = true,
           properties = {}
         },
@@ -3359,7 +3966,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 125,
+          gid = 135,
           visible = true,
           properties = {}
         },
@@ -3373,7 +3980,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 89,
+          gid = 95,
           visible = true,
           properties = {
             ["signText"] = "asASafetyFeature"
@@ -3417,7 +4024,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 70,
+          gid = 74,
           visible = true,
           properties = {}
         },
@@ -3431,7 +4038,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 102,
+          gid = 110,
           visible = true,
           properties = {
             ["signText"] = "signBasement"
@@ -3447,7 +4054,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 1073741931,
+          gid = 1073741939,
           visible = true,
           properties = {}
         },
@@ -3461,7 +4068,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 108,
+          gid = 116,
           visible = true,
           properties = {}
         },
@@ -3475,7 +4082,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 49,
+          gid = 51,
           visible = true,
           properties = {}
         },
@@ -3489,7 +4096,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 50,
+          gid = 52,
           visible = true,
           properties = {}
         },
@@ -3503,7 +4110,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 50,
+          gid = 52,
           visible = true,
           properties = {}
         },
@@ -3517,7 +4124,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 50,
+          gid = 52,
           visible = true,
           properties = {}
         },
@@ -3531,7 +4138,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 79,
+          gid = 84,
           visible = true,
           properties = {}
         },
@@ -3545,7 +4152,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 134,
+          gid = 145,
           visible = true,
           properties = {}
         },
@@ -3559,7 +4166,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 89,
+          gid = 95,
           visible = true,
           properties = {
             ["signText"] = "chargerNote"
@@ -3590,7 +4197,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 130,
+          gid = 141,
           visible = true,
           properties = {}
         },
@@ -3604,7 +4211,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 1073741931,
+          gid = 1073741939,
           visible = true,
           properties = {}
         },
@@ -3618,7 +4225,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 1073741931,
+          gid = 1073741939,
           visible = true,
           properties = {}
         },
@@ -3632,7 +4239,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 111,
+          gid = 120,
           visible = true,
           properties = {}
         },
@@ -3646,7 +4253,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 110,
+          gid = 119,
           visible = true,
           properties = {}
         },
@@ -3660,7 +4267,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 111,
+          gid = 120,
           visible = true,
           properties = {}
         },
@@ -3674,7 +4281,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 111,
+          gid = 120,
           visible = true,
           properties = {}
         },
@@ -3688,7 +4295,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 114,
+          gid = 123,
           visible = true,
           properties = {}
         },
@@ -3702,7 +4309,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 113,
+          gid = 122,
           visible = true,
           properties = {}
         },
@@ -3716,7 +4323,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 113,
+          gid = 122,
           visible = true,
           properties = {}
         },
@@ -3730,7 +4337,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 113,
+          gid = 122,
           visible = true,
           properties = {}
         },
@@ -3744,7 +4351,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 1073741931,
+          gid = 1073741939,
           visible = true,
           properties = {}
         },
@@ -3758,7 +4365,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 103,
+          gid = 111,
           visible = true,
           properties = {
             ["signText"] = "signToReset"
@@ -3789,7 +4396,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 142,
+          gid = 154,
           visible = true,
           properties = {}
         },
@@ -3833,7 +4440,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 165,
+          gid = 177,
           visible = true,
           properties = {}
         },
@@ -3847,7 +4454,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 157,
+          gid = 169,
           visible = true,
           properties = {}
         },
@@ -3861,7 +4468,7 @@ return {
           width = 128,
           height = 128,
           rotation = 0,
-          gid = 150,
+          gid = 162,
           visible = true,
           properties = {}
         },

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="200" height="50" tilewidth="128" tileheight="128" infinite="0" nextobjectid="833">
+<map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="200" height="50" tilewidth="128" tileheight="128" infinite="0" nextobjectid="841">
  <tileset firstgid="1" name="spritesheet_ground" tilewidth="128" tileheight="128" tilecount="128" columns="8">
   <image source="../art/spritesheet_ground.png" width="1024" height="2048"/>
   <tile id="0">
@@ -792,8 +792,9 @@
   </tile>
  </tileset>
  <tileset firstgid="562" source="industrial tiles.tsx"/>
- <tileset firstgid="670" source="nautical_objects.tsx"/>
- <tileset firstgid="715" source="items.tsx"/>
+ <tileset firstgid="682" source="nautical_objects.tsx"/>
+ <tileset firstgid="727" source="items.tsx"/>
+ <tileset firstgid="759" source="industrial ground.tsx"/>
  <imagelayer name="Image Layer 1">
   <image source="../art/blue_land.png" width="1080" height="1080"/>
   <properties>
@@ -1079,5 +1080,6 @@
   <object id="806" gid="334" x="24192" y="6144" width="128" height="128"/>
   <object id="831" gid="149" x="16384" y="6144" width="128" height="128"/>
   <object id="832" gid="334" x="17536" y="6016" width="128" height="128"/>
+  <object id="833" name="buttonBlueEnd" gid="318" x="24704" y="6272" width="128" height="128"/>
  </objectgroup>
 </map>

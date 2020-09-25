@@ -51,6 +51,18 @@ function Object:getHCShapeFromObjectGroup(game, tile, object, objectType, x, y)
     local h = object.height
     
     hcShape = HC.rectangle(x+xoffs, y+yoffs, w, h)
+  elseif shape == "polyline" then
+      local verts = object.polyline
+                
+      local finalVerts = {}
+      for _, vert in ipairs(verts) do
+        table.insert(finalVerts, x + vert.x + xoffs - tile.width / 2)
+        table.insert(finalVerts, y + vert.y + yoffs - tile.height / 2)
+      end
+      
+      local poly = Polygon(unpack(finalVerts))
+      poly:setCentroid(x,y)
+      hcShape = HC.polygon(poly)
   end
   
   hcShape.user = {

@@ -99,6 +99,12 @@ local function loadAssets()
     w = 96,
     h = 96
   }
+  sprites["factory"] = {
+    quad=love.graphics.newQuad(192, 528, 96, 96, imageFile:getDimensions()),
+    texture=imageFile,
+    w = 96,
+    h = 96
+  }
   
   sprites["playerUFO1"] = {
     quad=love.graphics.newQuad(336, 240, 48, 24, imageFile:getDimensions()),
