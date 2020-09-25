@@ -2,7 +2,7 @@
 <map version="1.0" tiledversion="1.1.1" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="128" tileheight="128" infinite="0" nextobjectid="239">
  <tileset firstgid="1" source="industrial ground.tsx"/>
  <tileset firstgid="29" source="industrial tiles.tsx"/>
- <tileset firstgid="425" source="items.tsx"/>
+ <tileset firstgid="149" source="items.tsx"/>
  <imagelayer name="Image Layer 1">
   <image source="../art/blue_land.png" width="1080" height="1080"/>
   <properties>
@@ -156,14 +156,14 @@
    </properties>
   </object>
   <object id="21" gid="59" x="4736" y="4736" width="128" height="128"/>
-  <object id="22" gid="80" x="3328" y="4992" width="128" height="128"/>
-  <object id="23" gid="79" x="3328" y="4864" width="128" height="128"/>
-  <object id="24" gid="79" x="3328" y="4736" width="128" height="128"/>
-  <object id="25" gid="89" x="3328" y="4608" width="128" height="128"/>
-  <object id="34" gid="79" x="2828.8" y="4736" width="128" height="128"/>
-  <object id="35" gid="80" x="2828.8" y="4992" width="128" height="128"/>
-  <object id="36" gid="79" x="2828.8" y="4864" width="128" height="128"/>
-  <object id="37" gid="89" x="2828.8" y="4608" width="128" height="128"/>
+  <object id="22" type="decoration" gid="80" x="3328" y="4992" width="128" height="128"/>
+  <object id="23" type="decoration" gid="79" x="3328" y="4864" width="128" height="128"/>
+  <object id="24" type="decoration" gid="79" x="3328" y="4736" width="128" height="128"/>
+  <object id="25" type="decoration" gid="89" x="3328" y="4608" width="128" height="128"/>
+  <object id="34" type="decoration" gid="79" x="2828.8" y="4736" width="128" height="128"/>
+  <object id="35" type="decoration" gid="80" x="2828.8" y="4992" width="128" height="128"/>
+  <object id="36" type="decoration" gid="79" x="2828.8" y="4864" width="128" height="128"/>
+  <object id="37" type="decoration" gid="89" x="2828.8" y="4608" width="128" height="128"/>
   <object id="39" gid="95" x="2944" y="3520" width="128" height="128">
    <properties>
     <property name="signText" value="runScreaming"/>
@@ -296,7 +296,7 @@
     <property name="signText" value="allSystemsBust"/>
    </properties>
   </object>
-  <object id="160" gid="146" x="1651.2" y="3584" width="128" height="128"/>
+  <object id="160" type="decoration" gid="146" x="1651.2" y="3584" width="128" height="128"/>
   <object id="162" gid="95" x="1280" y="4480" width="128" height="128">
    <properties>
     <property name="signText" value="involvedIn"/>
@@ -338,7 +338,7 @@
   <object id="189" name="conv3" gid="52" x="5632" y="2508.8" width="128" height="128"/>
   <object id="190" name="conv4" gid="52" x="5760" y="2508.8" width="128" height="128"/>
   <object id="192" gid="84" x="5504" y="2380.8" width="128" height="128"/>
-  <object id="193" name="convSwitch" gid="145" x="5644.8" y="2688" width="128" height="128"/>
+  <object id="193" name="convSwitch" type="switch" gid="145" x="5644.8" y="2688" width="128" height="128"/>
   <object id="197" gid="95" x="4224" y="2560" width="128" height="128">
    <properties>
     <property name="signText" value="chargerNote"/>
@@ -371,7 +371,7 @@
     <property name="colType" value="none"/>
    </properties>
   </object>
-  <object id="224" gid="430" x="2304" y="5376" width="128" height="128"/>
+  <object id="224" gid="154" x="2304" y="5376" width="128" height="128"/>
   <object id="225" name="cutscene2" type="collisionArea" x="2432" y="3328" width="128" height="256">
    <properties>
     <property name="colType" value="none"/>
@@ -382,9 +382,9 @@
     <property name="colType" value="none"/>
    </properties>
   </object>
-  <object id="228" gid="453" x="1408" y="4608" width="128" height="128"/>
-  <object id="229" gid="445" x="8064" y="3840" width="128" height="128"/>
-  <object id="230" gid="438" x="2432" y="3200" width="128" height="128"/>
+  <object id="228" gid="177" x="1408" y="4608" width="128" height="128"/>
+  <object id="229" gid="169" x="8064" y="3840" width="128" height="128"/>
+  <object id="230" gid="162" x="2432" y="3200" width="128" height="128"/>
   <object id="231" name="cutscene5" type="collisionArea" x="6272" y="4736" width="128" height="256">
    <properties>
     <property name="colType" value="none"/>

@@ -1209,6 +1209,14 @@ return {
           type = "decoration"
         },
         {
+          id = 50,
+          type = "decoration"
+        },
+        {
+          id = 51,
+          type = "decoration"
+        },
+        {
           id = 52,
           type = "crate"
         },
@@ -1258,7 +1266,11 @@ return {
         },
         {
           id = 60,
-          type = "sign"
+          type = "decoration"
+        },
+        {
+          id = 61,
+          type = "decoration"
         },
         {
           id = 64,
@@ -1408,7 +1420,10 @@ return {
         },
         {
           id = 79,
-          type = "light"
+          type = "fan",
+          properties = {
+            ["direction"] = "right"
+          }
         },
         {
           id = 80,
@@ -1549,6 +1564,13 @@ return {
             ["lightType"] = "red",
             ["lightY"] = -40,
             ["off"] = 101
+          }
+        },
+        {
+          id = 89,
+          type = "fan",
+          properties = {
+            ["direction"] = "left"
           }
         },
         {
@@ -1744,23 +1766,69 @@ return {
         },
         {
           id = 100,
-          type = "platform"
+          type = "slime",
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 16,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
         },
         {
           id = 101,
-          type = "light"
+          type = "slime"
         },
         {
           id = 102,
-          type = "light"
-        },
-        {
-          id = 103,
-          type = "switch"
-        },
-        {
-          id = 104,
-          type = "switch"
+          type = "slime",
+          objectGroup = {
+            type = "objectgroup",
+            name = "",
+            visible = true,
+            opacity = 1,
+            offsetx = 0,
+            offsety = 0,
+            draworder = "index",
+            properties = {},
+            objects = {
+              {
+                id = 1,
+                name = "",
+                type = "",
+                shape = "rectangle",
+                x = 0,
+                y = 0,
+                width = 128,
+                height = 16,
+                rotation = 0,
+                visible = true,
+                properties = {
+                  ["colType"] = "none"
+                }
+              }
+            }
+          }
         },
         {
           id = 105,
@@ -1870,6 +1938,13 @@ return {
                 }
               }
             }
+          }
+        },
+        {
+          id = 109,
+          type = "fan",
+          properties = {
+            ["direction"] = "down"
           }
         },
         {
@@ -1983,6 +2058,7 @@ return {
         },
         {
           id = 115,
+          type = "switch",
           properties = {
             ["direction"] = "centre",
             ["left"] = 114,
@@ -2039,6 +2115,7 @@ return {
         },
         {
           id = 116,
+          type = "switch",
           properties = {
             ["centre"] = 115,
             ["direction"] = "right",
@@ -2094,6 +2171,10 @@ return {
           }
         },
         {
+          id = 117,
+          type = "decoration"
+        },
+        {
           id = 118,
           type = "door",
           properties = {
@@ -2127,6 +2208,13 @@ return {
                 }
               }
             }
+          }
+        },
+        {
+          id = 119,
+          type = "fan",
+          properties = {
+            ["direction"] = "up"
           }
         }
       }
@@ -2785,7 +2873,7 @@ return {
         {
           id = 22,
           name = "",
-          type = "",
+          type = "decoration",
           shape = "rectangle",
           x = 3328,
           y = 4992,
@@ -2799,7 +2887,7 @@ return {
         {
           id = 23,
           name = "",
-          type = "",
+          type = "decoration",
           shape = "rectangle",
           x = 3328,
           y = 4864,
@@ -2813,7 +2901,7 @@ return {
         {
           id = 24,
           name = "",
-          type = "",
+          type = "decoration",
           shape = "rectangle",
           x = 3328,
           y = 4736,
@@ -2827,7 +2915,7 @@ return {
         {
           id = 25,
           name = "",
-          type = "",
+          type = "decoration",
           shape = "rectangle",
           x = 3328,
           y = 4608,
@@ -2841,7 +2929,7 @@ return {
         {
           id = 34,
           name = "",
-          type = "",
+          type = "decoration",
           shape = "rectangle",
           x = 2828.8,
           y = 4736,
@@ -2855,7 +2943,7 @@ return {
         {
           id = 35,
           name = "",
-          type = "",
+          type = "decoration",
           shape = "rectangle",
           x = 2828.8,
           y = 4992,
@@ -2869,7 +2957,7 @@ return {
         {
           id = 36,
           name = "",
-          type = "",
+          type = "decoration",
           shape = "rectangle",
           x = 2828.8,
           y = 4864,
@@ -2883,7 +2971,7 @@ return {
         {
           id = 37,
           name = "",
-          type = "",
+          type = "decoration",
           shape = "rectangle",
           x = 2828.8,
           y = 4608,
@@ -3827,7 +3915,7 @@ return {
         {
           id = 160,
           name = "",
-          type = "",
+          type = "decoration",
           shape = "rectangle",
           x = 1651.2,
           y = 3584,
@@ -4145,7 +4233,7 @@ return {
         {
           id = 193,
           name = "convSwitch",
-          type = "",
+          type = "switch",
           shape = "rectangle",
           x = 5644.8,
           y = 2688,

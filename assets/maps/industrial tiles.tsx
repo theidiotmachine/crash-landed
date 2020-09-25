@@ -262,6 +262,8 @@
   </objectgroup>
  </tile>
  <tile id="46" type="decoration"/>
+ <tile id="50" type="decoration"/>
+ <tile id="51" type="decoration"/>
  <tile id="52" type="crate"/>
  <tile id="53" type="crate"/>
  <tile id="54" type="crate"/>
@@ -279,7 +281,8 @@
    </object>
   </objectgroup>
  </tile>
- <tile id="60" type="sign"/>
+ <tile id="60" type="decoration"/>
+ <tile id="61" type="decoration"/>
  <tile id="64" type="platform">
   <objectgroup draworder="index">
    <object id="1" x="-1" y="43" width="130" height="52">
@@ -593,7 +596,7 @@
    </object>
   </objectgroup>
  </tile>
- <tile id="115">
+ <tile id="115" type="switch">
   <properties>
    <property name="direction" value="centre"/>
    <property name="left" type="int" value="114"/>
@@ -613,7 +616,7 @@
    </object>
   </objectgroup>
  </tile>
- <tile id="116">
+ <tile id="116" type="switch">
   <properties>
    <property name="centre" type="int" value="115"/>
    <property name="direction" value="right"/>
@@ -633,6 +636,7 @@
    </object>
   </objectgroup>
  </tile>
+ <tile id="117" type="decoration"/>
  <tile id="118" type="door">
   <properties>
    <property name="doorType" value="slideDown"/>
